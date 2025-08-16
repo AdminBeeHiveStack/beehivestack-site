@@ -42,12 +42,14 @@ export function Header() {
             >
               Roadmap
             </button>
+            {/* Hidden for Stripe review
             <button 
               onClick={() => scrollToSection('updates')}
               className="text-bee-slate hover:text-bee-black transition-colors duration-200"
             >
               Updates
             </button>
+            */}
             <button 
               onClick={() => scrollToSection('faqs')}
               className="text-bee-slate hover:text-bee-black transition-colors duration-200"
@@ -100,12 +102,14 @@ export function Header() {
               >
                 Roadmap
               </button>
+              {/* Hidden for Stripe review
               <button 
                 onClick={() => scrollToSection('updates')}
                 className="text-bee-slate hover:text-bee-black transition-colors duration-200 text-left"
               >
                 Updates
               </button>
+              */}
               <button 
                 onClick={() => scrollToSection('faqs')}
                 className="text-bee-slate hover:text-bee-black transition-colors duration-200 text-left"
