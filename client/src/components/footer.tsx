@@ -19,8 +19,9 @@ export function Footer() {
               <HexIcon inverted />
               <span className="font-bold text-xl">BeeHiveStack</span>
             </div>
-            <p className="text-gray-300 mb-4">© BeeHiveStack. All rights reserved.</p>
+            <p className="text-gray-300 mb-2">© 2025 BeeHiveStack LLC. All rights reserved.</p>
             <p className="text-gray-300 mb-2">Contact: support@beehivestack.net</p>
+            <p className="text-gray-300 mb-2 text-sm">Business Hours: Mon-Fri 9AM-6PM ET</p>
             <p className="text-gray-400 text-sm">Available to U.S. customers only</p>
           </div>
           

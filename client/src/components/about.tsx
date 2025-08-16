@@ -6,7 +6,7 @@ export function About() {
           <h2 className="text-4xl font-bold text-bee-black leading-tight mb-8">What is BeeHiveStack?</h2>
           
           <p className="text-lg text-bee-slate leading-relaxed mb-12">
-            BeeHiveStack is a parent brand that standardizes and accelerates website launches. We focus on clean setup, reliable infrastructure, and simple user experiences so each project can go live quickly, then scale.
+            BeeHiveStack is a technology company that provides standardized website infrastructure and rapid deployment services for digital businesses. We specialize in e-commerce platforms, SaaS applications, and digital product marketplaces, helping entrepreneurs launch professional websites quickly with built-in payment processing, security, and compliance features.
           </p>
           
           <div className="grid md:grid-cols-2 gap-8">

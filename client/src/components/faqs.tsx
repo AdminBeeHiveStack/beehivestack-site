@@ -6,7 +6,7 @@ export function FAQs() {
     },
     {
       question: "What products will BeeHiveStack offer?",
-      answer: "A mix of fast-launch sites spanning ecommerce, SaaS utilities, and digital products."
+      answer: "Professional website templates and infrastructure for e-commerce stores, SaaS applications, digital product marketplaces, and business service platforms. Each includes payment processing, customer management, and compliance features."
     },
     {
       question: "How do I get early access?",
@@ -22,7 +22,11 @@ export function FAQs() {
     },
     {
       question: "How can I contact support?",
-      answer: "Email us at support@beehivestack.net."
+      answer: "Email us at support@beehivestack.net. We typically respond within 1-2 business days during standard business hours (9 AM - 6 PM ET, Monday-Friday)."
+    },
+    {
+      question: "Is BeeHiveStack a registered business?",
+      answer: "Yes, BeeHiveStack operates as a legitimate U.S. business entity with proper registration and tax compliance. All transactions are processed securely through verified payment processors."
     }
   ];
 

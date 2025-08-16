@@ -37,15 +37,15 @@ export function PolicyModals() {
   const policies = {
     privacy: {
       title: "Privacy Policy",
-      content: "BeeHiveStack (\"we,\" \"our\") provides services to U.S. customers only. We collect only what's needed to operate this site and send updates (e.g., your email address if you opt in). We do not sell personal data. Data is processed in the United States. We use SSL and reputable providers for hosting and email. You may unsubscribe from emails at any time. For questions or data requests, email support@beehivestack.net."
+      content: "BeeHiveStack LLC (\"we,\" \"our\") provides services to U.S. customers only. We collect only information necessary to operate this website and send updates (such as your email address when you opt in). We do not sell, rent, or share personal data with third parties for marketing purposes. All data is processed and stored in the United States using SSL encryption and reputable hosting providers. You may unsubscribe from emails at any time via the unsubscribe link or by contacting support@beehivestack.net. For data requests or privacy questions, contact us at the same email address."
     },
     terms: {
       title: "Terms of Service", 
-      content: "This site provides information and optional email subscriptions to U.S. customers only. No warranties are provided; content is \"as-is.\" By using the site, you agree not to misuse or attempt to disrupt services. We may update content and policies without prior notice. For support, contact support@beehivestack.net."
+      content: "BeeHiveStack LLC provides information and email subscription services to U.S. customers only. By using this website, you agree to: (1) provide accurate information, (2) not misuse or attempt to disrupt our services, (3) comply with all applicable laws. Content is provided \"as-is\" without warranties, though we strive for accuracy. We reserve the right to update content and policies with reasonable notice when possible. Disputes will be resolved under U.S. law. For questions or support, contact support@beehivestack.net."
     },
     refund: {
       title: "Refund Policy",
-      content: "At this time, BeeHiveStack.net does not collect payments on this page. If a future product page processes payments, that page will include clear pricing and its own refund/returns terms. For questions, contact support@beehivestack.net."
+      content: "BeeHiveStack.net currently operates in pre-launch mode with email signups only - no payments are processed on this page. When payment processing becomes active, all transactions will be clearly disclosed with upfront pricing, terms, and refund policies before purchase. Digital products may have different return policies than physical goods, which will be clearly stated. Standard refund processing takes 3-5 business days. For questions about future products or policies, contact support@beehivestack.net."
     }
   };
 
