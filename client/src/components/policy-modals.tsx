@@ -37,11 +37,11 @@ export function PolicyModals() {
   const policies = {
     privacy: {
       title: "Privacy Policy",
-      content: "BeeHiveStack (\"we,\" \"our\") collects only what's needed to operate this site and send updates (e.g., your email address if you opt in). We do not sell personal data. Data is processed in the United States. We use SSL and reputable providers for hosting and email. You may unsubscribe from emails at any time. For questions or data requests, email support@beehivestack.net."
+      content: "BeeHiveStack (\"we,\" \"our\") provides services to U.S. customers only. We collect only what's needed to operate this site and send updates (e.g., your email address if you opt in). We do not sell personal data. Data is processed in the United States. We use SSL and reputable providers for hosting and email. You may unsubscribe from emails at any time. For questions or data requests, email support@beehivestack.net."
     },
     terms: {
       title: "Terms of Service", 
-      content: "This site provides information and optional email subscriptions. No warranties are provided; content is \"as-is.\" By using the site, you agree not to misuse or attempt to disrupt services. We may update content and policies without prior notice. For support, contact support@beehivestack.net."
+      content: "This site provides information and optional email subscriptions to U.S. customers only. No warranties are provided; content is \"as-is.\" By using the site, you agree not to misuse or attempt to disrupt services. We may update content and policies without prior notice. For support, contact support@beehivestack.net."
     },
     refund: {
       title: "Refund Policy",

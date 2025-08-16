@@ -88,7 +88,8 @@ export function EmailCTA() {
           )}
           
           <p className="text-xs text-bee-slate mt-4">
-            We'll only email you about BeeHiveStack updates. Unsubscribe any time.
+            We'll only email you about BeeHiveStack updates. Unsubscribe any time.<br/>
+            Available to U.S. residents only.
           </p>
         </div>
       </div>

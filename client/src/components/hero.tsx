@@ -39,12 +39,13 @@ export function Hero() {
             </span>
             <span className="inline-flex items-center">
               <Globe className="w-4 h-4 mr-2 text-green-600" />
-              U.S.-only data processing
+              U.S. customers only
             </span>
           </div>
           
           <p className="text-xs text-bee-slate italic">
-            No payments are processed on this page. Payments will be activated after verification.
+            No payments are processed on this page. Payments will be activated after verification.<br/>
+            Available to U.S. customers only.
           </p>
         </div>
       </div>

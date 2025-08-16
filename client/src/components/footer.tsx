@@ -20,7 +20,8 @@ export function Footer() {
               <span className="font-bold text-xl">BeeHiveStack</span>
             </div>
             <p className="text-gray-300 mb-4">© BeeHiveStack. All rights reserved.</p>
-            <p className="text-gray-300">Contact: support@beehivestack.net</p>
+            <p className="text-gray-300 mb-2">Contact: support@beehivestack.net</p>
+            <p className="text-gray-400 text-sm">Available to U.S. customers only</p>
           </div>
           
           <div>

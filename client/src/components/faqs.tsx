@@ -14,7 +14,11 @@ export function FAQs() {
     },
     {
       question: "Where do you process data?",
-      answer: "We use U.S.-based processing and SSL encryption. See our Privacy Policy for details."
+      answer: "We use U.S.-based processing and SSL encryption. Our services are available to U.S. customers only. See our Privacy Policy for details."
+    },
+    {
+      question: "Can international customers use BeeHiveStack?",
+      answer: "Currently, BeeHiveStack services are available to U.S. customers only. This helps us maintain simplified compliance and provide focused service."
     },
     {
       question: "How can I contact support?",
