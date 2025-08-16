@@ -1,0 +1,242 @@
+REPLIT AI BRIEF — BeeHiveStack.net One-Page Landing (Stripe-Ready, No Code Provided)
+1) Project Summary
+
+Site: BeeHiveStack.net
+
+Goal: Publish a professional, single-page landing website that clearly states what BeeHiveStack is, how it will be used, and provides a compliant foundation for Stripe.
+
+Monetization Today: Email capture only (“Get Notified”). No payments on this page.
+
+Constraints: No customer-facing strategic business details beyond what’s needed for credibility and Stripe.
+
+Tone: Clear, credible, no hype. Enterprise-adjacent polish.
+
+2) Objectives
+
+Explain BeeHiveStack at a high level (master brand for fast-launch sites and tools).
+
+Provide an email sign-up (“Get Notified”) with confirmation messaging.
+
+Include Stripe-friendly policy pages/sections (Privacy, Terms, Refund/Returns, Contact).
+
+Set clear expectations: products/features are in staged rollout; payments may be enabled after verification.
+
+Make it production-ready (SEO meta, OG image, accessibility, performance basics).
+
+3) Visual & Brand
+
+Logo: Simple text lockup “BeeHiveStack” (bold), small hex-hive icon.
+
+Palette: Black (#0B0B0C), Bee-Gold (#FFC72C), Warm Gray (#F7F7F8), Slate (#1F2937).
+
+Typography: Modern sans (e.g., Inter or equivalent). Tight leading for headings, generous white space.
+
+Style: Minimal, trustworthy, with subtle hive accents (thin hex outline divider).
+
+4) Information Architecture (Single Page)
+
+Header
+
+Left: logo (text + small hive icon).
+
+Right nav (anchors): About • Roadmap • Updates • FAQs • Contact
+
+Rightmost button: Get Notified
+
+Hero (Above the Fold)
+
+H1, Subhead, primary CTA (Get Notified), trust badges (Private & Secure, U.S.-Only, SSL).
+
+About BeeHiveStack (What It Is / What It Isn’t)
+
+Roadmap (High-Level)
+
+Updates / Changelog (Starter entries)
+
+FAQs (Short, Stripe-friendly clarity)
+
+Email Capture CTA (Get Notified) — repeat, standalone section
+
+Footer
+
+Links: Privacy Policy • Terms of Service • Refund Policy • Contact
+
+Company details & lightweight copyright.
+
+5) Copy Blocks (Use verbatim unless formatting needs minor adjustments)
+HERO
+
+H1: Build Smarter. Launch Faster.
+
+Subhead: BeeHiveStack is a master brand powering a network of fast-launch websites across ecommerce, SaaS, and digital products. We’re packaging the infrastructure so new projects can go from idea to live, quickly and cleanly.
+
+Primary CTA Button: Get Notified
+
+Micro-trust line: Encrypted forms • SSL secured • U.S.-only data processing
+
+Note (small text under CTA): No payments are processed on this page. Payments will be activated after verification.
+
+ABOUT
+
+Section Title: What is BeeHiveStack?
+
+Paragraph: BeeHiveStack is a parent brand that standardizes and accelerates website launches. We focus on clean setup, reliable infrastructure, and simple user experiences so each project can go live quickly, then scale.
+
+Bullets (label + short line):
+
+Fast-Launch Framework: Reusable building blocks for rapid site deployment.
+
+Quality-First: Clear UX, compliant policies, and secure data handling.
+
+Modular Monetization: Email capture now; payments and subscriptions added per project as they’re approved.
+
+Central Reliability: One brand standard, many independent sites.
+
+ROADMAP (HIGH-LEVEL)
+
+Section Title: High-Level Rollout
+
+Items (short & generic):
+
+Phase 1: Launch BeeHiveStack.net landing (email capture + policies).
+
+Phase 2: Publish initial project microsites (digital products, SaaS tools).
+
+Phase 3: Enable payments on approved properties (Stripe), finalize /compare and other support pages.
+
+Phase 4: Expand catalog and partner integrations.
+
+UPDATES / CHANGELOG (SEED ENTRIES)
+
+Section Title: Updates
+
+Entries:
+
+Aug 2025: Initial landing site live; email sign-ups open.
+
+Aug 2025: Policies and contact channel published.
+
+Aug 2025: Roadmap posted; payments to be activated post-verification.
+
+FAQs
+
+Q: Are you accepting payments today?
+A: Not yet. We’ll enable payments on verified pages as new projects go live.
+
+Q: What products will BeeHiveStack offer?
+A: A mix of fast-launch sites spanning ecommerce, SaaS utilities, and digital products.
+
+Q: How do I get early access?
+A: Join the list via “Get Notified” and we’ll email updates, beta invites, and launch announcements.
+
+Q: Where do you process data?
+A: We use U.S.-based processing and SSL encryption. See our Privacy Policy for details.
+
+Q: How can I contact support?
+A: Email us at support@beehivestack.net.
+
+EMAIL CAPTURE CTA
+
+Section Title: Get Early Access
+
+Lead line: Be the first to know when new tools and sites go live.
+
+Field labels: Email Address (required)
+
+Button: Get Notified
+
+Post-submit success message: Thanks—check your inbox for a quick confirmation.
+
+Compliance note (small): We’ll only email you about BeeHiveStack updates. Unsubscribe any time.
+
+FOOTER (COMPANY + POLICIES + CONTACT)
+
+Company Line: © BeeHiveStack. All rights reserved.
+
+Contact: support@beehivestack.net
+
+Links: Privacy Policy • Terms of Service • Refund Policy • Contact
+
+6) Policies (Stripe-Friendly, Lightweight)
+
+Privacy Policy (Summary Style):
+BeeHiveStack (“we,” “our”) collects only what’s needed to operate this site and send updates (e.g., your email address if you opt in). We do not sell personal data. Data is processed in the United States. We use SSL and reputable providers for hosting and email. You may unsubscribe from emails at any time. For questions or data requests, email support@beehivestack.net.
+
+Terms of Service (Summary Style):
+This site provides information and optional email subscriptions. No warranties are provided; content is “as-is.” By using the site, you agree not to misuse or attempt to disrupt services. We may update content and policies without prior notice. For support, contact support@beehivestack.net.
+
+Refund Policy (Pre-Commerce Statement):
+At this time, BeeHiveStack.net does not collect payments on this page. If a future product page processes payments, that page will include clear pricing and its own refund/returns terms. For questions, contact support@beehivestack.net.
+
+Contact Page/Block:
+Questions? Email support@beehivestack.net. Typical response within 1–2 business days.
+
+(Create simple standalone pages or modal drawers for Privacy, Terms, Refund using this exact copy, lightly formatted.)
+
+7) Forms & Integrations
+
+Email Capture (“Get Notified”)
+
+Primary Destination: /report (official newsletter destination)
+
+If ConvertKit is ready: Embed CK form with tag “BeeHiveStack—Early Access” and a simple 1-field email form.
+
+If ConvertKit not ready: Use a basic secure form provider (temporary) that POSTs email and shows success state; store locally until CK is live.
+
+Double Opt-In Message: “Confirm your email to receive BeeHiveStack updates.”
+
+8) UX Details
+
+Sticky header with “Get Notified” button.
+
+Skip-to-content link for accessibility.
+
+High contrast, large tap targets, keyboard navigable focus states.
+
+Form validation with friendly errors (e.g., “Please enter a valid email”).
+
+9) SEO & Social
+
+Title: BeeHiveStack — Build Smarter. Launch Faster.
+
+Meta Description: BeeHiveStack is a master brand powering fast-launch websites for ecommerce, SaaS, and digital products. Get notified when new tools go live.
+
+OG/Twitter: Use a simple OG image with the BeeHiveStack wordmark and hex icon on Bee-Gold background, headline “Build Smarter. Launch Faster.”
+
+Favicon: Hex-hive icon.
+
+10) Performance & Compliance
+
+Optimize images (SVG logo, compressed OG).
+
+Defer non-essential scripts.
+
+Include cookie notice only if third-party tracking is added.
+
+Accessibility: semantic headings, alt text, labels, visible focus.
+
+11) Final Deliverables (Checklist)
+
+One-page site with sections: Header, Hero, About, Roadmap, Updates, FAQs, Email CTA, Footer.
+
+Working Get Notified form (temporary storage or ConvertKit embed), success state, and /report route.
+
+Published Privacy, Terms, Refund (standalone pages or modals) with copy above.
+
+Contact channel surfaced: support@beehivestack.net
+
+SEO meta + OG image + favicon.
+
+Clean, minimal brand styling (as specified).
+
+No code demo text or placeholders left visible (no lorem ipsum).
+
+12) Acceptance Notes
+
+Page should feel complete and credible even before payments are enabled.
+
+Ensure no sensitive strategic details are exposed.
+
+Confirm all legal/policy links work and are visible from the footer.
+
+Confirm “No payments are processed on this page” note appears in Hero.
