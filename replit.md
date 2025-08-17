@@ -25,10 +25,10 @@ Preferred communication style: Simple, everyday language.
 
 ### Data Storage Solutions
 - **ORM**: Drizzle ORM with PostgreSQL dialect
-- **Database**: PostgreSQL with Neon Database integration
+- **Database**: PostgreSQL with Replit Database integration (ACTIVE - August 17, 2025)
 - **Schema Management**: Drizzle Kit for migrations and schema management
-- **Development Storage**: In-memory storage implementation for development/testing
-- **Production Storage**: PostgreSQL with connection pooling via Neon serverless
+- **Email Storage**: DatabaseStorage class using persistent PostgreSQL storage
+- **Storage Interface**: IStorage interface with automatic fallback (database preferred, memory backup)
 
 ### Authentication and Authorization
 - **Current Implementation**: No authentication system (email-only capture)
@@ -36,7 +36,8 @@ Preferred communication style: Simple, everyday language.
 - **Future Considerations**: User authentication system prepared but not currently active
 
 ### Key Features
-- **Email Subscription System**: Complete email capture workflow with validation and duplicate prevention
+- **Email Subscription System**: Complete email capture workflow with validation, duplicate prevention, and persistent PostgreSQL storage
+- **Database Storage**: Email signups permanently saved to PostgreSQL database (activated August 17, 2025)
 - **Responsive Design**: Mobile-first approach with comprehensive breakpoint coverage
 - **Accessibility**: WCAG compliance with proper ARIA labels, keyboard navigation, and screen reader support
 - **SEO Optimization**: Complete meta tags, Open Graph protocol, and Twitter Card integration
