@@ -229,9 +229,10 @@ Total subscribers: {{totalCount}}`
 
 // Send welcome email to new subscriber
 export async function sendWelcomeEmail(email: string): Promise<boolean> {
+  console.log(`Attempting to send welcome email from: noreply@beehivestack.net to: ${email}`);
   return await sendEmail({
     to: email,
-    from: 'noreply@beehivestack.net', // Use noreply for better deliverability
+    from: 'noreply@beehivestack.net', // Must match verified sender
     subject: emailTemplates.welcomeEmail.subject,
     html: emailTemplates.welcomeEmail.html,
     text: emailTemplates.welcomeEmail.text
