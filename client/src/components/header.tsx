@@ -64,10 +64,10 @@ export function Header() {
             </button>
           </div>
           
-          {/* CTA Button */}
+          {/* CTA Button - Hidden on mobile */}
           <button 
             onClick={scrollToEmailSignup}
-            className="bg-bee-gold hover:bg-yellow-300 text-bee-black font-medium px-6 py-2 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-bee-gold focus:ring-offset-2"
+            className="hidden md:block bg-bee-gold hover:bg-yellow-300 text-bee-black font-medium px-6 py-2 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-bee-gold focus:ring-offset-2"
           >
             Get Notified
           </button>
@@ -121,6 +121,14 @@ export function Header() {
                 className="text-bee-slate hover:text-bee-black transition-colors duration-200 text-left"
               >
                 Contact
+              </button>
+              
+              {/* Mobile CTA Button */}
+              <button 
+                onClick={scrollToEmailSignup}
+                className="bg-bee-gold hover:bg-yellow-300 text-bee-black font-medium px-6 py-2 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-bee-gold focus:ring-offset-2 mt-2"
+              >
+                Get Notified
               </button>
             </div>
           </div>
