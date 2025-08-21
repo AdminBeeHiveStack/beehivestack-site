@@ -7,9 +7,11 @@ import { Textarea } from "../components/ui/textarea";
 import { Label } from "../components/ui/label";
 import { Separator } from "../components/ui/separator";
 import { Badge } from "../components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
 import { useToast } from "../hooks/use-toast";
 import { apiRequest, queryClient } from "../lib/queryClient";
-import { Mail, Users, Send, TestTube } from "lucide-react";
+import { DealCardsGenerator } from "../components/deal-cards-generator";
+import { Mail, Users, Send, TestTube, Globe, TrendingUp } from "lucide-react";
 
 interface EmailSubscription {
   id: string;
@@ -29,6 +31,18 @@ export default function AdminPage() {
   const { data: subscriptions, isLoading } = useQuery<{ subscriptions: EmailSubscription[] }>({
     queryKey: ['/api/emails'],
   });
+
+  // Fetch investors and sellers data
+  const { data: investorsData } = useQuery<{ investors: any[] }>({
+    queryKey: ['/api/investors'],
+  });
+
+  const { data: sellersData } = useQuery<{ sellers: any[] }>({
+    queryKey: ['/api/sellers'],
+  });
+
+  const investors = investorsData?.investors || [];
+  const sellers = sellersData?.sellers || [];
 
   // Test email mutation
   const testEmailMutation = useMutation({
@@ -124,11 +138,11 @@ export default function AdminPage() {
         {/* Header */}
         <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold text-bee-black">🐝 BeeHiveStack Admin</h1>
-          <p className="text-bee-slate">Email Management Dashboard</p>
+          <p className="text-bee-slate">Email Management & Deal Desk Dashboard</p>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Quick Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Subscribers</CardTitle>
@@ -168,9 +182,40 @@ export default function AdminPage() {
               <p className="text-xs text-bee-slate">SendGrid Connected</p>
             </CardContent>
           </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Deal Desk</CardTitle>
+              <TrendingUp className="h-4 w-4 text-bee-gold" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-bee-black">
+                {(investors.length || 0) + (sellers.length || 0)}
+              </div>
+              <p className="text-xs text-bee-slate">{investors.length || 0} investors, {sellers.length || 0} sellers</p>
+            </CardContent>
+          </Card>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Main Dashboard */}
+        <Tabs defaultValue="emails" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="emails" className="flex items-center gap-2">
+              <Mail className="h-4 w-4" />
+              Email Management
+            </TabsTrigger>
+            <TabsTrigger value="deal-desk" className="flex items-center gap-2">
+              <Globe className="h-4 w-4" />
+              Deal Desk
+            </TabsTrigger>
+            <TabsTrigger value="analytics" className="flex items-center gap-2">
+              <TrendingUp className="h-4 w-4" />
+              Analytics
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="emails">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Subscriber List */}
           <Card>
             <CardHeader>
@@ -293,7 +338,31 @@ export default function AdminPage() {
               </CardContent>
             </Card>
           </div>
-        </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="deal-desk">
+            <DealCardsGenerator />
+          </TabsContent>
+
+          <TabsContent value="analytics">
+            <Card>
+              <CardHeader>
+                <CardTitle>Analytics Dashboard</CardTitle>
+                <CardDescription>Coming soon - Advanced analytics and reporting</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-12">
+                  <TrendingUp className="h-12 w-12 text-bee-slate/30 mx-auto mb-4" />
+                  <h4 className="text-lg font-medium text-bee-slate mb-2">Analytics Dashboard</h4>
+                  <p className="text-bee-slate/70">
+                    Advanced analytics and insights will be available here soon.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

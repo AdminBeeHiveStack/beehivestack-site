@@ -1,6 +1,7 @@
 import { Header } from "../components/header";
 import { Hero } from "../components/hero";
 import { About } from "../components/about";
+import { DealDeskSection } from "../components/deal-desk-section";
 import { Roadmap } from "../components/roadmap";
 // import { Updates } from "../components/updates"; // Hidden for Stripe review
 import { FAQs } from "../components/faqs";
@@ -24,6 +25,7 @@ export default function Home() {
       <main id="main-content">
         <Hero />
         <About />
+        <DealDeskSection />
         <Roadmap />
         {/* <Updates /> Hidden for Stripe review */}
         <FAQs />

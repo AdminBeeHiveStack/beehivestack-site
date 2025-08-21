@@ -1,0 +1,145 @@
+📄 Replit AI Build Brief – BeehiveStack Deal Desk Integration
+
+Project Name: BeehiveStack Deal Desk
+
+Goal: Add dual onboarding flows (Investors + Sellers) into the live BeehiveStack site, store structured data, and generate anonymized “deal cards” for matchmaking.
+
+🔑 Features to Implement
+1. Investor Onboarding Flow
+
+Add a new landing page section: “Investor Network”
+
+Embed signup form (name, email → ConvertKit tag Investor – Pending Onboarding).
+
+After signup → redirect to Onboarding Form page.
+
+Investor Onboarding Form Fields:
+
+Name, Email, Phone, LinkedIn (optional)
+
+Investment Budget Range (dropdown brackets)
+
+Preferred Investment Structure (acquisition / equity / partnership)
+
+Business Types (multi-select: SaaS, eCom, affiliate, digital products, content/media)
+
+Target Monthly Revenue (MRR/profit range)
+
+Deal Size Comfort Zone (multiples)
+
+Timeline to Invest (immediate, 1–3 mo, 3–6 mo, later)
+
+Desired Level of Involvement (hands-off / partial / active)
+
+Checkbox: “Keep my identity confidential until I approve a deal.”
+
+Checkbox: “Interested in premium deal flow (paid).”
+
+→ Data should be stored in Airtable (Investors table) with unique Investor ID.
+→ ConvertKit tag changes from Pending → Investor – Active.
+
+2. Seller Onboarding Flow
+
+Add a new landing page section: “Sell Your Website”
+
+Embed signup form (name, email → ConvertKit tag Seller – Pending Onboarding).
+
+After signup → redirect to Onboarding Form page.
+
+Seller Onboarding Form Fields:
+
+Name, Email, Phone, LinkedIn (optional)
+
+Website URL(s)
+
+Business Type (SaaS, eCom, Affiliate, Digital, Content/Media)
+
+Monetization Methods (subs, ads, affiliate, product sales, sponsorships)
+
+Current MRR / Profit (bracketed)
+
+Revenue Trend (growing / flat / declining)
+
+Avg. Monthly Traffic + Top 3 Sources
+
+Operational Load (hours per week)
+
+Team Size
+
+Exit Timeline (immediate / 1–3mo / 3–6mo / later)
+
+Valuation Expectation (open field)
+
+Willing to Consider (full sale / partial / partnership)
+
+Checkbox: “Keep my site anonymized until I approve investor intros.”
+
+Checkbox: “Interested in Fast Track seller package (priority listing).”
+
+Optional File Upload (P&L, GA, Stripe screenshot).
+
+→ Data stored in Airtable (Sellers table) with unique Seller ID.
+→ ConvertKit tag changes from Pending → Seller – Active.
+
+3. Deal Cards Generator (Anonymized Listings)
+
+Create an internal tool or script that pulls fields from Airtable and auto-generates a deal card format:
+
+Deal Card Example (Investor Digest):
+
+Business Type: SaaS
+
+Monthly Revenue: $2.5K
+
+Monetization: Subscriptions
+
+Traffic: 10K/mo (SEO + Direct)
+
+Workload: 8 hrs/week
+
+Age: 3 years
+
+Asking Multiple: 36x
+
+Status: Available
+(Anonymized — no seller name/URL until NDA signed)
+
+Export Deal Digest monthly as HTML email (ConvertKit campaign).
+
+4. Automation & Integration
+
+Zapier/Make automation:
+
+Form submission → Airtable record created → ConvertKit tag update.
+
+Airtable filter → Generate anonymized deal cards → Send via ConvertKit.
+
+Ensure anonymity until deal request is approved.
+
+NDA trigger workflow: when an investor clicks “Request Full Details,” automatically send NDA and unlock seller info.
+
+🎨 UI/UX Notes
+
+Match BeehiveStack branding (modern clean tech, trust-driven design).
+
+Two clear CTAs:
+
+“Invest in Digital Assets”
+
+“Sell Your Website”
+
+Keep process frictionless: Signup → Form → Thank You page.
+
+🛠 Tech Stack & Requirements
+
+Frontend: Existing BeehiveStack live site (integrate new sections/pages).
+
+Backend: Airtable (Investors, Sellers, Deals tables).
+
+Email/Automation: ConvertKit.
+
+Automation: Zapier/Make.
+
+Hosting: Continue with live stack (Replit-deployed).
+
+✅ Deliverable: A fully working dual intake system (investors + sellers) with Airtable storage, ConvertKit tagging, and anonymized deal digest generator — live on BeehiveStack.

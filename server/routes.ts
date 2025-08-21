@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertEmailSubscriptionSchema } from "@shared/schema";
+import { insertEmailSubscriptionSchema, insertInvestorSchema, insertSellerSchema } from "@shared/schema";
 import { sendWelcomeEmail, sendAdminNotification, sendNewsletter } from "./email";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -166,6 +166,118 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Test email error:", error);
       res.status(500).json({ message: "Failed to send test email" });
+    }
+  });
+
+  // Investor onboarding endpoints
+  app.post("/api/investors", async (req, res) => {
+    try {
+      const validatedData = insertInvestorSchema.parse(req.body);
+      
+      // Check if investor already exists
+      const existingInvestor = await storage.getInvestorByEmail(validatedData.email);
+      if (existingInvestor) {
+        return res.status(400).json({ 
+          message: "An investor profile already exists with this email address." 
+        });
+      }
+
+      // Create new investor
+      const investor = await storage.createInvestor(validatedData);
+      
+      // Also add to email subscriptions with investor tag
+      const emailSubscriptionData = {
+        email: validatedData.email,
+        tag: "Investor—Pending Onboarding"
+      };
+      
+      try {
+        await storage.createEmailSubscription(emailSubscriptionData);
+      } catch (error) {
+        // Email might already exist in subscriptions - that's okay
+        console.log("Email already in subscriptions:", validatedData.email);
+      }
+      
+      res.status(201).json({ 
+        message: "Investor profile created successfully!",
+        investor: {
+          id: investor.id,
+          name: investor.name,
+          email: investor.email,
+          createdAt: investor.createdAt
+        }
+      });
+    } catch (error) {
+      console.error("Investor creation error:", error);
+      res.status(400).json({ 
+        message: "Invalid investor data. Please check all fields and try again." 
+      });
+    }
+  });
+
+  app.get("/api/investors", async (req, res) => {
+    try {
+      const investors = await storage.getAllInvestors();
+      res.json({ investors });
+    } catch (error) {
+      console.error("Get investors error:", error);
+      res.status(500).json({ message: "Failed to retrieve investors" });
+    }
+  });
+
+  // Seller onboarding endpoints
+  app.post("/api/sellers", async (req, res) => {
+    try {
+      const validatedData = insertSellerSchema.parse(req.body);
+      
+      // Check if seller already exists
+      const existingSeller = await storage.getSellerByEmail(validatedData.email);
+      if (existingSeller) {
+        return res.status(400).json({ 
+          message: "A seller profile already exists with this email address." 
+        });
+      }
+
+      // Create new seller
+      const seller = await storage.createSeller(validatedData);
+      
+      // Also add to email subscriptions with seller tag
+      const emailSubscriptionData = {
+        email: validatedData.email,
+        tag: "Seller—Pending Onboarding"
+      };
+      
+      try {
+        await storage.createEmailSubscription(emailSubscriptionData);
+      } catch (error) {
+        // Email might already exist in subscriptions - that's okay
+        console.log("Email already in subscriptions:", validatedData.email);
+      }
+      
+      res.status(201).json({ 
+        message: "Seller profile created successfully!",
+        seller: {
+          id: seller.id,
+          name: seller.name,
+          email: seller.email,
+          createdAt: seller.createdAt
+        }
+      });
+    } catch (error) {
+      console.error("Seller creation error:", error);
+      res.status(400).json({ 
+        message: "Invalid seller data. Please check all fields and try again." 
+      });
+    }
+  });
+
+  app.get("/api/sellers", async (req, res) => {
+    try {
+      const sellers = await storage.getAllSellers();
+      res.json({ sellers });
+    } catch (error) {
+      console.error("Get sellers error:", error);
+      res.status(500).json({ message: "Failed to retrieve sellers" });
     }
   });
 

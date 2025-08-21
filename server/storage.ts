@@ -1,4 +1,17 @@
-import { type User, type InsertUser, type EmailSubscription, type InsertEmailSubscription, users, emailSubscriptions } from "@shared/schema";
+import { 
+  type User, 
+  type InsertUser, 
+  type EmailSubscription, 
+  type InsertEmailSubscription,
+  type Investor,
+  type InsertInvestor,
+  type Seller,
+  type InsertSeller,
+  users, 
+  emailSubscriptions,
+  investors,
+  sellers
+} from "@shared/schema";
 import { randomUUID } from "crypto";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
@@ -11,6 +24,12 @@ export interface IStorage {
   createEmailSubscription(emailSubscription: InsertEmailSubscription): Promise<EmailSubscription>;
   getEmailSubscriptionByEmail(email: string): Promise<EmailSubscription | undefined>;
   getAllEmailSubscriptions(): Promise<EmailSubscription[]>;
+  createInvestor(investor: InsertInvestor): Promise<Investor>;
+  getInvestorByEmail(email: string): Promise<Investor | undefined>;
+  getAllInvestors(): Promise<Investor[]>;
+  createSeller(seller: InsertSeller): Promise<Seller>;
+  getSellerByEmail(email: string): Promise<Seller | undefined>;
+  getAllSellers(): Promise<Seller[]>;
 }
 
 // Database setup
@@ -50,15 +69,47 @@ export class DatabaseStorage implements IStorage {
   async getAllEmailSubscriptions(): Promise<EmailSubscription[]> {
     return await db.select().from(emailSubscriptions);
   }
+
+  async createInvestor(insertInvestor: InsertInvestor): Promise<Investor> {
+    const result = await db.insert(investors).values(insertInvestor).returning();
+    return result[0];
+  }
+
+  async getInvestorByEmail(email: string): Promise<Investor | undefined> {
+    const result = await db.select().from(investors).where(eq(investors.email, email));
+    return result[0];
+  }
+
+  async getAllInvestors(): Promise<Investor[]> {
+    return await db.select().from(investors);
+  }
+
+  async createSeller(insertSeller: InsertSeller): Promise<Seller> {
+    const result = await db.insert(sellers).values(insertSeller).returning();
+    return result[0];
+  }
+
+  async getSellerByEmail(email: string): Promise<Seller | undefined> {
+    const result = await db.select().from(sellers).where(eq(sellers.email, email));
+    return result[0];
+  }
+
+  async getAllSellers(): Promise<Seller[]> {
+    return await db.select().from(sellers);
+  }
 }
 
 export class MemStorage implements IStorage {
   private users: Map<string, User>;
   private emailSubscriptions: Map<string, EmailSubscription>;
+  private investors: Map<string, Investor>;
+  private sellers: Map<string, Seller>;
 
   constructor() {
     this.users = new Map();
     this.emailSubscriptions = new Map();
+    this.investors = new Map();
+    this.sellers = new Map();
   }
 
   async getUser(id: string): Promise<User | undefined> {
@@ -98,6 +149,48 @@ export class MemStorage implements IStorage {
 
   async getAllEmailSubscriptions(): Promise<EmailSubscription[]> {
     return Array.from(this.emailSubscriptions.values());
+  }
+
+  async createInvestor(insertInvestor: InsertInvestor): Promise<Investor> {
+    const id = randomUUID();
+    const investor: Investor = { 
+      ...insertInvestor, 
+      id,
+      createdAt: new Date()
+    };
+    this.investors.set(id, investor);
+    return investor;
+  }
+
+  async getInvestorByEmail(email: string): Promise<Investor | undefined> {
+    return Array.from(this.investors.values()).find(
+      (investor) => investor.email === email,
+    );
+  }
+
+  async getAllInvestors(): Promise<Investor[]> {
+    return Array.from(this.investors.values());
+  }
+
+  async createSeller(insertSeller: InsertSeller): Promise<Seller> {
+    const id = randomUUID();
+    const seller: Seller = { 
+      ...insertSeller, 
+      id,
+      createdAt: new Date()
+    };
+    this.sellers.set(id, seller);
+    return seller;
+  }
+
+  async getSellerByEmail(email: string): Promise<Seller | undefined> {
+    return Array.from(this.sellers.values()).find(
+      (seller) => seller.email === email,
+    );
+  }
+
+  async getAllSellers(): Promise<Seller[]> {
+    return Array.from(this.sellers.values());
   }
 }
 
