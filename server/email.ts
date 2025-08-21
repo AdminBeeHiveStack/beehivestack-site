@@ -231,7 +231,7 @@ Total subscribers: {{totalCount}}`
 export async function sendWelcomeEmail(email: string): Promise<boolean> {
   return await sendEmail({
     to: email,
-    from: 'welcome@beehivestack.net',
+    from: 'noreply@beehivestack.net', // Use noreply for better deliverability
     subject: emailTemplates.welcomeEmail.subject,
     html: emailTemplates.welcomeEmail.html,
     text: emailTemplates.welcomeEmail.text
@@ -269,7 +269,7 @@ export async function sendAdminNotification(subscriberEmail: string, tag: string
 
   return await sendEmail({
     to: 'admin@beehivestack.net', // Update this to your actual admin email
-    from: 'notifications@beehivestack.net',
+    from: 'noreply@beehivestack.net',
     subject: emailTemplates.adminNotification.subject,
     html: htmlContent,
     text: textContent

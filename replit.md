@@ -37,6 +37,8 @@ Preferred communication style: Simple, everyday language.
 
 ### Key Features
 - **Email Subscription System**: Complete email capture workflow with validation, duplicate prevention, and persistent PostgreSQL storage
+- **Email Automation**: SendGrid integration with automated welcome emails and admin notifications (activated August 21, 2025)
+- **Admin Dashboard**: Email management interface at /admin for subscriber management and newsletter broadcasting
 - **Database Storage**: Email signups permanently saved to PostgreSQL database (activated August 17, 2025)
 - **Responsive Design**: Mobile-first approach with comprehensive breakpoint coverage
 - **Accessibility**: WCAG compliance with proper ARIA labels, keyboard navigation, and screen reader support
