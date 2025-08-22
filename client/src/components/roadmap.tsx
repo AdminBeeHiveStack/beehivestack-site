@@ -49,15 +49,15 @@ export function Roadmap() {
   const phases = [
     {
       phase: 1,
-      title: "Foundation & Validation",
-      subtitle: "Building the Foundation",
-      description: "Establish core platform infrastructure and market validation.",
+      title: "Concept & Validation",
+      subtitle: "Idea to Reality",
+      description: "Transform your vision into a validated digital product concept with clear market potential.",
       details: [
-        "Launch professional BeeHiveStack.net landing page",
-        "Implement email capture with automated welcome sequences", 
-        "Deploy comprehensive legal framework",
-        "Establish brand identity and market validation",
-        "Set up analytics and feedback collection systems"
+        "Market research and competitive analysis to validate your idea",
+        "Define target audience and create detailed user personas", 
+        "Develop minimum viable product (MVP) specifications",
+        "Create compelling brand identity and messaging strategy",
+        "Set up analytics framework for data-driven decisions"
       ],
       icon: Rocket,
       active: true,
@@ -65,15 +65,15 @@ export function Roadmap() {
     },
     {
       phase: 2,
-      title: "Product Ecosystem Development", 
-      subtitle: "Expanding the Marketplace",
-      description: "Build comprehensive marketplace with Deal Desk integration.",
+      title: "Development & Launch", 
+      subtitle: "Building Your Product",
+      description: "Build and deploy your digital product with professional infrastructure and user experience.",
       details: [
-        "Launch curated microsites for digital products and SaaS",
-        "Develop Deal Desk marketplace for business acquisitions",
-        "Create investor/seller onboarding and matching systems",
+        "Design and develop responsive web application or platform",
+        "Implement user authentication and data management systems",
+        "Create intuitive user interface with conversion optimization",
         "Build comprehensive admin dashboard for operations",
-        "Establish partnership criteria and vetting processes"
+        "Deploy with scalable hosting and security best practices"
       ],
       icon: Building2,
       active: true,
@@ -81,15 +81,15 @@ export function Roadmap() {
     },
     {
       phase: 3,
-      title: "Payment Infrastructure & Expansion",
-      subtitle: "Monetization & Growth",
-      description: "Enable payments and expand platform capabilities.",
+      title: "Monetization & Growth",
+      subtitle: "Revenue Generation",
+      description: "Implement payment systems and growth strategies to scale your digital product business.",
       details: [
-        "Enable Stripe payment processing on approved properties",
-        "Launch /compare pages for product evaluation",
-        "Implement transaction fee systems and revenue sharing",
-        "Deploy customer support infrastructure",
-        "Add advanced filtering and search capabilities"
+        "Integrate payment processing and subscription management",
+        "Launch customer acquisition and retention campaigns",
+        "Implement pricing strategies and revenue optimization",
+        "Deploy customer support and success infrastructure",
+        "Add advanced features based on user feedback and analytics"
       ],
       icon: CreditCard,
       active: false,
@@ -97,15 +97,15 @@ export function Roadmap() {
     },
     {
       phase: 4,
-      title: "Scale & Strategic Partnerships",
-      subtitle: "Market Leadership",
-      description: "Expand reach through partnerships and integrations.",
+      title: "Scale & Optimization",
+      subtitle: "Market Expansion",
+      description: "Expand your reach through strategic partnerships and advanced optimization techniques.",
       details: [
-        "Expand product catalog across multiple verticals",
-        "Integrate with major partner platforms and marketplaces",
-        "Launch affiliate and referral programs",
-        "Develop API for third-party integrations",
-        "Implement advanced analytics and business intelligence"
+        "Develop integrations with complementary platforms and services",
+        "Launch affiliate and partnership programs for growth",
+        "Implement advanced analytics and business intelligence",
+        "Expand feature set and explore new market opportunities",
+        "Build API ecosystem for third-party developers and integrations"
       ],
       icon: Network,
       active: false,
@@ -123,10 +123,10 @@ export function Roadmap() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold text-bee-black leading-tight mb-4">High-Level Rollout</h2>
+            <h2 className="text-4xl font-bold text-bee-black leading-tight mb-4">Digital Product Development Process</h2>
             <p className="text-xl text-bee-slate max-w-3xl mx-auto">
-              Our systematic approach to building the premier digital business marketplace, 
-              from foundation to market leadership.
+              Our proven methodology for taking your digital product idea from concept to market success, 
+              with strategic guidance at every stage.
             </p>
           </motion.div>
           
@@ -267,7 +267,7 @@ export function Roadmap() {
               className="mt-16 text-center"
             >
               <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 max-w-2xl mx-auto">
-                <h4 className="text-2xl font-bold text-bee-black mb-4">Current Progress</h4>
+                <h4 className="text-2xl font-bold text-bee-black mb-4">Digital Product Development Progress</h4>
                 <div className="flex justify-center items-center space-x-8">
                   <div className="text-center">
                     <motion.div
@@ -281,7 +281,7 @@ export function Roadmap() {
                       {Math.floor(animationCycle)}/4
                     </motion.div>
                     <p className="text-bee-slate text-sm">
-                      {animationCycle > 0 ? 'Animation Progress' : 'Phases Complete'}
+                      {animationCycle > 0 ? 'Current Stage' : 'Stages Complete'}
                     </p>
                   </div>
                   <div className="text-center">
@@ -296,7 +296,7 @@ export function Roadmap() {
                       {Math.round((animationCycle / phases.length) * 100)}%
                     </motion.div>
                     <p className="text-bee-slate text-sm">
-                      {animationCycle > 0 ? 'Animation Progress' : 'Roadmap Progress'}
+                      {animationCycle > 0 ? 'Development Progress' : 'Process Complete'}
                     </p>
                   </div>
                 </div>
