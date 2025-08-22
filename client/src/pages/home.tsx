@@ -25,10 +25,10 @@ export default function Home() {
       <main id="main-content">
         <Hero />
         <About />
-        <DealDeskSection />
         <Roadmap />
         {/* <Updates /> Hidden for Stripe review */}
         <FAQs />
+        <DealDeskSection />
         <EmailCTA />
       </main>
       
