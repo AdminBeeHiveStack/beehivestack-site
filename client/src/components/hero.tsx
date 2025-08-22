@@ -16,7 +16,7 @@ export function Hero() {
           </h1>
           
           <p className="text-xl text-bee-slate leading-relaxed mb-8 max-w-2xl">
-            BeeHiveStack provides professional website infrastructure and rapid deployment services for entrepreneurs and businesses. Our platform specializes in e-commerce, SaaS applications, and digital marketplaces with integrated payment processing, security, and compliance features.
+            Transform your digital product ideas into market-ready businesses with our comprehensive development platform. From concept validation to scalable deployment, we accelerate your path to success.
           </p>
           
           <div className="mb-6">
