@@ -92,7 +92,7 @@ export function Roadmap() {
         "Add advanced features based on user feedback and analytics"
       ],
       icon: CreditCard,
-      active: false,
+      active: true,
       completed: false
     },
     {
@@ -108,7 +108,7 @@ export function Roadmap() {
         "Build API ecosystem for third-party developers and integrations"
       ],
       icon: Network,
-      active: false,
+      active: true,
       completed: false
     }
   ];
@@ -244,9 +244,13 @@ export function Roadmap() {
                                 transition={{ delay: index * 0.3 + 0.6 + detailIndex * 0.1 }}
                                 className="flex items-start space-x-3"
                               >
-                                <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
-                                  phase.completed ? 'bg-green-500' : phase.active ? 'bg-bee-gold' : 'bg-gray-400'
-                                }`} />
+                                <motion.div
+                                  className="w-2 h-2 rounded-full mt-2 flex-shrink-0"
+                                  animate={{
+                                    backgroundColor: isCompleteInCycle ? '#10b981' : isAnimating ? '#FFC72C' : '#9ca3af'
+                                  }}
+                                  transition={{ duration: 0.3, delay: detailIndex * 0.05 }}
+                                />
                                 <p className="text-bee-slate">{detail}</p>
                               </motion.div>
                             ))}
