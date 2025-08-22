@@ -30,8 +30,8 @@ export function DealDeskSection() {
     },
     {
       icon: CheckCircle,
-      title: "Anonymous Review",
-      description: "Review detailed business information while maintaining your privacy until deal approval"
+      title: "Complete Privacy Protection",
+      description: "Browse anonymized business profiles while keeping your identity completely confidential until you choose to engage"
     }
   ];
 
@@ -43,8 +43,8 @@ export function DealDeskSection() {
     },
     {
       icon: Globe,
-      title: "Confidential Listings",
-      description: "Keep your business details private while attracting serious, qualified investors"
+      title: "Anonymous Business Listings",
+      description: "List your business with complete anonymity - investors see performance metrics without identifying details until you approve"
     },
     {
       icon: BarChart3,
@@ -57,25 +57,43 @@ export function DealDeskSection() {
     <section className="py-20 bg-gradient-to-b from-bee-gray to-white">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <Badge variant="outline" className="mb-4 text-bee-slate bg-white/80">
+        <div className="text-center mb-20">
+          <Badge variant="outline" className="mb-6 text-bee-slate bg-white/80 text-lg px-4 py-2">
             Deal Desk Network
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-bee-slate mb-6">
-            Connect Digital Asset 
-            <span className="text-bee-gold"> Investors & Sellers</span>
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold text-bee-slate mb-8 leading-tight">
+            Deal Desk
+            <span className="block text-bee-gold">Network</span>
           </h2>
-          <p className="text-xl text-bee-slate/80 max-w-3xl mx-auto">
+          <h3 className="text-2xl md:text-3xl font-semibold text-bee-slate mb-6">
+            Connect Digital Asset Investors & Sellers
+          </h3>
+          <p className="text-xl text-bee-slate/80 max-w-4xl mx-auto mb-8">
             Join our exclusive marketplace where proven digital businesses meet strategic investors. 
             Professional due diligence, confidential matching, and streamlined deal execution.
           </p>
+          
+          {/* Anonymous Process Callout */}
+          <div className="bg-white/80 backdrop-blur-sm border border-bee-gold/30 rounded-xl p-6 max-w-4xl mx-auto">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="p-2 bg-bee-gold/10 rounded-full">
+                <CheckCircle className="h-6 w-6 text-bee-gold" />
+              </div>
+              <h4 className="text-xl font-bold text-bee-slate">100% Anonymous Matching Process</h4>
+            </div>
+            <p className="text-bee-slate/80 leading-relaxed">
+              Your information is collected solely to facilitate optimal investor-seller matching. 
+              <strong className="text-bee-slate"> No business details, financial data, or personal information is shared with anyone until both parties explicitly agree to move forward with a deal.</strong> 
+              Our anonymous review system protects privacy while enabling strategic connections.
+            </p>
+          </div>
         </div>
 
         {/* Dual CTA Cards */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 gap-12 mb-20">
           {/* Investor Card */}
-          <Card className="relative overflow-hidden border-2 border-bee-gold/20 hover:border-bee-gold transition-all duration-300 group">
-            <CardContent className="p-8">
+          <Card className="relative overflow-hidden border-2 border-bee-gold/20 hover:border-bee-gold transition-all duration-300 group shadow-lg hover:shadow-2xl">
+            <CardContent className="p-10">
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-3 bg-bee-gold/10 rounded-lg">
                   <Users className="h-6 w-6 text-bee-gold" />
@@ -110,8 +128,8 @@ export function DealDeskSection() {
           </Card>
 
           {/* Seller Card */}
-          <Card className="relative overflow-hidden border-2 border-bee-slate/20 hover:border-bee-slate transition-all duration-300 group">
-            <CardContent className="p-8">
+          <Card className="relative overflow-hidden border-2 border-bee-slate/20 hover:border-bee-slate transition-all duration-300 group shadow-lg hover:shadow-2xl">
+            <CardContent className="p-10">
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-3 bg-bee-slate/10 rounded-lg">
                   <Globe className="h-6 w-6 text-bee-slate" />
