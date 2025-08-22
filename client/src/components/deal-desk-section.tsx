@@ -58,9 +58,45 @@ export function DealDeskSection() {
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-20">
-          <Badge variant="outline" className="mb-6 text-bee-slate bg-white/80 text-lg px-4 py-2">
-            Deal Desk Network
-          </Badge>
+          {/* Deal Table Icon */}
+          <div className="mb-8 flex justify-center">
+            <div className="relative">
+              <svg width="120" height="80" viewBox="0 0 120 80" className="drop-shadow-lg">
+                {/* Table (Beehive Shape) */}
+                <path 
+                  d="M20 50 L30 35 L50 30 L70 30 L90 35 L100 50 L90 65 L70 70 L50 70 L30 65 Z" 
+                  fill="#FFC72C" 
+                  stroke="#0B0B0C" 
+                  strokeWidth="2"
+                />
+                {/* Hexagon Pattern on Table */}
+                <circle cx="45" cy="50" r="3" fill="#0B0B0C" opacity="0.2"/>
+                <circle cx="55" cy="45" r="3" fill="#0B0B0C" opacity="0.2"/>
+                <circle cx="65" cy="50" r="3" fill="#0B0B0C" opacity="0.2"/>
+                <circle cx="55" cy="55" r="3" fill="#0B0B0C" opacity="0.2"/>
+                
+                {/* Left Person (Seller) */}
+                <circle cx="15" cy="25" r="8" fill="#1F2937" stroke="#FFC72C" strokeWidth="2"/>
+                <rect x="7" y="30" width="16" height="20" rx="3" fill="#1F2937"/>
+                <rect x="5" y="40" width="8" height="15" rx="2" fill="#1F2937"/>
+                <rect x="17" y="40" width="8" height="15" rx="2" fill="#1F2937"/>
+                
+                {/* Right Person (Investor) */}
+                <circle cx="105" cy="25" r="8" fill="#1F2937" stroke="#FFC72C" strokeWidth="2"/>
+                <rect x="97" y="30" width="16" height="20" rx="3" fill="#1F2937"/>
+                <rect x="95" y="40" width="8" height="15" rx="2" fill="#1F2937"/>
+                <rect x="107" y="40" width="8" height="15" rx="2" fill="#1F2937"/>
+                
+                {/* Connection Lines (Anonymous) */}
+                <path d="M25 35 Q40 25 55 35" stroke="#FFC72C" strokeWidth="2" fill="none" strokeDasharray="5,5"/>
+                <path d="M95 35 Q80 25 65 35" stroke="#FFC72C" strokeWidth="2" fill="none" strokeDasharray="5,5"/>
+                
+                {/* Privacy Shield */}
+                <path d="M60 15 L65 10 L70 15 L70 25 L65 30 L60 25 Z" fill="#FFC72C" stroke="#0B0B0C" strokeWidth="1"/>
+                <text x="65" y="22" textAnchor="middle" fontSize="8" fill="#0B0B0C" fontWeight="bold">?</text>
+              </svg>
+            </div>
+          </div>
           <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold text-bee-slate mb-8 leading-tight">
             Deal Desk
             <span className="block text-bee-gold">Network</span>
