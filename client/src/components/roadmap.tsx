@@ -27,13 +27,13 @@ export function Roadmap() {
               for (let i = 0; i < phases.length; i++) {
                 setTimeout(() => {
                   setAnimationCycle(i + 1);
-                }, i * 800); // 800ms delay between each phase
+                }, i * 2500); // 2.5 seconds per phase for readable progression
               }
               
               // Reset and repeat after all phases complete
               setTimeout(() => {
                 cycleAnimation();
-              }, phases.length * 800 + 2000); // 2 second pause before repeating
+              }, phases.length * 2500 + 3000); // 3 second pause before repeating
             };
             
             cycleAnimation();
@@ -168,7 +168,7 @@ export function Roadmap() {
                             borderColor: isAnimating ? '#ffffff' : '#d1d5db',
                             boxShadow: isAnimating ? '0 10px 25px rgba(0,0,0,0.1)' : '0 1px 3px rgba(0,0,0,0.1)'
                           }}
-                          transition={{ duration: 0.4 }}
+                          transition={{ duration: 0.6 }}
                           whileHover={{ scale: 1.05 }}
                         >
                           <motion.div
@@ -176,7 +176,7 @@ export function Roadmap() {
                               scale: isCompleteInCycle ? 1 : 0,
                               opacity: isCompleteInCycle ? 1 : 0
                             }}
-                            transition={{ duration: 0.3, delay: 0.2 }}
+                            transition={{ duration: 0.5, delay: 1.8 }}
                           >
                             <CheckCircle className="w-8 h-8 text-bee-black" />
                           </motion.div>
@@ -186,7 +186,7 @@ export function Roadmap() {
                               scale: isCompleteInCycle ? 0 : 1,
                               opacity: isCompleteInCycle ? 0 : 1
                             }}
-                            transition={{ duration: 0.3 }}
+                            transition={{ duration: 0.5 }}
                             className="absolute inset-0 flex items-center justify-center"
                           >
                             <IconComponent className={`w-8 h-8 ${
@@ -249,7 +249,7 @@ export function Roadmap() {
                                   animate={{
                                     backgroundColor: isCompleteInCycle ? '#10b981' : isAnimating ? '#FFC72C' : '#9ca3af'
                                   }}
-                                  transition={{ duration: 0.3, delay: detailIndex * 0.05 }}
+                                  transition={{ duration: 0.4, delay: detailIndex * 0.3 }}
                                 />
                                 <p className="text-bee-slate">{detail}</p>
                               </motion.div>
