@@ -4,21 +4,45 @@ import { CheckCircle, Circle, Rocket, Building2, CreditCard, Network } from "luc
 
 export function Roadmap() {
   const [visiblePhases, setVisiblePhases] = useState(0);
+  const [animationCycle, setAnimationCycle] = useState(0);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   useEffect(() => {
     if (isInView) {
-      const timer = setInterval(() => {
+      // Initial slide-in animation
+      const slideInTimer = setInterval(() => {
         setVisiblePhases(prev => {
           if (prev < phases.length) {
             return prev + 1;
           }
-          clearInterval(timer);
+          clearInterval(slideInTimer);
+          
+          // Start the repeating circle animation cycle after slide-in completes
+          setTimeout(() => {
+            const cycleAnimation = () => {
+              setAnimationCycle(0);
+              
+              // Animate each phase sequentially
+              for (let i = 0; i < phases.length; i++) {
+                setTimeout(() => {
+                  setAnimationCycle(i + 1);
+                }, i * 800); // 800ms delay between each phase
+              }
+              
+              // Reset and repeat after all phases complete
+              setTimeout(() => {
+                cycleAnimation();
+              }, phases.length * 800 + 2000); // 2 second pause before repeating
+            };
+            
+            cycleAnimation();
+          }, 1000); // Wait 1 second after slide-in completes
+          
           return prev;
         });
       }, 300);
-      return () => clearInterval(timer);
+      return () => clearInterval(slideInTimer);
     }
   }, [isInView]);
 
@@ -112,8 +136,10 @@ export function Roadmap() {
               <motion.div
                 className="w-full bg-bee-gold"
                 initial={{ height: 0 }}
-                animate={{ height: isInView ? `${(visiblePhases / phases.length) * 100}%` : 0 }}
-                transition={{ duration: 1.5, ease: "easeInOut" }}
+                animate={{ 
+                  height: isInView ? `${Math.max((visiblePhases / phases.length) * 100, (animationCycle / phases.length) * 100)}%` : 0 
+                }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
               />
             </div>
 
@@ -121,6 +147,8 @@ export function Roadmap() {
               {phases.map((phase, index) => {
                 const IconComponent = phase.icon;
                 const isVisible = index < visiblePhases;
+                const isAnimating = animationCycle > index;
+                const isCompleteInCycle = animationCycle > index + 0.5;
                 
                 return (
                   <motion.div
@@ -134,23 +162,37 @@ export function Roadmap() {
                       {/* Phase Indicator */}
                       <div className="flex-shrink-0 relative z-10">
                         <motion.div
-                          className={`w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center ${
-                            phase.completed 
-                              ? 'bg-bee-gold border-4 border-white shadow-lg' 
-                              : phase.active
-                              ? 'bg-bee-gold/20 border-4 border-bee-gold'
-                              : 'bg-gray-100 border-4 border-gray-300'
-                          }`}
+                          className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center border-4"
+                          animate={{
+                            backgroundColor: isAnimating ? '#FFC72C' : '#f3f4f6',
+                            borderColor: isAnimating ? '#ffffff' : '#d1d5db',
+                            boxShadow: isAnimating ? '0 10px 25px rgba(0,0,0,0.1)' : '0 1px 3px rgba(0,0,0,0.1)'
+                          }}
+                          transition={{ duration: 0.4 }}
                           whileHover={{ scale: 1.05 }}
-                          transition={{ type: "spring", stiffness: 400 }}
                         >
-                          {phase.completed ? (
+                          <motion.div
+                            animate={{
+                              scale: isCompleteInCycle ? 1 : 0,
+                              opacity: isCompleteInCycle ? 1 : 0
+                            }}
+                            transition={{ duration: 0.3, delay: 0.2 }}
+                          >
                             <CheckCircle className="w-8 h-8 text-bee-black" />
-                          ) : (
+                          </motion.div>
+                          
+                          <motion.div
+                            animate={{
+                              scale: isCompleteInCycle ? 0 : 1,
+                              opacity: isCompleteInCycle ? 0 : 1
+                            }}
+                            transition={{ duration: 0.3 }}
+                            className="absolute inset-0 flex items-center justify-center"
+                          >
                             <IconComponent className={`w-8 h-8 ${
-                              phase.active ? 'text-bee-gold' : 'text-gray-500'
+                              isAnimating ? 'text-bee-black' : 'text-gray-500'
                             }`} />
-                          )}
+                          </motion.div>
                         </motion.div>
                         
                         {/* Phase Number Badge */}
@@ -175,24 +217,18 @@ export function Roadmap() {
                               <h3 className="text-xl md:text-2xl font-bold text-bee-black">
                                 {phase.title}
                               </h3>
-                              {phase.completed && (
-                                <motion.span
-                                  initial={{ scale: 0 }}
-                                  animate={{ scale: 1 }}
-                                  className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full"
-                                >
-                                  Complete
-                                </motion.span>
-                              )}
-                              {phase.active && !phase.completed && (
-                                <motion.span
-                                  animate={{ opacity: [1, 0.5, 1] }}
-                                  transition={{ duration: 2, repeat: Infinity }}
-                                  className="bg-bee-gold text-bee-black text-xs font-medium px-2.5 py-0.5 rounded-full"
-                                >
-                                  In Progress
-                                </motion.span>
-                              )}
+                                  <motion.span
+                                animate={{ 
+                                  scale: isCompleteInCycle ? [1, 1.1, 1] : [1],
+                                  backgroundColor: isCompleteInCycle ? '#dcfce7' : isAnimating ? '#fef3c7' : '#f3f4f6'
+                                }}
+                                transition={{ duration: 0.3 }}
+                                className={`text-xs font-medium px-2.5 py-0.5 rounded-full ${
+                                  isCompleteInCycle ? 'text-green-800' : isAnimating ? 'text-yellow-800' : 'text-gray-600'
+                                }`}
+                              >
+                                {isCompleteInCycle ? 'Complete' : isAnimating ? 'In Progress' : 'Pending'}
+                              </motion.span>
                             </div>
                             <p className="text-bee-gold font-medium text-sm mb-2">{phase.subtitle}</p>
                             <p className="text-bee-slate text-lg leading-relaxed">{phase.description}</p>
@@ -235,25 +271,33 @@ export function Roadmap() {
                 <div className="flex justify-center items-center space-x-8">
                   <div className="text-center">
                     <motion.div
-                      className="text-3xl font-bold text-bee-gold mb-1"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 2.5, type: "spring" }}
+                      className="text-3xl font-bold mb-1"
+                      animate={{ 
+                        color: animationCycle > 0 ? '#FFC72C' : '#059669',
+                        scale: animationCycle > 0 ? [1, 1.1, 1] : [1]
+                      }}
+                      transition={{ duration: 0.3, repeat: animationCycle > 0 ? Infinity : 0, repeatDelay: 2 }}
                     >
-                      2/4
+                      {Math.floor(animationCycle)}/4
                     </motion.div>
-                    <p className="text-bee-slate text-sm">Phases Complete</p>
+                    <p className="text-bee-slate text-sm">
+                      {animationCycle > 0 ? 'Animation Progress' : 'Phases Complete'}
+                    </p>
                   </div>
                   <div className="text-center">
                     <motion.div
-                      className="text-3xl font-bold text-green-600 mb-1"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 2.7, type: "spring" }}
+                      className="text-3xl font-bold mb-1"
+                      animate={{ 
+                        color: animationCycle > 0 ? '#FFC72C' : '#059669',
+                        scale: animationCycle > 0 ? [1, 1.1, 1] : [1]
+                      }}
+                      transition={{ duration: 0.3, repeat: animationCycle > 0 ? Infinity : 0, repeatDelay: 2 }}
                     >
-                      50%
+                      {Math.round((animationCycle / phases.length) * 100)}%
                     </motion.div>
-                    <p className="text-bee-slate text-sm">Roadmap Progress</p>
+                    <p className="text-bee-slate text-sm">
+                      {animationCycle > 0 ? 'Animation Progress' : 'Roadmap Progress'}
+                    </p>
                   </div>
                 </div>
               </div>
