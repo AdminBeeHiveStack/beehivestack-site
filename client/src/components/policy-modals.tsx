@@ -43,7 +43,7 @@ export function PolicyModals() {
           
           <section>
             <h3 className="font-semibold text-lg mb-2">1. Introduction</h3>
-            <p>BeeHiveStack LLC ("we," "our," "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website beehivestack.net and use our services. Our services are available to U.S. customers only.</p>
+            <p>BeeHiveStack ("we," "our," "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website beehivestack.net and use our services. Our services are available to U.S. customers only.</p>
           </section>
 
           <section>
@@ -145,7 +145,7 @@ export function PolicyModals() {
 
           <section>
             <h3 className="font-semibold text-lg mb-2">2. Services Description</h3>
-            <p className="mb-2">BeeHiveStack LLC provides:</p>
+            <p className="mb-2">BeeHiveStack provides:</p>
             <ul className="list-disc pl-6 space-y-1">
               <li><strong>Development Services:</strong> Custom digital product development including ecommerce platforms, SaaS applications, and web solutions</li>
               <li><strong>Deal Desk Network:</strong> Anonymous marketplace connecting qualified investors with business sellers through confidential deal matching</li>
@@ -182,7 +182,7 @@ export function PolicyModals() {
 
           <section>
             <h3 className="font-semibold text-lg mb-2">5. Intellectual Property</h3>
-            <p>All content on this Website, including text, graphics, logos, code, and design, is the property of BeeHiveStack LLC and protected by U.S. copyright and trademark laws. You may not reproduce, distribute, or create derivative works without our express written permission.</p>
+            <p>All content on this Website, including text, graphics, logos, code, and design, is the property of BeeHiveStack and protected by U.S. copyright and trademark laws. You may not reproduce, distribute, or create derivative works without our express written permission.</p>
           </section>
 
           <section>
@@ -204,12 +204,12 @@ export function PolicyModals() {
               <li>Results obtained will be accurate or reliable</li>
               <li>Deal Desk matches will result in completed transactions</li>
             </ul>
-            <p className="mt-2">To the fullest extent permitted by law, BeeHiveStack LLC shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use or inability to use our services.</p>
+            <p className="mt-2">To the fullest extent permitted by law, BeeHiveStack shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use or inability to use our services.</p>
           </section>
 
           <section>
             <h3 className="font-semibold text-lg mb-2">8. Indemnification</h3>
-            <p>You agree to indemnify and hold BeeHiveStack LLC, its officers, directors, employees, and agents harmless from any claims, damages, losses, or expenses arising from your violation of these Terms or misuse of our services.</p>
+            <p>You agree to indemnify and hold BeeHiveStack, its officers, directors, employees, and agents harmless from any claims, damages, losses, or expenses arising from your violation of these Terms or misuse of our services.</p>
           </section>
 
           <section>
