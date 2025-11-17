@@ -238,20 +238,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Create new investor
       const investor = await storage.createInvestor(validatedData);
       
-      // Also add to email subscriptions with investor tag
-      const emailSubscriptionData = {
-        name: validatedData.name,
-        email: validatedData.email,
-        phone: validatedData.phone || "0000000000", // Use provided phone or placeholder
-        consentToSMS: false,
-        tag: "Investor—Pending Onboarding"
-      };
-      
-      try {
-        await storage.createEmailSubscription(emailSubscriptionData);
-      } catch (error) {
-        // Email might already exist in subscriptions - that's okay
-        console.log("Email already in subscriptions:", validatedData.email);
+      // Only add to email subscriptions if valid phone number is provided
+      if (validatedData.phone) {
+        const phoneRegex = /^[\d\s\-\(\)]+$/;
+        const digitsOnly = validatedData.phone.replace(/\D/g, '');
+        
+        // Validate and normalize phone number for subscription
+        if (phoneRegex.test(validatedData.phone) && digitsOnly.length === 10) {
+          const emailSubscriptionData = {
+            name: validatedData.name,
+            email: validatedData.email,
+            phone: digitsOnly, // Normalized phone
+            consentToSMS: false,
+            tag: "Investor—Pending Onboarding"
+          };
+          
+          try {
+            await storage.createEmailSubscription(emailSubscriptionData);
+          } catch (error) {
+            // Email might already exist in subscriptions - that's okay
+            console.log("Email already in subscriptions:", validatedData.email);
+          }
+        } else {
+          console.log("Invalid phone format for investor, skipping email subscription:", validatedData.phone);
+        }
       }
       
       res.status(201).json({ 
@@ -297,20 +307,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Create new seller
       const seller = await storage.createSeller(validatedData);
       
-      // Also add to email subscriptions with seller tag
-      const emailSubscriptionData = {
-        name: validatedData.name,
-        email: validatedData.email,
-        phone: validatedData.phone || "0000000000", // Use provided phone or placeholder
-        consentToSMS: false,
-        tag: "Seller—Pending Onboarding"
-      };
-      
-      try {
-        await storage.createEmailSubscription(emailSubscriptionData);
-      } catch (error) {
-        // Email might already exist in subscriptions - that's okay
-        console.log("Email already in subscriptions:", validatedData.email);
+      // Only add to email subscriptions if valid phone number is provided
+      if (validatedData.phone) {
+        const phoneRegex = /^[\d\s\-\(\)]+$/;
+        const digitsOnly = validatedData.phone.replace(/\D/g, '');
+        
+        // Validate and normalize phone number for subscription
+        if (phoneRegex.test(validatedData.phone) && digitsOnly.length === 10) {
+          const emailSubscriptionData = {
+            name: validatedData.name,
+            email: validatedData.email,
+            phone: digitsOnly, // Normalized phone
+            consentToSMS: false,
+            tag: "Seller—Pending Onboarding"
+          };
+          
+          try {
+            await storage.createEmailSubscription(emailSubscriptionData);
+          } catch (error) {
+            // Email might already exist in subscriptions - that's okay
+            console.log("Email already in subscriptions:", validatedData.email);
+          }
+        } else {
+          console.log("Invalid phone format for seller, skipping email subscription:", validatedData.phone);
+        }
       }
       
       res.status(201).json({ 
