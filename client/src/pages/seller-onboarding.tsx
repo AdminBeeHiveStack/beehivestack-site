@@ -19,6 +19,7 @@ const sellerSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Valid email is required"),
   phone: z.string().optional(),
+  consentToSMS: z.boolean().default(false),
   linkedin: z.string().url("Valid LinkedIn URL required").optional().or(z.literal("")),
   websiteUrls: z.array(z.string().url("Valid URL required")).min(1, "At least one website URL is required"),
   businessType: z.string().min(1, "Business type is required"),
@@ -36,6 +37,26 @@ const sellerSchema = z.object({
   fastTrack: z.boolean().default(false),
   documentsUploaded: z.string().optional(),
   convertKitTag: z.string().default("Seller—Pending Onboarding"),
+}).refine((data) => {
+  // If user consents to SMS, phone number is required
+  if (data.consentToSMS && !data.phone) {
+    return false;
+  }
+  return true;
+}, {
+  message: "Phone number is required when opting in to SMS notifications",
+  path: ["phone"]
+}).refine((data) => {
+  // US phone number validation if phone is provided
+  if (data.phone && data.phone.trim()) {
+    const phoneRegex = /^[\d\s\-\(\)]+$/;
+    const digitsOnly = data.phone.replace(/\D/g, '');
+    return phoneRegex.test(data.phone) && digitsOnly.length === 10;
+  }
+  return true;
+}, {
+  message: "Please enter a valid 10-digit US phone number",
+  path: ["phone"]
 });
 
 type SellerFormData = z.infer<typeof sellerSchema>;
@@ -75,6 +96,7 @@ export default function SellerOnboarding() {
       name: "",
       email: "",
       phone: "",
+      consentToSMS: false,
       linkedin: "",
       websiteUrls: [""],
       businessType: "",
@@ -137,6 +159,11 @@ export default function SellerOnboarding() {
       websiteUrls: data.websiteUrls.filter(url => url.trim() !== "")
     };
     sellerMutation.mutate(filteredData);
+  };
+
+  const openModal = (modalType: string) => {
+    const event = new CustomEvent('openModal', { detail: modalType });
+    window.dispatchEvent(event);
   };
 
   if (isSuccess) {
@@ -664,14 +691,65 @@ export default function SellerOnboarding() {
                   />
                 </div>
 
+                {/* SMS Consent - A2P Compliant */}
+                <div className="bg-gradient-to-r from-yellow-50 to-amber-50 border border-bee-gold/30 rounded-lg p-4">
+                  <FormField
+                    control={form.control}
+                    name="consentToSMS"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                            data-testid="checkbox-seller-sms-consent"
+                          />
+                        </FormControl>
+                        <div className="space-y-1 leading-none">
+                          <FormLabel className="font-semibold text-bee-black">
+                            📱 Yes! Send me SMS alerts for qualified investor inquiries and buyer matches
+                          </FormLabel>
+                          <FormDescription className="text-xs text-gray-600 mt-1.5">
+                            By checking this box, I agree to receive marketing messages from <strong>BeeHiveStack</strong>. 
+                            Message frequency varies. Reply <strong>STOP</strong> to opt-out, <strong>HELP</strong> for help. 
+                            Message and data rates may apply.
+                          </FormDescription>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
                 <Button 
                   type="submit" 
                   className="w-full bg-bee-slate text-white hover:bg-bee-slate/90" 
                   size="lg"
                   disabled={sellerMutation.isPending}
+                  data-testid="button-submit-seller"
                 >
                   {sellerMutation.isPending ? "Creating Listing..." : "List My Business"}
                 </Button>
+
+                {/* Legal Links */}
+                <div className="text-center text-xs text-gray-600 space-x-2">
+                  <button 
+                    type="button"
+                    onClick={() => openModal('privacy')}
+                    className="underline hover:text-bee-gold transition-colors"
+                    data-testid="link-privacy-policy-seller"
+                  >
+                    Privacy Policy
+                  </button>
+                  <span>•</span>
+                  <button 
+                    type="button"
+                    onClick={() => openModal('terms')}
+                    className="underline hover:text-bee-gold transition-colors"
+                    data-testid="link-terms-of-service-seller"
+                  >
+                    Terms of Service
+                  </button>
+                </div>
               </form>
             </Form>
           </CardContent>

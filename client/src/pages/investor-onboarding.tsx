@@ -19,6 +19,7 @@ const investorSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Valid email is required"),
   phone: z.string().optional(),
+  consentToSMS: z.boolean().default(false),
   linkedin: z.string().url("Valid LinkedIn URL required").optional().or(z.literal("")),
   investmentBudget: z.string().min(1, "Investment budget is required"),
   investmentStructure: z.string().min(1, "Investment structure is required"),
@@ -30,6 +31,26 @@ const investorSchema = z.object({
   keepConfidential: z.boolean().default(false),
   premiumDeals: z.boolean().default(false),
   convertKitTag: z.string().default("Investor—Pending Onboarding"),
+}).refine((data) => {
+  // If user consents to SMS, phone number is required
+  if (data.consentToSMS && !data.phone) {
+    return false;
+  }
+  return true;
+}, {
+  message: "Phone number is required when opting in to SMS notifications",
+  path: ["phone"]
+}).refine((data) => {
+  // US phone number validation if phone is provided
+  if (data.phone && data.phone.trim()) {
+    const phoneRegex = /^[\d\s\-\(\)]+$/;
+    const digitsOnly = data.phone.replace(/\D/g, '');
+    return phoneRegex.test(data.phone) && digitsOnly.length === 10;
+  }
+  return true;
+}, {
+  message: "Please enter a valid 10-digit US phone number",
+  path: ["phone"]
 });
 
 type InvestorFormData = z.infer<typeof investorSchema>;
@@ -52,6 +73,7 @@ export default function InvestorOnboarding() {
       name: "",
       email: "",
       phone: "",
+      consentToSMS: false,
       linkedin: "",
       investmentBudget: "",
       investmentStructure: "",
@@ -90,6 +112,11 @@ export default function InvestorOnboarding() {
 
   const onSubmit = (data: InvestorFormData) => {
     investorMutation.mutate(data);
+  };
+
+  const openModal = (modalType: string) => {
+    const event = new CustomEvent('openModal', { detail: modalType });
+    window.dispatchEvent(event);
   };
 
   if (isSuccess) {
@@ -456,14 +483,65 @@ export default function InvestorOnboarding() {
                   />
                 </div>
 
+                {/* SMS Consent - A2P Compliant */}
+                <div className="bg-gradient-to-r from-yellow-50 to-amber-50 border border-bee-gold/30 rounded-lg p-4">
+                  <FormField
+                    control={form.control}
+                    name="consentToSMS"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                            data-testid="checkbox-investor-sms-consent"
+                          />
+                        </FormControl>
+                        <div className="space-y-1 leading-none">
+                          <FormLabel className="font-semibold text-bee-black">
+                            📱 Yes! Send me SMS alerts for new deal opportunities and investor matches
+                          </FormLabel>
+                          <FormDescription className="text-xs text-gray-600 mt-1.5">
+                            By checking this box, I agree to receive marketing messages from <strong>BeeHiveStack</strong>. 
+                            Message frequency varies. Reply <strong>STOP</strong> to opt-out, <strong>HELP</strong> for help. 
+                            Message and data rates may apply.
+                          </FormDescription>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
                 <Button 
                   type="submit" 
                   className="w-full bg-bee-gold text-bee-black hover:bg-bee-gold/90" 
                   size="lg"
                   disabled={investorMutation.isPending}
+                  data-testid="button-submit-investor"
                 >
                   {investorMutation.isPending ? "Creating Profile..." : "Join Investor Network"}
                 </Button>
+
+                {/* Legal Links */}
+                <div className="text-center text-xs text-gray-600 space-x-2">
+                  <button 
+                    type="button"
+                    onClick={() => openModal('privacy')}
+                    className="underline hover:text-bee-gold transition-colors"
+                    data-testid="link-privacy-policy-investor"
+                  >
+                    Privacy Policy
+                  </button>
+                  <span>•</span>
+                  <button 
+                    type="button"
+                    onClick={() => openModal('terms')}
+                    className="underline hover:text-bee-gold transition-colors"
+                    data-testid="link-terms-of-service-investor"
+                  >
+                    Terms of Service
+                  </button>
+                </div>
               </form>
             </Form>
           </CardContent>
