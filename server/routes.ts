@@ -10,6 +10,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedData = insertEmailSubscriptionSchema.parse(req.body);
       
+      // A2P Compliance: If user consents to SMS, phone number is required
+      if (validatedData.consentToSMS && !validatedData.phone) {
+        return res.status(400).json({ 
+          message: "Phone number is required when opting in to SMS notifications." 
+        });
+      }
+      
+      // Basic phone number format validation (US format)
+      if (validatedData.phone) {
+        const phoneRegex = /^[\d\s\-\(\)]+$/;
+        if (!phoneRegex.test(validatedData.phone)) {
+          return res.status(400).json({ 
+            message: "Please provide a valid phone number." 
+          });
+        }
+      }
+      
       // Check if email already exists
       const existingSubscription = await storage.getEmailSubscriptionByEmail(validatedData.email);
       if (existingSubscription) {
@@ -22,7 +39,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const emailSubscription = await storage.createEmailSubscription(validatedData);
       
       // Send welcome email (non-blocking)
-      sendWelcomeEmail(emailSubscription.email).catch(error => {
+      sendWelcomeEmail(emailSubscription.email, emailSubscription.consentToSMS || false).catch(error => {
         console.error("Failed to send welcome email:", error);
       });
       
@@ -42,13 +59,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         subscription: {
           id: emailSubscription.id,
           email: emailSubscription.email,
+          name: emailSubscription.name,
+          phone: emailSubscription.phone,
+          consentToSMS: emailSubscription.consentToSMS,
           createdAt: emailSubscription.createdAt
         }
       });
     } catch (error) {
       console.error("Email subscription error:", error);
       res.status(400).json({ 
-        message: "Invalid email address. Please check and try again." 
+        message: "Invalid data. Please check your information and try again." 
       });
     }
   });

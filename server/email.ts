@@ -228,14 +228,44 @@ Total subscribers: {{totalCount}}`
 };
 
 // Send welcome email to new subscriber
-export async function sendWelcomeEmail(email: string): Promise<boolean> {
+export async function sendWelcomeEmail(email: string, consentToSMS: boolean = false): Promise<boolean> {
   console.log(`Attempting to send welcome email from: noreply@beehivestack.net to: ${email}`);
+  
+  // Add A2P opt-out instructions if user consented to SMS
+  const smsDisclaimer = consentToSMS ? `
+    <div style="margin-top: 30px; padding: 20px; background: #F7F7F8; border-radius: 4px; border-left: 4px solid #FFC72C;">
+      <h3 style="color: #0B0B0C; font-size: 16px; margin-top: 0;">📱 SMS Notifications</h3>
+      <p style="font-size: 14px; color: #1F2937; margin: 8px 0;">
+        You've opted in to receive text messages from BeeHiveStack. We'll send you important updates and notifications.
+      </p>
+      <p style="font-size: 13px; color: #1F2937; margin: 8px 0;">
+        <strong>Message frequency varies.</strong> Reply <strong>STOP</strong> to opt-out or <strong>HELP</strong> for help. Message and data rates may apply.
+      </p>
+    </div>
+  ` : '';
+  
+  const smsTextDisclaimer = consentToSMS ? `
+
+SMS Notifications
+-----------------
+You've opted in to receive text messages from BeeHiveStack. We'll send you important updates and notifications.
+
+Message frequency varies. Reply STOP to opt-out or HELP for help. Message and data rates may apply.
+  ` : '';
+  
+  const htmlContent = emailTemplates.welcomeEmail.html.replace(
+    '</div>\n      </div>',
+    `${smsDisclaimer}\n        </div>\n      </div>`
+  );
+  
+  const textContent = emailTemplates.welcomeEmail.text + smsTextDisclaimer;
+  
   return await sendEmail({
     to: email,
     from: 'noreply@beehivestack.net', // Must match verified sender
     subject: emailTemplates.welcomeEmail.subject,
-    html: emailTemplates.welcomeEmail.html,
-    text: emailTemplates.welcomeEmail.text
+    html: htmlContent,
+    text: textContent
   });
 }
 
