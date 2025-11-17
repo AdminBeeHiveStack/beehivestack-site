@@ -132,8 +132,11 @@ export class MemStorage implements IStorage {
   async createEmailSubscription(insertEmailSubscription: InsertEmailSubscription): Promise<EmailSubscription> {
     const id = randomUUID();
     const emailSubscription: EmailSubscription = { 
-      ...insertEmailSubscription, 
       id,
+      name: insertEmailSubscription.name ?? null,
+      email: insertEmailSubscription.email,
+      phone: insertEmailSubscription.phone ?? null,
+      consentToSMS: insertEmailSubscription.consentToSMS ?? false,
       tag: insertEmailSubscription.tag || "BeeHiveStack—Early Access",
       createdAt: new Date()
     };
@@ -154,8 +157,21 @@ export class MemStorage implements IStorage {
   async createInvestor(insertInvestor: InsertInvestor): Promise<Investor> {
     const id = randomUUID();
     const investor: Investor = { 
-      ...insertInvestor, 
       id,
+      name: insertInvestor.name,
+      email: insertInvestor.email,
+      phone: insertInvestor.phone ?? null,
+      linkedin: insertInvestor.linkedin ?? null,
+      investmentBudget: insertInvestor.investmentBudget,
+      investmentStructure: insertInvestor.investmentStructure,
+      businessTypes: insertInvestor.businessTypes,
+      targetRevenue: insertInvestor.targetRevenue,
+      dealSizeComfort: insertInvestor.dealSizeComfort,
+      timeline: insertInvestor.timeline,
+      involvement: insertInvestor.involvement,
+      keepConfidential: insertInvestor.keepConfidential ?? false,
+      premiumDeals: insertInvestor.premiumDeals ?? false,
+      convertKitTag: insertInvestor.convertKitTag ?? "Investor—Pending Onboarding",
       createdAt: new Date()
     };
     this.investors.set(id, investor);
@@ -175,8 +191,27 @@ export class MemStorage implements IStorage {
   async createSeller(insertSeller: InsertSeller): Promise<Seller> {
     const id = randomUUID();
     const seller: Seller = { 
-      ...insertSeller, 
       id,
+      name: insertSeller.name,
+      email: insertSeller.email,
+      phone: insertSeller.phone ?? null,
+      linkedin: insertSeller.linkedin ?? null,
+      websiteUrls: insertSeller.websiteUrls,
+      businessType: insertSeller.businessType,
+      monetizationMethods: insertSeller.monetizationMethods,
+      currentRevenue: insertSeller.currentRevenue,
+      revenueTrend: insertSeller.revenueTrend,
+      monthlyTraffic: insertSeller.monthlyTraffic,
+      trafficSources: insertSeller.trafficSources,
+      operationalLoad: insertSeller.operationalLoad,
+      teamSize: insertSeller.teamSize,
+      exitTimeline: insertSeller.exitTimeline,
+      valuationExpectation: insertSeller.valuationExpectation ?? null,
+      willingToConsider: insertSeller.willingToConsider,
+      keepAnonymized: insertSeller.keepAnonymized ?? false,
+      fastTrack: insertSeller.fastTrack ?? false,
+      documentsUploaded: insertSeller.documentsUploaded ?? null,
+      convertKitTag: insertSeller.convertKitTag ?? "Seller—Pending Onboarding",
       createdAt: new Date()
     };
     this.sellers.set(id, seller);
