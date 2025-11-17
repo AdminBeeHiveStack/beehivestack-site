@@ -53,8 +53,16 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createEmailSubscription(insertEmailSubscription: InsertEmailSubscription): Promise<EmailSubscription> {
+    // Normalize phone number for A2P compliance (digits-only)
+    let normalizedPhone: string | undefined = insertEmailSubscription.phone || undefined;
+    if (normalizedPhone) {
+      const digitsOnly = normalizedPhone.replace(/\D/g, '');
+      normalizedPhone = digitsOnly.length === 10 ? digitsOnly : normalizedPhone;
+    }
+    
     const emailData = {
       ...insertEmailSubscription,
+      phone: normalizedPhone,
       tag: insertEmailSubscription.tag || "BeeHiveStack—Early Access"
     };
     const result = await db.insert(emailSubscriptions).values(emailData).returning();
@@ -131,11 +139,19 @@ export class MemStorage implements IStorage {
 
   async createEmailSubscription(insertEmailSubscription: InsertEmailSubscription): Promise<EmailSubscription> {
     const id = randomUUID();
+    
+    // Normalize phone number for A2P compliance (digits-only)
+    let normalizedPhone: string | null = insertEmailSubscription.phone ?? null;
+    if (normalizedPhone) {
+      const digitsOnly = normalizedPhone.replace(/\D/g, '');
+      normalizedPhone = digitsOnly.length === 10 ? digitsOnly : normalizedPhone;
+    }
+    
     const emailSubscription: EmailSubscription = { 
       id,
       name: insertEmailSubscription.name ?? null,
       email: insertEmailSubscription.email,
-      phone: insertEmailSubscription.phone ?? null,
+      phone: normalizedPhone,
       consentToSMS: insertEmailSubscription.consentToSMS ?? false,
       tag: insertEmailSubscription.tag || "BeeHiveStack—Early Access",
       createdAt: new Date()

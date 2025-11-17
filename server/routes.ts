@@ -17,14 +17,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      // Basic phone number format validation (US format)
+      // Full phone number validation and normalization (US 10-digit format)
+      let normalizedPhone: string | undefined = undefined;
       if (validatedData.phone) {
         const phoneRegex = /^[\d\s\-\(\)]+$/;
-        if (!phoneRegex.test(validatedData.phone)) {
+        const digitsOnly = validatedData.phone.replace(/\D/g, '');
+        
+        if (!phoneRegex.test(validatedData.phone) || digitsOnly.length !== 10) {
           return res.status(400).json({ 
-            message: "Please provide a valid phone number." 
+            message: "Please provide a valid 10-digit US phone number." 
           });
         }
+        
+        // Normalize: store only digits for A2P compliance
+        normalizedPhone = digitsOnly;
       }
       
       // Check if email already exists
@@ -35,8 +41,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      // Create new subscription
-      const emailSubscription = await storage.createEmailSubscription(validatedData);
+      // Create subscription with normalized phone number
+      const dataToStore = {
+        ...validatedData,
+        phone: normalizedPhone
+      };
+      const emailSubscription = await storage.createEmailSubscription(dataToStore);
       
       // Send welcome email (non-blocking)
       sendWelcomeEmail(emailSubscription.email, emailSubscription.consentToSMS || false).catch(error => {
@@ -89,6 +99,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedData = insertEmailSubscriptionSchema.parse(req.body);
       
+      // A2P Compliance: If user consents to SMS, phone number is required
+      if (validatedData.consentToSMS && !validatedData.phone) {
+        return res.status(400).json({ 
+          message: "Phone number is required when opting in to SMS notifications." 
+        });
+      }
+      
+      // Full phone number validation and normalization (US 10-digit format)
+      let normalizedPhone: string | undefined = undefined;
+      if (validatedData.phone) {
+        const phoneRegex = /^[\d\s\-\(\)]+$/;
+        const digitsOnly = validatedData.phone.replace(/\D/g, '');
+        
+        if (!phoneRegex.test(validatedData.phone) || digitsOnly.length !== 10) {
+          return res.status(400).json({ 
+            message: "Please provide a valid 10-digit US phone number." 
+          });
+        }
+        
+        // Normalize: store only digits for A2P compliance
+        normalizedPhone = digitsOnly;
+      }
+      
       const existingSubscription = await storage.getEmailSubscriptionByEmail(validatedData.email);
       if (existingSubscription) {
         return res.status(400).json({ 
@@ -96,10 +129,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      const emailSubscription = await storage.createEmailSubscription(validatedData);
+      // Create subscription with normalized phone number
+      const dataToStore = {
+        ...validatedData,
+        phone: normalizedPhone
+      };
+      const emailSubscription = await storage.createEmailSubscription(dataToStore);
       
-      // Send welcome email (non-blocking)
-      sendWelcomeEmail(emailSubscription.email).catch(error => {
+      // Send welcome email with A2P consent flag (non-blocking)
+      sendWelcomeEmail(emailSubscription.email, emailSubscription.consentToSMS || false).catch(error => {
         console.error("Failed to send welcome email:", error);
       });
       
@@ -119,13 +157,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         subscription: {
           id: emailSubscription.id,
           email: emailSubscription.email,
+          name: emailSubscription.name,
+          phone: emailSubscription.phone,
+          consentToSMS: emailSubscription.consentToSMS,
           createdAt: emailSubscription.createdAt
         }
       });
     } catch (error) {
       console.error("Report endpoint error:", error);
       res.status(400).json({ 
-        message: "Invalid email address. Please check and try again." 
+        message: "Invalid data. Please check your information and try again." 
       });
     }
   });
