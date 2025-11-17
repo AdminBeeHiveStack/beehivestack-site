@@ -11,9 +11,9 @@ export const users = pgTable("users", {
 
 export const emailSubscriptions = pgTable("email_subscriptions", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  name: text("name"),
+  name: text("name").notNull(),
   email: text("email").notNull().unique(),
-  phone: text("phone"),
+  phone: text("phone").notNull(),
   consentToSMS: boolean("consent_to_sms").notNull().default(false),
   tag: text("tag").notNull().default("BeeHiveStack—Early Access"),
   createdAt: timestamp("created_at").defaultNow().notNull(),

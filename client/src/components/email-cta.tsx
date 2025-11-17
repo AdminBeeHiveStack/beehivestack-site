@@ -7,27 +7,15 @@ import { apiRequest } from "../lib/queryClient";
 import { useToast } from "../hooks/use-toast";
 
 const emailFormSchema = z.object({
-  name: z.string().optional(),
+  name: z.string().min(1, "Name is required"),
   email: z.string().min(1, "Email is required").email("Please enter a valid email address"),
-  phone: z.string().optional(),
+  phone: z.string().min(1, "Phone number is required"),
   consentToSMS: z.boolean().default(false),
 }).refine((data) => {
-  // If user consents to SMS, phone number is required
-  if (data.consentToSMS && !data.phone) {
-    return false;
-  }
-  return true;
-}, {
-  message: "Phone number is required when opting in to SMS notifications",
-  path: ["phone"]
-}).refine((data) => {
-  // Basic US phone number validation if phone is provided
-  if (data.phone && data.phone.trim()) {
-    const phoneRegex = /^[\d\s\-\(\)]+$/;
-    const digitsOnly = data.phone.replace(/\D/g, '');
-    return phoneRegex.test(data.phone) && digitsOnly.length === 10;
-  }
-  return true;
+  // US phone number validation (required field)
+  const phoneRegex = /^[\d\s\-\(\)]+$/;
+  const digitsOnly = data.phone.replace(/\D/g, '');
+  return phoneRegex.test(data.phone) && digitsOnly.length === 10;
 }, {
   message: "Please enter a valid 10-digit US phone number",
   path: ["phone"]
@@ -101,9 +89,14 @@ export function EmailCTA() {
                   id="name"
                   data-testid="input-name"
                   {...form.register("name")}
-                  placeholder="Name (optional)"
+                  placeholder="Name"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-bee-gold focus:border-bee-gold text-bee-black placeholder-gray-500"
                 />
+                {form.formState.errors.name && (
+                  <div className="text-red-600 text-sm mt-1 text-left" role="alert">
+                    {form.formState.errors.name.message}
+                  </div>
+                )}
               </div>
 
               {/* Email Field */}
@@ -114,7 +107,7 @@ export function EmailCTA() {
                   id="email"
                   data-testid="input-email"
                   {...form.register("email")}
-                  placeholder="Email Address (required)"
+                  placeholder="Email Address"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-bee-gold focus:border-bee-gold text-bee-black placeholder-gray-500"
                 />
                 {form.formState.errors.email && (
@@ -132,7 +125,7 @@ export function EmailCTA() {
                   id="phone"
                   data-testid="input-phone"
                   {...form.register("phone")}
-                  placeholder="Phone Number (optional)"
+                  placeholder="Phone Number"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-bee-gold focus:border-bee-gold text-bee-black placeholder-gray-500"
                 />
                 {form.formState.errors.phone && (
@@ -144,7 +137,7 @@ export function EmailCTA() {
               </div>
 
               {/* SMS Consent Checkbox - A2P Compliant */}
-              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+              <div className="bg-gradient-to-r from-yellow-50 to-amber-50 border border-bee-gold/30 rounded-lg p-4">
                 <div className="flex items-start space-x-3">
                   <input 
                     type="checkbox" 
@@ -154,9 +147,12 @@ export function EmailCTA() {
                     className="mt-1 h-4 w-4 text-bee-gold focus:ring-bee-gold border-gray-300 rounded cursor-pointer"
                   />
                   <label htmlFor="consentToSMS" className="text-sm text-bee-slate text-left cursor-pointer">
-                    I agree to receive marketing messages from <strong>BeeHiveStack</strong> at the phone number provided. 
-                    Message frequency varies. Reply <strong>STOP</strong> to opt-out, <strong>HELP</strong> for help. 
-                    Message and data rates may apply.
+                    <span className="font-semibold text-bee-black">📱 Yes! Send me SMS alerts for exclusive deals, new launches, and hot investment opportunities</span>
+                    <span className="block text-xs text-gray-600 mt-1.5">
+                      By checking this box, I agree to receive marketing messages from <strong>BeeHiveStack</strong>. 
+                      Message frequency varies. Reply <strong>STOP</strong> to opt-out, <strong>HELP</strong> for help. 
+                      Message and data rates may apply.
+                    </span>
                   </label>
                 </div>
               </div>

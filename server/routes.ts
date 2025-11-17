@@ -10,28 +10,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedData = insertEmailSubscriptionSchema.parse(req.body);
       
-      // A2P Compliance: If user consents to SMS, phone number is required
-      if (validatedData.consentToSMS && !validatedData.phone) {
+      // Phone number validation and normalization (US 10-digit format) - Required field
+      if (!validatedData.phone) {
         return res.status(400).json({ 
-          message: "Phone number is required when opting in to SMS notifications." 
+          message: "Phone number is required." 
         });
       }
       
-      // Full phone number validation and normalization (US 10-digit format)
-      let normalizedPhone: string | undefined = undefined;
-      if (validatedData.phone) {
-        const phoneRegex = /^[\d\s\-\(\)]+$/;
-        const digitsOnly = validatedData.phone.replace(/\D/g, '');
-        
-        if (!phoneRegex.test(validatedData.phone) || digitsOnly.length !== 10) {
-          return res.status(400).json({ 
-            message: "Please provide a valid 10-digit US phone number." 
-          });
-        }
-        
-        // Normalize: store only digits for A2P compliance
-        normalizedPhone = digitsOnly;
+      const phoneRegex = /^[\d\s\-\(\)]+$/;
+      const digitsOnly = validatedData.phone.replace(/\D/g, '');
+      
+      if (!phoneRegex.test(validatedData.phone) || digitsOnly.length !== 10) {
+        return res.status(400).json({ 
+          message: "Please provide a valid 10-digit US phone number." 
+        });
       }
+      
+      // Normalize: store only digits for A2P compliance
+      const normalizedPhone = digitsOnly;
       
       // Check if email already exists
       const existingSubscription = await storage.getEmailSubscriptionByEmail(validatedData.email);
@@ -99,28 +95,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedData = insertEmailSubscriptionSchema.parse(req.body);
       
-      // A2P Compliance: If user consents to SMS, phone number is required
-      if (validatedData.consentToSMS && !validatedData.phone) {
+      // Phone number validation and normalization (US 10-digit format) - Required field
+      if (!validatedData.phone) {
         return res.status(400).json({ 
-          message: "Phone number is required when opting in to SMS notifications." 
+          message: "Phone number is required." 
         });
       }
       
-      // Full phone number validation and normalization (US 10-digit format)
-      let normalizedPhone: string | undefined = undefined;
-      if (validatedData.phone) {
-        const phoneRegex = /^[\d\s\-\(\)]+$/;
-        const digitsOnly = validatedData.phone.replace(/\D/g, '');
-        
-        if (!phoneRegex.test(validatedData.phone) || digitsOnly.length !== 10) {
-          return res.status(400).json({ 
-            message: "Please provide a valid 10-digit US phone number." 
-          });
-        }
-        
-        // Normalize: store only digits for A2P compliance
-        normalizedPhone = digitsOnly;
+      const phoneRegex = /^[\d\s\-\(\)]+$/;
+      const digitsOnly = validatedData.phone.replace(/\D/g, '');
+      
+      if (!phoneRegex.test(validatedData.phone) || digitsOnly.length !== 10) {
+        return res.status(400).json({ 
+          message: "Please provide a valid 10-digit US phone number." 
+        });
       }
+      
+      // Normalize: store only digits for A2P compliance
+      const normalizedPhone = digitsOnly;
       
       const existingSubscription = await storage.getEmailSubscriptionByEmail(validatedData.email);
       if (existingSubscription) {
@@ -248,7 +240,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Also add to email subscriptions with investor tag
       const emailSubscriptionData = {
+        name: validatedData.name,
         email: validatedData.email,
+        phone: validatedData.phone || "0000000000", // Use provided phone or placeholder
+        consentToSMS: false,
         tag: "Investor—Pending Onboarding"
       };
       
@@ -304,7 +299,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Also add to email subscriptions with seller tag
       const emailSubscriptionData = {
+        name: validatedData.name,
         email: validatedData.email,
+        phone: validatedData.phone || "0000000000", // Use provided phone or placeholder
+        consentToSMS: false,
         tag: "Seller—Pending Onboarding"
       };
       
