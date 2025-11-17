@@ -11,7 +11,10 @@ export const users = pgTable("users", {
 
 export const emailSubscriptions = pgTable("email_subscriptions", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name"),
   email: text("email").notNull().unique(),
+  phone: text("phone"),
+  consentToSMS: boolean("consent_to_sms").notNull().default(false),
   tag: text("tag").notNull().default("BeeHiveStack—Early Access"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
@@ -66,7 +69,10 @@ export const insertUserSchema = createInsertSchema(users).pick({
 });
 
 export const insertEmailSubscriptionSchema = createInsertSchema(emailSubscriptions).pick({
+  name: true,
   email: true,
+  phone: true,
+  consentToSMS: true,
   tag: true,
 });
 
