@@ -227,6 +227,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedData = insertInvestorSchema.parse(req.body);
       
+      // A2P Compliance: If user consents to SMS, phone number is required
+      if (validatedData.consentToSMS && !validatedData.phone) {
+        return res.status(400).json({ 
+          message: "Phone number is required when opting in to SMS notifications." 
+        });
+      }
+      
+      // Validate and normalize phone number if provided
+      let normalizedPhone: string | undefined = undefined;
+      if (validatedData.phone) {
+        const phoneRegex = /^[\d\s\-\(\)]+$/;
+        const digitsOnly = validatedData.phone.replace(/\D/g, '');
+        
+        if (!phoneRegex.test(validatedData.phone) || digitsOnly.length !== 10) {
+          return res.status(400).json({ 
+            message: "Please provide a valid 10-digit US phone number." 
+          });
+        }
+        normalizedPhone = digitsOnly;
+      }
+      
       // Check if investor already exists
       const existingInvestor = await storage.getInvestorByEmail(validatedData.email);
       if (existingInvestor) {
@@ -235,32 +256,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      // Create new investor
-      const investor = await storage.createInvestor(validatedData);
+      // Create new investor with normalized phone
+      const investorData = {
+        ...validatedData,
+        phone: normalizedPhone
+      };
+      const investor = await storage.createInvestor(investorData);
       
-      // Only add to email subscriptions if valid phone number is provided
-      if (validatedData.phone) {
-        const phoneRegex = /^[\d\s\-\(\)]+$/;
-        const digitsOnly = validatedData.phone.replace(/\D/g, '');
+      // Add to email subscriptions if valid phone and SMS consent
+      if (normalizedPhone) {
+        const emailSubscriptionData = {
+          name: validatedData.name,
+          email: validatedData.email,
+          phone: normalizedPhone,
+          consentToSMS: validatedData.consentToSMS || false,
+          tag: "Investor—Pending Onboarding"
+        };
         
-        // Validate and normalize phone number for subscription
-        if (phoneRegex.test(validatedData.phone) && digitsOnly.length === 10) {
-          const emailSubscriptionData = {
-            name: validatedData.name,
-            email: validatedData.email,
-            phone: digitsOnly, // Normalized phone
-            consentToSMS: false,
-            tag: "Investor—Pending Onboarding"
-          };
-          
-          try {
-            await storage.createEmailSubscription(emailSubscriptionData);
-          } catch (error) {
-            // Email might already exist in subscriptions - that's okay
-            console.log("Email already in subscriptions:", validatedData.email);
-          }
-        } else {
-          console.log("Invalid phone format for investor, skipping email subscription:", validatedData.phone);
+        try {
+          await storage.createEmailSubscription(emailSubscriptionData);
+        } catch (error) {
+          // Email might already exist in subscriptions - that's okay
+          console.log("Email already in subscriptions:", validatedData.email);
         }
       }
       
@@ -296,6 +313,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const validatedData = insertSellerSchema.parse(req.body);
       
+      // A2P Compliance: If user consents to SMS, phone number is required
+      if (validatedData.consentToSMS && !validatedData.phone) {
+        return res.status(400).json({ 
+          message: "Phone number is required when opting in to SMS notifications." 
+        });
+      }
+      
+      // Validate and normalize phone number if provided
+      let normalizedPhone: string | undefined = undefined;
+      if (validatedData.phone) {
+        const phoneRegex = /^[\d\s\-\(\)]+$/;
+        const digitsOnly = validatedData.phone.replace(/\D/g, '');
+        
+        if (!phoneRegex.test(validatedData.phone) || digitsOnly.length !== 10) {
+          return res.status(400).json({ 
+            message: "Please provide a valid 10-digit US phone number." 
+          });
+        }
+        normalizedPhone = digitsOnly;
+      }
+      
       // Check if seller already exists
       const existingSeller = await storage.getSellerByEmail(validatedData.email);
       if (existingSeller) {
@@ -304,32 +342,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      // Create new seller
-      const seller = await storage.createSeller(validatedData);
+      // Create new seller with normalized phone
+      const sellerData = {
+        ...validatedData,
+        phone: normalizedPhone
+      };
+      const seller = await storage.createSeller(sellerData);
       
-      // Only add to email subscriptions if valid phone number is provided
-      if (validatedData.phone) {
-        const phoneRegex = /^[\d\s\-\(\)]+$/;
-        const digitsOnly = validatedData.phone.replace(/\D/g, '');
+      // Add to email subscriptions if valid phone
+      if (normalizedPhone) {
+        const emailSubscriptionData = {
+          name: validatedData.name,
+          email: validatedData.email,
+          phone: normalizedPhone,
+          consentToSMS: validatedData.consentToSMS || false,
+          tag: "Seller—Pending Onboarding"
+        };
         
-        // Validate and normalize phone number for subscription
-        if (phoneRegex.test(validatedData.phone) && digitsOnly.length === 10) {
-          const emailSubscriptionData = {
-            name: validatedData.name,
-            email: validatedData.email,
-            phone: digitsOnly, // Normalized phone
-            consentToSMS: false,
-            tag: "Seller—Pending Onboarding"
-          };
-          
-          try {
-            await storage.createEmailSubscription(emailSubscriptionData);
-          } catch (error) {
-            // Email might already exist in subscriptions - that's okay
-            console.log("Email already in subscriptions:", validatedData.email);
-          }
-        } else {
-          console.log("Invalid phone format for seller, skipping email subscription:", validatedData.phone);
+        try {
+          await storage.createEmailSubscription(emailSubscriptionData);
+        } catch (error) {
+          // Email might already exist in subscriptions - that's okay
+          console.log("Email already in subscriptions:", validatedData.email);
         }
       }
       

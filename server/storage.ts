@@ -54,7 +54,7 @@ export class DatabaseStorage implements IStorage {
 
   async createEmailSubscription(insertEmailSubscription: InsertEmailSubscription): Promise<EmailSubscription> {
     // Normalize phone number for A2P compliance (digits-only)
-    let normalizedPhone: string | undefined = insertEmailSubscription.phone || undefined;
+    let normalizedPhone: string = insertEmailSubscription.phone;
     if (normalizedPhone) {
       const digitsOnly = normalizedPhone.replace(/\D/g, '');
       normalizedPhone = digitsOnly.length === 10 ? digitsOnly : normalizedPhone;
@@ -79,7 +79,18 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createInvestor(insertInvestor: InsertInvestor): Promise<Investor> {
-    const result = await db.insert(investors).values(insertInvestor).returning();
+    // Normalize phone number for A2P compliance (digits-only) - defense-in-depth
+    let normalizedPhone: string | undefined = insertInvestor.phone ?? undefined;
+    if (normalizedPhone) {
+      const digitsOnly = normalizedPhone.replace(/\D/g, '');
+      normalizedPhone = digitsOnly.length === 10 ? digitsOnly : normalizedPhone;
+    }
+    
+    const investorData = {
+      ...insertInvestor,
+      phone: normalizedPhone
+    };
+    const result = await db.insert(investors).values(investorData).returning();
     return result[0];
   }
 
@@ -93,7 +104,18 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createSeller(insertSeller: InsertSeller): Promise<Seller> {
-    const result = await db.insert(sellers).values(insertSeller).returning();
+    // Normalize phone number for A2P compliance (digits-only) - defense-in-depth
+    let normalizedPhone: string | undefined = insertSeller.phone ?? undefined;
+    if (normalizedPhone) {
+      const digitsOnly = normalizedPhone.replace(/\D/g, '');
+      normalizedPhone = digitsOnly.length === 10 ? digitsOnly : normalizedPhone;
+    }
+    
+    const sellerData = {
+      ...insertSeller,
+      phone: normalizedPhone
+    };
+    const result = await db.insert(sellers).values(sellerData).returning();
     return result[0];
   }
 
@@ -172,11 +194,20 @@ export class MemStorage implements IStorage {
 
   async createInvestor(insertInvestor: InsertInvestor): Promise<Investor> {
     const id = randomUUID();
+    
+    // Normalize phone number for A2P compliance (digits-only)
+    let normalizedPhone: string | null = insertInvestor.phone ?? null;
+    if (normalizedPhone) {
+      const digitsOnly = normalizedPhone.replace(/\D/g, '');
+      normalizedPhone = digitsOnly.length === 10 ? digitsOnly : normalizedPhone;
+    }
+    
     const investor: Investor = { 
       id,
       name: insertInvestor.name,
       email: insertInvestor.email,
-      phone: insertInvestor.phone ?? null,
+      phone: normalizedPhone,
+      consentToSMS: insertInvestor.consentToSMS ?? false,
       linkedin: insertInvestor.linkedin ?? null,
       investmentBudget: insertInvestor.investmentBudget,
       investmentStructure: insertInvestor.investmentStructure,
@@ -206,11 +237,20 @@ export class MemStorage implements IStorage {
 
   async createSeller(insertSeller: InsertSeller): Promise<Seller> {
     const id = randomUUID();
+    
+    // Normalize phone number for A2P compliance (digits-only)
+    let normalizedPhone: string | null = insertSeller.phone ?? null;
+    if (normalizedPhone) {
+      const digitsOnly = normalizedPhone.replace(/\D/g, '');
+      normalizedPhone = digitsOnly.length === 10 ? digitsOnly : normalizedPhone;
+    }
+    
     const seller: Seller = { 
       id,
       name: insertSeller.name,
       email: insertSeller.email,
-      phone: insertSeller.phone ?? null,
+      phone: normalizedPhone,
+      consentToSMS: insertSeller.consentToSMS ?? false,
       linkedin: insertSeller.linkedin ?? null,
       websiteUrls: insertSeller.websiteUrls,
       businessType: insertSeller.businessType,
