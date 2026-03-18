@@ -1,0 +1,1873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GHL Start Guide — BeehiveStack</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="ghl-guide-manifest.json">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<meta name="theme-color" content="#6366f1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="The complete GoHighLevel setup checklist for new users. 37 steps, step-by-step instructions, progress saves automatically.">
+<style>
+:root{
+  --bg:#0a0b0f;--s1:#10121a;--s2:#171923;--s3:#1e2130;
+  --b1:#252836;--b2:#2f3347;--b3:#3a3f56;
+  --tx:#eef0f8;--dim:#8890b0;--muted:#555e80;
+  --ac:#6366f1;--ac2:#4f46e5;--ac3:rgba(99,102,241,.08);
+  --gr:#22c55e;--gr2:#16a34a;
+  --or:#f59e0b;--rd:#ef4444;--cy:#06b6d4;
+}
+
+/* ── LIGHT MODE ── */
+[data-theme="light"]{
+  --bg:#f4f5f9;--s1:#ffffff;--s2:#f0f1f6;--s3:#e8eaf2;
+  --b1:#dde0ee;--b2:#c8ccde;--b3:#b0b5cc;
+  --tx:#1a1d2e;--dim:#4a5070;--muted:#7880a0;
+  --ac:#6366f1;--ac2:#4f46e5;--ac3:rgba(99,102,241,.08);
+  --gr:#16a34a;--gr2:#15803d;
+  --or:#d97706;--rd:#dc2626;--cy:#0891b2;
+}
+/* ── THEME TOGGLE BUTTON ── */
+#theme-toggle{display:flex;align-items:center;gap:4px;background:var(--s2);border:1px solid var(--b2);border-radius:20px;padding:3px 4px;cursor:pointer}
+.theme-opt{width:26px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:16px;font-size:12px;transition:all .15s;color:var(--dim)}
+.theme-opt.active{background:var(--bg);color:var(--tx);box-shadow:0 1px 4px rgba(0,0,0,.2)}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;line-height:1.6;min-height:100vh}
+
+/* ── GATE ── */
+#gate{position:fixed;inset:0;background:var(--bg);z-index:1000;overflow-y:auto;transition:opacity .5s}
+#gate.hidden{opacity:0;pointer-events:none}
+.gate-wrap{min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:24px 16px 48px}
+.gate-card{background:var(--s1);border:1px solid var(--b2);border-radius:20px;padding:32px 30px;max-width:560px;width:100%;box-shadow:0 32px 80px rgba(0,0,0,.6)}
+
+/* Gate header */
+.gate-brand-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.gate-logo{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--dim)}
+.gate-logo-dot{width:20px;height:20px;background:linear-gradient(135deg,var(--ac),var(--ac2));border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px}
+.gate-version{font-size:10px;font-weight:700;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.2);border-radius:8px;padding:2px 9px;color:var(--ac)}
+
+/* Gate hero */
+.gate-hero{text-align:center;margin-bottom:24px}
+.gate-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.18);border-radius:14px;padding:3px 12px;font-size:10px;font-weight:700;color:var(--gr);margin-bottom:12px}
+.gate-h1{font-size:24px;font-weight:900;letter-spacing:-.025em;line-height:1.2;margin-bottom:8px}
+.gate-h1 em{color:var(--ac);font-style:normal}
+.gate-sub{font-size:12px;color:var(--dim);line-height:1.7}
+
+/* How to Use panel */
+.htu-panel{background:var(--s2);border:1px solid var(--b2);border-radius:14px;padding:18px 20px;margin-bottom:20px}
+.htu-title{font-size:11px;font-weight:800;color:var(--tx);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.htu-title::before{content:'💡';font-size:14px}
+.htu-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.htu-item{display:flex;align-items:flex-start;gap:9px;padding:9px 10px;background:var(--s3);border-radius:8px;border:1px solid var(--b1)}
+.htu-icon{font-size:16px;flex-shrink:0;line-height:1;margin-top:1px}
+.htu-text{font-size:11px;color:var(--dim);line-height:1.5}
+.htu-text strong{color:var(--tx);display:block;font-size:11px;margin-bottom:1px}
+.htu-warn{margin-top:10px;padding:9px 12px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:8px;font-size:10px;color:var(--dim);line-height:1.5;display:flex;gap:8px;align-items:flex-start}
+.htu-warn-icon{font-size:14px;flex-shrink:0}
+
+/* Account info */
+.account-info{background:var(--s3);border:1px solid var(--b1);border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:11px;color:var(--dim);line-height:1.6}
+.account-info strong{color:var(--ac)}
+
+/* Form */
+.gate-divider{height:1px;background:var(--b1);margin:18px 0}
+.gate-form-title{font-size:12px;font-weight:700;color:var(--tx);margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.gate-form{display:flex;flex-direction:column;gap:11px}
+.gate-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gate-field label{display:block;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.gate-field input,.gate-field select{width:100%;background:var(--s2);border:1px solid var(--b2);border-radius:9px;padding:10px 13px;color:var(--tx);font-size:13px;outline:none;transition:border-color .15s;-webkit-appearance:none;appearance:none}
+.gate-field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23555e80' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.gate-field input:focus,.gate-field select:focus{border-color:var(--ac)}
+.gate-field input::placeholder{color:var(--muted)}
+.gate-submit{background:linear-gradient(135deg,var(--ac),var(--ac2));border:none;border-radius:11px;padding:13px;font-size:14px;font-weight:800;color:#fff;cursor:pointer;transition:opacity .15s;width:100%;margin-top:4px}
+.gate-submit:hover{opacity:.88}
+.gate-fine{font-size:10px;color:var(--muted);text-align:center;margin-top:8px;line-height:1.6}
+/* Auth tabs */
+.auth-tabs{display:flex;gap:0;margin-bottom:20px;background:var(--s2);border-radius:10px;padding:3px;border:1px solid var(--b1)}
+.auth-tab{flex:1;background:transparent;border:none;border-radius:8px;padding:9px;font-size:12px;font-weight:700;color:var(--dim);cursor:pointer;transition:all .15s}
+.auth-tab.active{background:var(--b2);color:var(--tx)}
+.auth-msg{font-size:12px;margin-top:8px;text-align:center;min-height:18px;line-height:1.5;padding:0 4px}
+.auth-msg.error{color:var(--rd)}
+.auth-msg.success{color:var(--gr)}
+.auth-msg.info{color:var(--cy)}
+.auth-link{font-size:11px;color:var(--ac);text-decoration:none}
+.auth-link:hover{text-decoration:underline}
+
+/* ── TOPBAR ── */
+#topbar{background:var(--s1);border-bottom:1px solid var(--b1);position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+#topbar-main{height:48px;display:flex;align-items:center;gap:12px;padding:0 16px;max-width:1200px;margin:0 auto;width:100%;box-sizing:border-box;}
+#topbar-warn{background:rgba(245,158,11,.08);border-top:1px solid rgba(245,158,11,.18);padding:6px 18px;text-align:center;font-size:13px;font-weight:700;color:var(--or);display:flex;align-items:center;justify-content:center;gap:8px;line-height:1.5;}
+#topbar-warn span{color:var(--dim);font-weight:600;font-size:12px;}
+.tl{font-size:13px;font-weight:800;display:flex;align-items:center;gap:8px;color:var(--tx)}
+.tl-dot{width:22px;height:22px;background:linear-gradient(135deg,var(--ac),var(--ac2));border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px}
+#topbar-mid{flex:1}
+#topUserName{font-size:13px;font-weight:700}
+#topUserSub{font-size:10px;color:var(--muted)}
+.tb-row{display:flex;gap:6px;align-items:center}
+.tb-btn{background:var(--s2);border:1px solid var(--b2);color:var(--dim);border-radius:7px;padding:5px 11px;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;text-decoration:none}
+.tb-btn:hover{border-color:var(--b3);color:var(--tx)}
+.tb-btn.danger{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.2);color:var(--rd)}
+.tb-btn.danger:hover{background:rgba(239,68,68,.15)}
+
+/* ── GUIDE LAYOUT ── */
+.wrap{max-width:820px;margin:0 auto;padding:22px 16px 72px}
+
+/* How to use banner (in-guide) */
+.guide-htu{background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:16px 18px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start}
+.ghtu-icon{font-size:28px;flex-shrink:0;line-height:1}
+.ghtu-content{}
+.ghtu-title{font-size:13px;font-weight:800;margin-bottom:8px}
+.ghtu-items{display:flex;flex-wrap:wrap;gap:6px}
+.ghtu-item{display:inline-flex;align-items:center;gap:5px;font-size:11px;background:var(--s2);border:1px solid var(--b1);border-radius:7px;padding:4px 9px;color:var(--dim)}
+.ghtu-item span{color:var(--tx);font-weight:700}
+.guide-warn{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.15);border-left:3px solid var(--or);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:20px;font-size:11px;color:var(--dim);line-height:1.6;display:flex;gap:10px;align-items:flex-start}
+
+/* ── PROGRESS ── */
+.progress-wrap{background:var(--s1);border:1px solid var(--b1);border-radius:11px;padding:14px 18px;margin-bottom:20px}
+.progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.progress-label{font-size:11px;font-weight:700}
+.progress-pct{font-size:11px;font-weight:800;color:var(--ac)}
+.progress-bar{height:6px;background:var(--b1);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--ac),var(--gr));border-radius:3px;transition:width .4s ease;width:0%}
+.progress-phases{display:flex;gap:5px;margin-top:9px;flex-wrap:wrap}
+.pp{font-size:9px;padding:2px 9px;border-radius:8px;font-weight:700;cursor:pointer;border:1px solid;transition:all .15s}
+.pp-idle{background:var(--s2);border-color:var(--b1);color:var(--muted)}
+.pp-active{background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.3);color:var(--ac)}
+.pp-done{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.3);color:var(--gr)}
+
+/* ── PHASES ── */
+.phase{margin-bottom:16px}
+
+
+/* ── PHASE PRINT BUTTON ── */
+.ph-print-btn { background:none; border:1px solid var(--b2); border-radius:6px; color:var(--muted); font-size:13px; padding:3px 7px; cursor:pointer; transition:all .15s; flex-shrink:0; }
+.ph-print-btn:hover { background:var(--s2); color:var(--tx); border-color:var(--b3); }
+
+/* ── PROGRESS REPORT MODAL ── */
+#report-modal { position:fixed; inset:0; background:rgba(0,0,0,.75); z-index:3000; display:flex; align-items:center; justify-content:center; padding:20px; }
+#report-panel { background:var(--s1); border:1px solid var(--b2); border-radius:16px; padding:28px; max-width:520px; width:100%; max-height:85vh; overflow-y:auto; box-shadow:0 24px 60px rgba(0,0,0,.6); }
+.rpt-phase-row { display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--b1); }
+.rpt-phase-row:last-child { border-bottom:none; }
+.rpt-bar-wrap { width:120px; height:6px; background:var(--b1); border-radius:3px; overflow:hidden; }
+.rpt-bar-fill { height:100%; background:linear-gradient(90deg,var(--ac),var(--gr)); border-radius:3px; transition:width .4s; }
+
+/* ── PHASE PRINT LAYOUT ── */
+@media print {
+  /* Hide everything except the print area */
+  body > *:not(#phase-print-area):not(#report-print-area) { display:none !important; }
+  #phase-print-area { display:block !important; position:static !important; background:#fff !important; color:#000 !important; padding:32px !important; font-family:sans-serif !important; width:100% !important; }
+  #report-print-area { display:block !important; position:static !important; background:#fff !important; color:#000 !important; padding:32px !important; font-family:sans-serif !important; width:100% !important; }
+  .phase-print-step { margin-bottom:16px; padding:12px; border:1px solid #ddd; border-radius:8px; page-break-inside:avoid; }
+  .phase-print-done { border-left:4px solid #22c55e; }
+}
+
+
+/* ── COUPON FIELD ── */
+.coupon-wrap { position:relative; }
+.coupon-wrap input { padding-right:80px; letter-spacing:.05em; font-family:monospace; text-transform:uppercase; }
+.coupon-badge { position:absolute; right:10px; top:50%; transform:translateY(-50%); font-size:10px; font-weight:800; padding:2px 8px; border-radius:4px; pointer-events:none; }
+.coupon-badge.valid { background:rgba(34,197,94,.15); color:var(--gr); border:1px solid rgba(34,197,94,.25); }
+.coupon-badge.invalid { background:rgba(239,68,68,.1); color:var(--rd); border:1px solid rgba(239,68,68,.2); }
+.coupon-hint { font-size:10px; color:var(--muted); margin-top:4px; line-height:1.5; }
+
+/* ── LAUNCH LIST PANEL ── */
+#launch-list-panel { display:none; }
+.launch-hero { text-align:center; padding:8px 0 20px; }
+.launch-badge { display:inline-block; background:rgba(99,102,241,.1); border:1px solid rgba(99,102,241,.25); color:var(--ac); font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.08em; padding:4px 12px; border-radius:20px; margin-bottom:12px; }
+
+/* ── STICKY SEARCH + PROGRESS STRIP ── */
+#sticky-strip { position:sticky; top:var(--topbar-h,96px); z-index:90; background:var(--bg); padding:10px 0 8px; margin-bottom:8px; border-bottom:1px solid var(--b1); }
+#sticky-strip .search-wrap { margin-bottom:8px; }
+#sticky-strip .progress-wrap { margin-bottom:0; }
+
+/* ── STICKY PHASE HEADERS ── */
+.phase-hdr { position:sticky; top:var(--strip-top,280px); z-index:80; }
+
+.phase-hdr{display:flex;align-items:center;gap:11px;padding:13px 16px;background:var(--s1);border:1px solid var(--b1);border-radius:11px 11px 0 0;cursor:pointer;user-select:none;transition:border-color .15s}
+.phase-hdr.closed{border-radius:11px}
+.phase-hdr:hover{border-color:var(--b2)}
+.ph-icon{font-size:18px;flex-shrink:0}
+.ph-meta{flex:1}
+.ph-name{font-size:13px;font-weight:800}
+.ph-tagline{font-size:10px;color:var(--dim)}
+.ph-time{font-size:10px;font-weight:700;padding:2px 9px;border-radius:7px;white-space:nowrap}
+.pt-rd{background:rgba(239,68,68,.1);color:var(--rd)}
+.pt-or{background:rgba(245,158,11,.1);color:var(--or)}
+.pt-bl{background:rgba(99,102,241,.1);color:var(--ac)}
+.pt-gr{background:rgba(34,197,94,.1);color:var(--gr)}
+.ph-cnt{font-size:10px;color:var(--muted);white-space:nowrap}
+.ph-chev{font-size:9px;color:var(--muted);transition:transform .2s;flex-shrink:0}
+.phase-hdr.open .ph-chev{transform:rotate(180deg)}
+.phase-body{background:var(--s1);border:1px solid var(--b1);border-top:none;border-radius:0 0 11px 11px;display:none;padding-bottom:6px}
+.phase-body.open{display:block}
+.phase-callout{margin:10px 14px 4px;padding:10px 13px;border-radius:8px;font-size:11px;color:var(--dim);line-height:1.6}
+.pc-or{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.12);border-left:3px solid var(--or)}
+.pc-bl{background:rgba(99,102,241,.05);border:1px solid rgba(99,102,241,.12);border-left:3px solid var(--ac)}
+.pc-gr{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.12);border-left:3px solid var(--gr)}
+
+/* ── STEPS ── */
+.step{border-bottom:1px solid rgba(37,40,54,.6)}
+.step:last-child{border-bottom:none}
+.step-main{display:flex;align-items:flex-start;gap:12px;padding:11px 14px;cursor:pointer;transition:background .12s}
+.step-main:hover{background:rgba(99,102,241,.02)}
+.step.done .step-main{opacity:.4}
+.step-num{font-size:10px;font-weight:700;color:var(--muted);width:18px;text-align:right;flex-shrink:0;padding-top:3px}
+.step-cb{width:18px;height:18px;border-radius:5px;border:2px solid var(--b3);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all .15s;background:var(--s2);cursor:pointer}
+.step.done .step-cb{background:var(--gr2);border-color:var(--gr2);color:#fff}
+.step-info{flex:1;min-width:0}
+.step-title{font-size:12px;font-weight:700;color:var(--tx);margin-bottom:2px}
+.step.done .step-title{text-decoration:line-through;color:var(--muted)}
+.step-desc{font-size:11px;color:var(--dim);line-height:1.55}
+.step-actions{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;align-items:center}
+.step-tag{font-size:9px;padding:1px 6px;border-radius:4px;font-weight:700;background:var(--s3);border:1px solid var(--b2);color:var(--muted)}
+.step-tag.crit{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.18);color:var(--rd)}
+.step-tag.pop{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.18);color:var(--gr)}
+.expand-btn{font-size:10px;font-weight:700;color:var(--ac);background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.18);border-radius:5px;padding:2px 8px;cursor:pointer;white-space:nowrap;transition:all .15s;display:inline-block}
+.expand-btn:hover{background:rgba(99,102,241,.18)}
+.expand-btn.open{background:rgba(99,102,241,.18)}
+.ghl-link{font-size:10px;font-weight:700;color:var(--cy);background:rgba(6,182,212,.07);border:1px solid rgba(6,182,212,.18);border-radius:5px;padding:2px 8px;cursor:pointer;white-space:nowrap;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.ghl-noid-hint{font-size:10px;color:var(--muted);display:inline-flex;align-items:center;gap:3px}
+.ghl-link:hover{background:rgba(6,182,212,.15)}
+
+/* ── SUB-STEPS ── */
+.substep-panel{display:none;background:var(--s2);border-top:1px solid var(--b1);padding:14px 14px 14px 50px}
+.substep-panel.open{display:block}
+.substep-path{font-size:10px;font-weight:700;color:var(--or);background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.15);border-radius:6px;padding:4px 10px;margin-bottom:10px;display:inline-flex;align-items:center;gap:5px}
+.substep-time{font-size:10px;font-weight:700;color:var(--cy);background:rgba(6,182,212,.07);border:1px solid rgba(6,182,212,.15);border-radius:5px;padding:2px 8px;margin-bottom:10px;margin-left:6px;display:inline-flex;align-items:center;gap:4px}
+.substep-list{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.substep-item{display:flex;align-items:flex-start;gap:9px;font-size:11px;color:var(--dim);line-height:1.55}
+.sub-n{width:18px;height:18px;border-radius:50%;background:var(--s3);border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:var(--muted);flex-shrink:0;margin-top:1px}
+.substep-info{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.si-box{padding:9px 11px;border-radius:7px;font-size:10px;line-height:1.5}
+.si-done{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.14)}
+.si-done strong{color:var(--gr);display:block;margin-bottom:2px;font-size:10px}
+.si-err{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.14)}
+.si-err strong{color:var(--rd);display:block;margin-bottom:2px;font-size:10px}
+.si-note{font-size:10px;font-style:italic;color:var(--muted);margin-top:8px;padding:6px 10px;background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.1);border-radius:6px}
+
+/* ── FOOTER ── */
+.guide-footer{text-align:center;padding:28px 0 8px;font-size:10px;color:var(--muted);border-top:1px solid var(--b1);margin-top:12px}
+.guide-footer a{color:var(--muted);text-decoration:none}
+
+/* ── SEARCH ── */
+.search-wrap{background:var(--s1);border:1px solid var(--b1);border-radius:11px;padding:10px 14px;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.search-icon{font-size:15px;flex-shrink:0;color:var(--muted)}
+.search-input{flex:1;background:transparent;border:none;outline:none;color:var(--tx);font-size:13px;font-family:inherit}
+.search-input::placeholder{color:var(--muted)}
+.search-count{font-size:10px;font-weight:700;white-space:nowrap;padding:2px 9px;border-radius:7px;background:var(--s2);border:1px solid var(--b1);color:var(--dim)}
+.search-count.has-results{background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.2);color:var(--ac)}
+.search-count.no-results{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.18);color:var(--rd)}
+.search-clear{background:var(--s2);border:1px solid var(--b2);color:var(--muted);border-radius:6px;padding:3px 9px;font-size:11px;cursor:pointer;transition:all .15s;display:none}
+.search-clear:hover{color:var(--tx)}
+.search-clear.visible{display:block}
+.search-hint{font-size:10px;color:var(--muted);white-space:nowrap}
+.step.search-dim{opacity:.2;pointer-events:none}
+.step.search-match .step-title{color:var(--ac)}
+.step.search-match{outline:1px solid rgba(99,102,241,.3);outline-offset:-1px;border-radius:0}
+mark.sh{background:rgba(99,102,241,.25);color:var(--tx);border-radius:2px;padding:0 2px}
+.phase-body .no-results-msg{text-align:center;padding:16px;font-size:11px;color:var(--muted);display:none}
+.search-no-match-banner{display:none;text-align:center;padding:22px;background:var(--s1);border:1px solid var(--b1);border-radius:11px;margin-bottom:14px;font-size:12px;color:var(--dim)}
+.search-no-match-banner.visible{display:block}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--s1);border:1px solid var(--b2);border-radius:12px;padding:12px 20px;font-size:12px;font-weight:700;color:var(--tx);box-shadow:0 8px 32px rgba(0,0,0,.5);z-index:2000;opacity:0;transition:all .3s;white-space:nowrap;pointer-events:none;max-width:90vw;text-align:center}
+.toast.visible{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.phase{border-color:rgba(99,102,241,.4);background:var(--s2)}
+.toast.complete{border-color:rgba(34,197,94,.4);background:var(--s2);font-size:14px;padding:16px 28px}
+.toast.copy{border-color:rgba(6,182,212,.3)}
+
+/* ── JUMP / TIME ── */
+.next-wrap{display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.jump-btn{background:linear-gradient(135deg,var(--ac),var(--ac2));border:none;border-radius:8px;padding:7px 16px;font-size:11px;font-weight:800;color:#fff;cursor:pointer;transition:opacity .15s;display:flex;align-items:center;gap:6px}
+.jump-btn:hover{opacity:.85}
+.time-left{font-size:10px;color:var(--muted);background:var(--s2);border:1px solid var(--b1);border-radius:7px;padding:5px 10px;display:flex;align-items:center;gap:5px}
+.time-left span{color:var(--dim);font-weight:700}
+
+/* ── COPY ── */
+.tb-btn.copy{background:rgba(6,182,212,.08);border-color:rgba(6,182,212,.2);color:var(--cy)}
+.bhs-logo-link { display:flex; align-items:center; gap:8px; text-decoration:none; color:#f5a800; font-size:12px; font-weight:800; letter-spacing:.01em; padding:4px 10px 4px 4px; border-radius:8px; border:1px solid rgba(245,168,0,.2); background:rgba(245,168,0,.06); transition:all .15s; margin-right:8px; }
+.bhs-logo-link:hover { background:rgba(245,168,0,.12); border-color:rgba(245,168,0,.4); }
+.bhs-logo-link img { width:30px; height:30px; object-fit:contain; border-radius:5px; }
+
+/* ── COMPLETE BANNER ── */
+.complete-banner{display:none;background:linear-gradient(135deg,rgba(34,197,94,.08),rgba(99,102,241,.05));border:1px solid rgba(34,197,94,.25);border-radius:14px;padding:22px 24px;margin-bottom:20px;text-align:center}
+.complete-banner.visible{display:block}
+.cb-emoji{font-size:40px;margin-bottom:8px}
+.cb-title{font-size:18px;font-weight:900;color:var(--gr);margin-bottom:6px}
+.cb-sub{font-size:12px;color:var(--dim);line-height:1.7}
+
+/* ── RIGHT SIDEBAR ── */
+#right-sidebar { position:fixed; right:0; top:50%; transform:translateY(-50%); z-index:200; display:none; flex-direction:column; gap:6px; padding:8px; background:var(--s1); border:1px solid var(--b1); border-right:none; border-radius:12px 0 0 12px; box-shadow:-4px 0 20px rgba(0,0,0,.3); align-items:center; }
+.rsb-logo { display:block; width:52px; height:52px; object-fit:contain; border-radius:8px; margin-bottom:2px; }
+.rsb-divider { width:36px; height:1px; background:var(--b2); margin:2px 0 4px; }
+#right-sidebar.visible { display:flex; }
+.rsb-btn { display:flex; flex-direction:column; align-items:center; gap:3px; padding:10px 8px; border-radius:8px; background:var(--s2); border:1px solid var(--b2); color:var(--dim); font-size:9px; font-weight:700; text-align:center; text-decoration:none; cursor:pointer; transition:all .15s; min-width:52px; line-height:1.3; }
+.rsb-btn:hover { background:var(--b1); color:var(--tx); border-color:var(--b3); }
+.rsb-icon { font-size:16px; }
+.rsb-reset { color:var(--rd) !important; border-color:rgba(239,68,68,.2) !important; background:rgba(239,68,68,.06) !important; }
+.rsb-reset:hover { background:rgba(239,68,68,.15) !important; border-color:rgba(239,68,68,.4) !important; }
+
+/* ── CHAT WIDGET ── */
+#chat-bubble { position:fixed; bottom:24px; right:24px; width:52px; height:52px; border-radius:50%; background:linear-gradient(135deg,var(--ac),var(--ac2)); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(99,102,241,.5); z-index:1500; transition:transform .2s; }
+#chat-bubble:hover { transform:scale(1.08); }
+#chat-panel { position:fixed; bottom:88px; right:24px; width:280px; background:var(--s1); border:1px solid var(--b2); border-radius:16px; box-shadow:0 8px 40px rgba(0,0,0,.5); z-index:1500; display:none; overflow:hidden; }
+#chat-panel.open { display:block; }
+#chat-panel-header { background:linear-gradient(135deg,var(--ac),var(--ac2)); padding:14px 16px; display:flex; justify-content:space-between; align-items:center; font-size:13px; font-weight:700; color:#fff; }
+#chat-panel-body { padding:16px; }
+.chat-action-btn { display:block; width:100%; padding:10px 14px; margin-bottom:8px; background:var(--s2); border:1px solid var(--b2); border-radius:10px; color:var(--tx); font-size:13px; font-weight:600; text-decoration:none; text-align:center; transition:all .15s; box-sizing:border-box; }
+.chat-action-btn:hover { background:var(--b1); border-color:var(--b3); }
+
+/* ── LEFT SIDEBAR LAYOUT ── */
+.guide-layout { display:flex; gap:24px; max-width:1200px; margin:0 auto; padding:22px 16px 72px; align-items:flex-start; }
+.left-sidebar { width:220px; flex-shrink:0; position:sticky; top:var(--topbar-h,96px); max-height:calc(100vh - 80px); overflow-y:auto; }
+.left-sidebar::-webkit-scrollbar { width:4px; }
+.left-sidebar::-webkit-scrollbar-thumb { background:var(--b2); border-radius:2px; }
+.guide-main { flex:1; min-width:0; }
+.lsb-card { background:var(--s1); border:1px solid var(--b1); border-radius:12px; padding:14px 16px; margin-bottom:12px; }
+.lsb-title { font-size:10px; font-weight:800; color:var(--dim); text-transform:uppercase; letter-spacing:.08em; margin-bottom:10px; }
+.lsb-item { display:flex; align-items:flex-start; gap:8px; margin-bottom:8px; font-size:11px; color:var(--dim); line-height:1.5; }
+.lsb-icon { font-size:14px; flex-shrink:0; line-height:1.2; }
+.lsb-text strong { display:block; font-size:11px; color:var(--tx); margin-bottom:1px; }
+.lsb-legend-item { display:flex; align-items:center; gap:8px; margin-bottom:7px; font-size:10px; color:var(--dim); }
+.legend-badge { font-size:9px; padding:2px 7px; border-radius:4px; font-weight:700; white-space:nowrap; flex-shrink:0; }
+@media(max-width:900px) { .guide-layout { flex-direction:column; } .left-sidebar { width:100%; position:static; max-height:none; } }
+
+/* ── PRINT ── */
+
+@media(max-width:600px){
+  .htu-grid{grid-template-columns:1fr}
+  .substep-info{grid-template-columns:1fr}
+  .substep-panel{padding-left:28px}
+  .gate-row{grid-template-columns:1fr}
+}
+
+/* ── MOBILE RESPONSIVE (max-width: 768px) ── */
+@media(max-width:768px){
+  /* Topbar — icon-only, no text labels */
+  #topbar-main { padding:0 10px; gap:8px; }
+  .bhs-logo-link span, .bhs-logo-link { font-size:0; padding:4px; border:none; background:none; }
+  .bhs-logo-link img { width:28px; height:28px; }
+  #topbar-mid { display:none; }
+  .tb-btn { font-size:0; padding:6px 8px; min-width:0; }
+  .tb-btn::after { font-size:13px; }
+  #theme-toggle { gap:2px; }
+  .theme-opt { width:22px; height:20px; font-size:11px; }
+
+  /* Warning bar — smaller on mobile */
+  #topbar-warn { font-size:11px; padding:5px 12px; }
+  #topbar-warn span { font-size:10px; }
+
+  /* GHL connect banner — hide on mobile (accessible via left sidebar) */
+  #topbar-ghl-connect { display:none !important; }
+
+  /* Right sidebar — hide on mobile, chat bubble takes over */
+  #right-sidebar { display:none !important; }
+
+  /* Chat bubble — ensure clear of edges */
+  #chat-bubble { bottom:16px; right:16px; width:46px; height:46px; }
+  #chat-panel { right:12px; bottom:74px; width:calc(100vw - 24px); max-width:320px; }
+
+  /* Sticky strip — tighter on mobile */
+  #sticky-strip { padding:6px 0 4px; }
+  .progress-phases { flex-wrap:nowrap; overflow-x:auto; padding-bottom:4px; -webkit-overflow-scrolling:touch; }
+  .pp { white-space:nowrap; flex-shrink:0; }
+
+  /* Phase header print button — hide on mobile */
+  .ph-print-btn { display:none; }
+
+  /* Steps — tighter padding */
+  .step-main { padding:10px 12px; gap:8px; }
+  .substep-panel { padding:12px 12px 12px 32px; }
+  .substep-info { grid-template-columns:1fr; }
+
+  /* Report modal */
+  #report-panel { padding:20px 16px; }
+  .rpt-bar-wrap { width:80px; }
+
+  /* Reset modal */
+  #reset-modal > div { padding:22px 18px; }
+
+  /* Gate card */
+  .gate-card { padding:24px 18px; border-radius:16px; }
+  .gate-row { grid-template-columns:1fr; }
+}
+
+/* Topbar button icon fallbacks via title */
+.tb-btn.copy::before { content:''; }
+
+
+@media(max-width:768px){
+  .btn-label { display:none; }
+  .tb-btn::before { font-size:16px; }
+  .tb-btn.copy::before { content:'🔗'; }
+  .tb-btn[title="Report"]::before { content:'📄'; }
+  .tb-btn[title="Sign out"]::before { content:'⎋'; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ GATE ═══════════════════════════ -->
+<div id="gate">
+<div class="gate-wrap">
+<div class="gate-card">
+
+  <!-- Brand row -->
+  <div class="gate-brand-row">
+    <div class="gate-logo">
+      <div class="gate-logo-dot">◈</div>
+      GHL Setup Guide
+    </div>
+    <div class="gate-version">v3 · Community Edition</div>
+  </div>
+
+  <!-- Hero -->
+  <div class="gate-hero">
+    <div class="gate-badge">✅ Free Resource · No Credit Card</div>
+    <h1 class="gate-h1">The <em>Step-by-Step</em> Guide to<br>Getting Started in GHL</h1>
+    <p class="gate-sub">37 steps across 4 phases. Follow them in order and you'll have a fully operational GoHighLevel account — without bouncing around or missing the things that actually matter.</p>
+  </div>
+
+  <!-- HOW TO USE — prominent panel -->
+  <div class="htu-panel">
+    <div class="htu-title">How This Guide Works</div>
+    <div class="htu-grid">
+      <div class="htu-item">
+        <div class="htu-icon">🗺️</div>
+        <div class="htu-text"><strong>Follow phases in order</strong>Phase 1 first — always. Each phase builds on the last.</div>
+      </div>
+      <div class="htu-item">
+        <div class="htu-icon">✅</div>
+        <div class="htu-text"><strong>Check off as you go</strong>Click any step to mark it done. Progress saves automatically.</div>
+      </div>
+      <div class="htu-item">
+        <div class="htu-icon">▸</div>
+        <div class="htu-text"><strong>Expand for instructions</strong>Every step has a "How to do this" button with exact click paths.</div>
+      </div>
+      <div class="htu-item">
+        <div class="htu-icon">🔗</div>
+        <div class="htu-text"><strong>Direct GHL links</strong>Each step has a button to jump straight to the right page in GHL.</div>
+      </div>
+      <div class="htu-item">
+        <div class="htu-icon">💾</div>
+        <div class="htu-text"><strong>Never lose your place</strong>Bookmark this page. Progress saves in your browser — return anytime.</div>
+      </div>
+      <div class="htu-item">
+        <div class="htu-icon">🔄</div>
+        <div class="htu-text"><strong>Fresh start anytime</strong>Use the ↺ Reset button in the right sidebar.</div>
+      </div>
+      <div class="htu-item">
+        <div class="htu-icon">🔍</div>
+        <div class="htu-text"><strong>Search the guide</strong>Search bar at the top of the guide — type any keyword to jump to matching steps. Press ⌘K (or Ctrl+K) from anywhere.</div>
+      </div>
+    </div>
+    <div class="htu-warn">
+      <div class="htu-warn-icon">⚠️</div>
+      <div><strong style="color:#f59e0b">GHL updates its interface regularly.</strong> Menu names and locations in this guide are current but may shift slightly as GoHighLevel releases updates. If something looks different, search within GHL's Settings — the feature is still there.</div>
+    </div>
+    <div style="margin-top:10px;font-size:10px;color:var(--muted);background:var(--s3);border-radius:7px;padding:8px 12px;line-height:1.6">
+      💾 <strong style="color:var(--dim)">Your progress saves in this browser only.</strong> Using a new device? Your checkboxes won't carry over — that's normal. You can always use the 📄 Report button in the top menu to print a phase or progress summary.
+    </div>
+  </div>
+
+  <!-- Auth tabs -->
+  <div class="gate-divider"></div>
+  <div class="auth-tabs">
+    <button class="auth-tab active" id="tab-signup" onclick="switchTab('signup')">Create Account</button>
+    <button class="auth-tab" id="tab-signin" onclick="switchTab('signin')">Sign In</button>
+  </div>
+
+  <!-- Sign Up Form -->
+  <div id="form-signup">
+    <div class="gate-form-title">🚀 Get Free Access</div>
+    <form class="gate-form" onsubmit="handleSignUp(event)">
+      <div class="gate-row">
+        <div class="gate-field">
+          <label>First Name</label>
+          <input type="text" id="gName" placeholder="Your first name" required autocomplete="given-name">
+        </div>
+        <div class="gate-field">
+          <label>Email</label>
+          <input type="email" id="gEmail" placeholder="you@email.com" required autocomplete="email">
+        </div>
+      </div>
+      <div class="gate-field">
+        <label>Password</label>
+        <input type="password" id="gPass" placeholder="Create a password (min 8 chars)" required minlength="8" autocomplete="new-password">
+      </div>
+      <div class="gate-field">
+        <label>What type of business are you setting GHL up for?</label>
+        <select id="gBiz" required>
+          <option value="">Select your business type…</option>
+          <option value="pest">Pest Control / Exterminator</option>
+          <option value="hvac">HVAC / Plumbing / Electrical</option>
+          <option value="dental">Dental / Medical / Physical Therapy</option>
+          <option value="realestate">Real Estate</option>
+          <option value="agency">GHL Agency / Reseller</option>
+          <option value="salon">Salon / Spa / Beauty</option>
+          <option value="restaurant">Restaurant / Food Service</option>
+          <option value="coaching">Coaching / Consulting</option>
+          <option value="ecommerce">E-Commerce / Retail</option>
+          <option value="other">Other / General Business</option>
+        </select>
+      </div>
+      <div class="gate-field">
+        <label>Have a special access code? <span style="font-weight:400;color:var(--muted);text-transform:none">(members only)</span></label>
+        <div class="coupon-wrap">
+          <input type="text" id="gCoupon" placeholder="Enter your access code…" maxlength="24" autocomplete="off" oninput="validateCoupon(this.value)" style="font-family:monospace;text-transform:uppercase;letter-spacing:.05em">
+          <span class="coupon-badge" id="couponBadge" style="display:none"></span>
+        </div>
+        <div class="coupon-hint" id="couponHint">Access code from your group or community unlocks free entry. <a href="#" onclick="showLaunchList(event)" style="color:var(--ac);text-decoration:none;font-weight:700">No code? Join our launch list →</a></div>
+      </div>
+      <div class="gate-field" style="display:flex;align-items:flex-start;gap:10px;margin-top:4px">
+        <input type="checkbox" id="gOptIn" style="width:16px;height:16px;margin-top:2px;accent-color:var(--ac);flex-shrink:0" checked>
+        <label for="gOptIn" style="font-size:11px;color:var(--dim);line-height:1.6;cursor:pointer">
+          ✅ Yes, email me when this guide updates, and when new GHL guides drop. I can unsubscribe anytime.
+        </label>
+      </div>
+      <button type="submit" class="gate-submit" id="signupBtn">Create Free Account →</button>
+      <div id="signup-msg" class="auth-msg"></div>
+      <div class="gate-fine">Free access. No credit card. No spam.<br>We'll email you when new GHL guides drop.</div>
+    </form>
+  </div>
+
+  <!-- Launch List Panel -->
+  <div id="launch-list-panel" style="display:none">
+    <div style="text-align:center;padding:8px 0 20px">
+      <img src="bhs-logo.png" alt="BeehiveStack" style="width:52px;height:52px;object-fit:contain;border-radius:12px;margin-bottom:12px">
+      <div style="display:inline-block;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);color:var(--ac);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:4px 14px;border-radius:20px;margin-bottom:14px">🚀 Public Launch: March 31, 2026</div>
+      <h2 style="font-size:22px;font-weight:900;color:var(--tx);margin-bottom:10px;line-height:1.2">You're early —<br>that's a good thing.</h2>
+      <p style="font-size:13px;color:var(--dim);line-height:1.7;margin-bottom:16px">The GHL Made Simple Guide + AI chat assistant is currently in private beta for members with access codes. Public access opens <strong style="color:var(--tx)">March 31, 2026</strong>.</p>
+      <div style="background:var(--s2);border:1px solid var(--b1);border-radius:12px;padding:14px 16px;margin-bottom:20px;text-align:left">
+        <div style="font-size:10px;font-weight:800;color:var(--ac);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">✨ Early subscribers get:</div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <div style="display:flex;align-items:center;gap:9px;font-size:12px;color:var(--dim)"><span style="color:var(--gr);font-size:14px">✓</span> <strong style="color:var(--tx)">First access</strong> the moment it opens publicly</div>
+          <div style="display:flex;align-items:center;gap:9px;font-size:12px;color:var(--dim)"><span style="color:var(--gr);font-size:14px">✓</span> <strong style="color:var(--tx)">Founding member pricing</strong> — locked in before the public rate is set</div>
+          <div style="display:flex;align-items:center;gap:9px;font-size:12px;color:var(--dim)"><span style="color:var(--gr);font-size:14px">✓</span> <strong style="color:var(--tx)">Direct input on features</strong> before we launch to the public</div>
+          <div style="display:flex;align-items:center;gap:9px;font-size:12px;color:var(--dim)"><span style="color:var(--gr);font-size:14px">✓</span> <strong style="color:var(--tx)">AI chat assistant</strong> included free for 30 days at launch</div>
+        </div>
+      </div>
+    </div>
+    <form class="gate-form" onsubmit="handleLaunchList(event)">
+      <div class="gate-row">
+        <div class="gate-field">
+          <label>First Name</label>
+          <input type="text" id="llName" placeholder="Your first name" required autocomplete="given-name">
+        </div>
+        <div class="gate-field">
+          <label>Email</label>
+          <input type="email" id="llEmail" placeholder="you@email.com" required autocomplete="email">
+        </div>
+      </div>
+      <div class="gate-field">
+        <label>What type of business are you setting GHL up for?</label>
+        <select id="llBiz">
+          <option value="">Select your business type…</option>
+          <option value="pest">Pest Control / Exterminator</option>
+          <option value="hvac">HVAC / Plumbing / Electrical</option>
+          <option value="dental">Dental / Medical / Physical Therapy</option>
+          <option value="realestate">Real Estate</option>
+          <option value="agency">GHL Agency / Reseller</option>
+          <option value="salon">Salon / Spa / Beauty</option>
+          <option value="restaurant">Restaurant / Food Service</option>
+          <option value="coaching">Coaching / Consulting</option>
+          <option value="ecommerce">E-Commerce / Retail</option>
+          <option value="other">Other / General Business</option>
+        </select>
+      </div>
+      <button type="submit" class="gate-submit" id="llBtn" style="font-size:15px;padding:15px">✉️ Save My Spot &amp; Get Founding Member Pricing →</button>
+      <div id="ll-msg" class="auth-msg"></div>
+      <div class="gate-fine" style="margin-top:10px">No spam. No credit card. One email when it opens — that's it.</div>
+      <div style="text-align:center;margin-top:14px;display:flex;justify-content:center;gap:20px;font-size:11px">
+        <a href="#" onclick="showSignup(event)" style="color:var(--ac);text-decoration:none;font-weight:600">Have an access code? Sign up free →</a>
+        <a href="#" onclick="showSignIn(event)" style="color:var(--muted);text-decoration:none">Already have an account? Sign in</a>
+      </div>
+    </form>
+  </div>
+
+  <!-- Sign In Form -->
+  <div id="form-signin" style="display:none">
+    <div class="gate-form-title">👋 Welcome Back</div>
+    <form class="gate-form" onsubmit="handleSignIn(event)">
+      <div class="gate-field">
+        <label>Email</label>
+        <input type="email" id="siEmail" placeholder="you@email.com" required autocomplete="email">
+      </div>
+      <div class="gate-field">
+        <label>Password</label>
+        <input type="password" id="siPass" placeholder="Your password" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="gate-submit" id="signinBtn">Sign In →</button>
+      <div id="signin-msg" class="auth-msg"></div>
+      <div style="text-align:center;margin-top:10px">
+        <a href="#" onclick="handleForgotPassword()" class="auth-link">Forgot password?</a>
+      </div>
+    </form>
+  </div>
+
+</div>
+</div>
+</div>
+<!-- ═══════════════════════════ / GATE ═══════════════════════════ -->
+
+<!-- TOPBAR -->
+<div id="topbar">
+  <div id="topbar-main">
+    <div style="width:244px;flex-shrink:0;display:flex;align-items:center;">
+      <a href="https://beehivestack.net" target="_blank" class="bhs-logo-link"><img src="bhs-logo.png" alt="BHS">BeehiveStack</a>
+    </div>
+    <div id="topbar-mid">
+      <div id="topUserName">GHL Setup Guide</div>
+      <div id="topUserSub">37 steps · progress saves automatically</div>
+    </div>
+    <div class="tb-row">
+      <div id="theme-toggle" title="Switch theme"><span class="theme-opt" data-t="light" onclick="setTheme('light')">☀️</span><span class="theme-opt active" data-t="system" onclick="setTheme('system')">💻</span><span class="theme-opt" data-t="dark" onclick="setTheme('dark')">🌙</span></div>
+      <button class="tb-btn copy" onclick="copyLink()" title="Share"><span class="btn-label">🔗 Share</span></button>
+      <button class="tb-btn" onclick="showProgressReport()" title="Report"><span class="btn-label">📄 Report</span></button>
+      <button class="tb-btn" onclick="handleSignOut()" title="Sign out"><span class="btn-label">⎋ Sign Out</span></button>
+    </div>
+  </div>
+
+  <div id="topbar-warn">
+    ⚠️ <strong>GoHighLevel updates regularly.</strong> <span>Menu paths are current but GHL occasionally moves features — search within GHL Settings if something looks different. We update this guide as GHL evolves.</span>
+  </div>
+</div>
+
+<div class="guide-layout">
+
+  <div class="left-sidebar">
+    <div class="lsb-card">
+      <div class="lsb-title">💡 How to Use</div>
+      <div class="lsb-item"><div class="lsb-icon">🗺️</div><div class="lsb-text"><strong>Follow phases in order</strong>Phase 1 first — always.</div></div>
+      <div class="lsb-item"><div class="lsb-icon">✅</div><div class="lsb-text"><strong>Click to mark done</strong>Progress saves automatically.</div></div>
+      <div class="lsb-item"><div class="lsb-icon">▸</div><div class="lsb-text"><strong>Expand for instructions</strong>Every step has exact click paths.</div></div>
+      <div class="lsb-item"><div class="lsb-icon">🔗</div><div class="lsb-text"><strong>Direct GHL links</strong>Jump to the right page in GHL.</div></div>
+      <div class="lsb-item"><div class="lsb-icon">💾</div><div class="lsb-text"><strong>Progress auto-saves</strong>Bookmark and return anytime.</div></div>
+      <div class="lsb-item"><div class="lsb-icon">🔍</div><div class="lsb-text"><strong>Search or press ⌘K</strong>Find any step instantly.</div></div>
+      <div class="lsb-item"><div class="lsb-icon">↺</div><div class="lsb-text"><strong>Reset</strong>↺ button in the right sidebar.</div></div>
+    </div>
+    <div class="lsb-card">
+      <div class="lsb-title">🏷️ Legend</div>
+      <div class="lsb-legend-item"><span class="legend-badge" style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.18);color:#ef4444">🔴 Do First</span>Critical — don't skip</div>
+      <div class="lsb-legend-item"><span class="legend-badge" style="background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.18);color:#22c55e">⭐ High Impact</span>Best ROI steps</div>
+      <div class="lsb-legend-item"><span class="legend-badge" style="background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);color:#6366f1">▸ How To</span>Expand instructions</div>
+      <div class="lsb-legend-item"><span class="legend-badge" style="background:rgba(6,182,212,.07);border:1px solid rgba(6,182,212,.18);color:#06b6d4">🔗 GHL Link</span>Jump to GHL page</div>
+      <div class="lsb-legend-item"><span style="font-size:10px;color:#8890b0">⏱</span> Estimated time per step</div>
+    </div>
+  <div id="topbar-ghl-connect" class="lsb-card" style="display:none;border-color:rgba(6,182,212,.25);background:rgba(6,182,212,.04)">
+    <div class="lsb-title" style="color:var(--cy)">🔗 Connect GHL</div>
+    <div style="font-size:10px;color:var(--dim);line-height:1.5;margin-bottom:8px">Paste your Location ID to make all "Open in GHL" buttons jump directly to your account.</div>
+    <div style="font-size:9px;color:var(--muted);margin-bottom:8px">📍 GHL URL → <code style="color:var(--cy);font-size:9px">location/<strong>THIS_PART</strong>/dashboard</code></div>
+    <input type="text" id="ghlLocationId" placeholder="Paste Location ID…" title="Find it: app.gohighlevel.com/v2/location/THIS_PART/dashboard" style="width:100%;background:var(--s2);border:1px solid var(--b2);border-radius:7px;padding:6px 8px;color:var(--tx);font-size:11px;outline:none;font-family:monospace;box-sizing:border-box;margin-bottom:6px" oninput="saveLocationId(this.value)">
+    <button onclick="saveLocationId(document.getElementById('ghlLocationId').value)" style="width:100%;background:linear-gradient(135deg,var(--ac),var(--ac2));border:none;border-radius:7px;padding:7px;color:#fff;font-size:11px;font-weight:700;cursor:pointer;box-sizing:border-box">Save ✓</button>
+    <div id="loc-status" style="font-size:10px;margin-top:5px;color:var(--muted);text-align:center"></div>
+  </div>
+  </div>
+
+  <div class="guide-main">
+
+  <!-- Evolving disclaimer -->
+
+
+  <!-- GHL LOCATION ID SETUP -->
+  
+  <!-- SEARCH -->
+  <div id="sticky-strip">
+  <div class="search-wrap">
+    <div class="search-icon">🔍</div>
+    <input class="search-input" id="searchInput" type="text" placeholder='Search steps… try "Mailgun", "missed call", "calendar", "Stripe"' autocomplete="off" spellcheck="false">
+    <span class="search-count" id="searchCount">37 steps</span>
+    <button class="search-clear" id="searchClear" onclick="clearSearch()">✕ Clear</button>
+  </div>
+  <div class="search-no-match-banner" id="noMatchBanner">
+    😕 No steps match "<span id="noMatchTerm"></span>" — try a different keyword
+  </div>
+  <!-- PROGRESS -->
+  <div class="progress-wrap">
+    <div class="progress-header">
+      <div class="progress-label">Your Progress</div>
+      <div class="progress-pct" id="pctLabel">0 of 37 complete</div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-phases">
+      <span class="pp pp-idle" id="pp1" onclick="scrollToPhase('phase1')">⚡ Phase 1 — Foundation</span>
+      <span class="pp pp-idle" id="pp2" onclick="scrollToPhase('phase2')">🏗️ Phase 2 — Core System</span>
+      <span class="pp pp-idle" id="pp3" onclick="scrollToPhase('phase3')">⚙️ Phase 3 — Automation</span>
+      <span class="pp pp-idle" id="pp4" onclick="scrollToPhase('phase4')">📈 Phase 4 — Scale</span>
+    </div>
+    <div class="next-wrap">
+      <button class="jump-btn" onclick="jumpToNext()">▶ Jump to next step</button>
+      <div class="time-left">⏱ <span id="timeLeft">~9 hrs 43 min</span> remaining</div>
+    </div>
+  </div>
+</div><!-- /sticky-strip -->
+
+  <!-- COMPLETE BANNER -->
+  <div class="complete-banner" id="completeBanner">
+    <div class="cb-emoji">🎉</div>
+    <div class="cb-title">All 37 Steps Complete!</div>
+    <div class="cb-sub">Your GHL account is fully set up and operational.<br>Share this guide with someone who needs it — they'll thank you.</div>
+  </div>
+
+  <!-- PHASES -->
+  <div id="phasesContainer"></div>
+
+  <!-- FOOTER -->
+  <div class="guide-footer">
+    GHL New User Setup Guide · Community Edition · Updated March 2026<br>
+    Built by <a href="#" style="color:var(--ac)">BeehiveStack</a> · Free to use and share
+  </div>
+
+  </div><!-- /guide-main -->
+
+</div><!-- /guide-layout -->
+
+<!-- RIGHT SIDEBAR -->
+<div id="right-sidebar">
+  <a href="https://beehivestack.net" target="_blank" title="BeehiveStack.net">
+    <img src="bhs-logo.png" class="rsb-logo" alt="BeehiveStack">
+  </a>
+  <div class="rsb-divider"></div>
+  <a href="/cdn-cgi/l/email-protection#5d3f352e703b3838393f3c3e361d3c3a383329303c3431732932622e283f37383e29601a15117d1a283439387d1b3838393f3c3e36" class="rsb-btn"><span class="rsb-icon">🗣️</span>Feedback</a>
+  <a href="/cdn-cgi/l/email-protection#b7d5dfc49ad1d2d2d3d5d6d4dcf7d6d0d2d9c3dad6dedb99c3d888c4c2d5ddd2d4c38af0fffb97f0c2ded3d297f1d2d6c3c2c5d297e5d2c6c2d2c4c3" class="rsb-btn"><span class="rsb-icon">💡</span>Feature<br>Requests</a>
+  <a href="/cdn-cgi/l/email-protection#0b69637826787e7b7b64797f4b6a6c6e657f666a6267257f6434787e69616e687f364c43472b4c7e626f6e2b587e7b7b64797f" class="rsb-btn"><span class="rsb-icon">🛟</span>Support</a>
+  <div class="rsb-divider"></div>
+  <button class="rsb-btn rsb-reset" onclick="confirmReset()" title="Reset all progress"><span class="rsb-icon">↺</span>Reset</button>
+</div>
+
+<!-- CHAT WIDGET -->
+<div id="chat-widget" style="display:none">
+  <div id="chat-bubble" onclick="toggleChat()" title="Questions? Chat with us">
+    <span style="font-size:22px">💬</span>
+  </div>
+  <div id="chat-panel">
+    <div id="chat-panel-header">
+      <div style="display:flex;align-items:center;gap:10px">
+        <img src="bhs-logo.png" alt="BeehiveStack" style="width:28px;height:28px;object-fit:contain;border-radius:6px;flex-shrink:0">
+        <div>
+          <div style="font-size:13px;font-weight:800;line-height:1.2">GHL Made Simple AI</div>
+          <div style="font-size:10px;font-weight:500;opacity:.75;margin-top:1px">Powered by BeehiveStack</div>
+        </div>
+      </div>
+      <button onclick="toggleChat()" style="background:none;border:none;color:#fff;cursor:pointer;font-size:16px;padding:0;line-height:1">✕</button>
+    </div>
+    <div id="chat-panel-body">
+      <div style="text-align:center;padding:8px 0 12px">
+        <div style="font-size:28px;margin-bottom:8px">🚀</div>
+        <div style="font-size:14px;font-weight:800;color:var(--tx);margin-bottom:6px">Coming Soon</div>
+        <div style="font-size:11px;color:var(--dim);line-height:1.7;margin-bottom:16px">Ask any GHL question and get instant answers from our always-updated knowledge base — trained on real GHL workflows, not generic docs.</div>
+        <div style="font-size:10px;font-weight:700;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Join the Waitlist — Get Early Access</div>
+        <div style="display:flex;gap:6px;margin-bottom:6px">
+          <input type="email" id="chat-waitlist-email" placeholder="your@email.com" style="flex:1;background:var(--s2);border:1px solid var(--b2);border-radius:8px;padding:8px 10px;color:var(--tx);font-size:12px;outline:none;min-width:0">
+          <button onclick="submitChatWaitlist()" style="background:linear-gradient(135deg,var(--ac),var(--ac2));border:none;border-radius:8px;padding:8px 12px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">Notify Me</button>
+        </div>
+        <div id="chat-waitlist-status" style="font-size:10px;color:var(--muted);min-height:16px"></div>
+      </div>
+      <div style="border-top:1px solid var(--b1);padding-top:12px;margin-top:4px">
+        <div style="font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Need help now?</div>
+        <a href="/cdn-cgi/l/email-protection#d4b6bca7f9a7a1a4a4bba6a094b5b3b1baa0b9b5bdb8faa0bbeba7a1b6beb1b7a0e9939c98f493a1bdb0b1f485a1b1a7a0bdbbba" class="chat-action-btn" style="font-size:12px">✉️ Email Support</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ═══════════════════════════════════════════
+   GHL DEEP LINKS (opens in new tab when logged into GHL)
+   ═══════════════════════════════════════════ */
+const GHL_BASE = 'https://app.gohighlevel.com';
+const GHL_LINKS = {
+  1:`${GHL_BASE}/settings/company`,
+  2:`${GHL_BASE}/settings/domains`,
+  3:`${GHL_BASE}/settings/email-services`,
+  4:`${GHL_BASE}/settings/phone-numbers`,
+  5:`${GHL_BASE}/calendars`,
+  6:`${GHL_BASE}/settings/payments`,
+  7:`${GHL_BASE}/settings/team`,
+  8:`${GHL_BASE}/settings/company`,
+  9:`${GHL_BASE}/contacts`,
+  10:`${GHL_BASE}/opportunities`,
+  11:`${GHL_BASE}/funnels/`,
+  12:`${GHL_BASE}/settings/integrations`,
+  13:`${GHL_BASE}/calendars`,
+  14:`${GHL_BASE}/sites/`,
+  15:`${GHL_BASE}/settings/integrations`,
+  16:`${GHL_BASE}/settings/integrations`,
+  17:`${GHL_BASE}/marketing/`,
+  18:`${GHL_BASE}/marketing/`,
+  19:`${GHL_BASE}/reputation/`,
+  20:`${GHL_BASE}/automation/`,
+  21:`${GHL_BASE}/automation/`,
+  22:`${GHL_BASE}/automation/`,
+  23:`${GHL_BASE}/automation/`,
+  24:`${GHL_BASE}/automation/`,
+  25:`${GHL_BASE}/automation/`,
+  26:`${GHL_BASE}/automation/`,
+  27:`${GHL_BASE}/automation/`,
+  28:`${GHL_BASE}/marketing/`,
+  29:`${GHL_BASE}/automation/`,
+  30:`${GHL_BASE}/sites/`,
+  31:`${GHL_BASE}/marketing/`,
+  32:`${GHL_BASE}/reporting/`,
+  33:`${GHL_BASE}/payments/`,
+  34:`${GHL_BASE}/contacts`,
+  35:`${GHL_BASE}/memberships/`,
+  36:`${GHL_BASE}/affiliate/`,
+  37:`${GHL_BASE}/settings/company`
+};
+
+/* ═══════════════════════════════════════════
+   GHL LOCATION ID
+   ═══════════════════════════════════════════ */
+let ghlLocationId = localStorage.getItem('bhs_ghl_loc_id') || '';
+
+function getGhlLink(num) {
+  // Correct GHL v2 location-scoped paths (verified slugs)
+  const paths = {
+    1:'settings/company',
+    2:'settings/domains',
+    3:null,
+    4:'settings/phone-number',
+    5:'calendars/view',
+    6:'payments/overview',
+    7:'settings/team-management',
+    8:'settings/company',
+    9:'contacts/list',
+    10:'opportunities/list',
+    11:null,
+    12:'settings/integrations',
+    13:'calendars/view',
+    14:null,
+    15:'settings/integrations',
+    16:'settings/integrations',
+    17:'marketing/emails/list',
+    18:'marketing/social-planner',
+    19:'reputation/overview',
+    20:'automation/list',
+    21:'automation/list',
+    22:'automation/list',
+    23:'automation/list',
+    24:'automation/list',
+    25:'automation/list',
+    26:'automation/list',
+    27:'automation/list',
+    28:'marketing/emails/list',
+    29:'automation/list',
+    30:null,
+    31:'marketing/social-planner',
+    32:'reporting/overview',
+    33:'payments/invoices',
+    34:'contacts/list',
+    35:null,
+    36:null,
+    37:'settings/company'
+  };
+  const path = paths[num];
+  if (!path) return null;
+  // Only return link if location ID is saved — without it the URL is invalid
+  if (!ghlLocationId) return null;
+  return `https://app.gohighlevel.com/v2/location/${ghlLocationId}/${path}`;
+}
+
+function saveLocationId(val) {
+  val = (val||'').trim();
+  if (!val) return;
+  ghlLocationId = val;
+  localStorage.setItem('bhs_ghl_loc_id', val);
+  document.querySelectorAll('.ghl-link[data-step]').forEach(a => {
+    const num = parseInt(a.dataset.step);
+    const url = getGhlLink(num);
+    if (url) a.href = url;
+  });
+  const st = document.getElementById('loc-status');
+  if (st) st.innerHTML = '✅ <span style="color:var(--gr)">GHL links updated — all buttons now point to your account.</span>';
+}
+
+/* ═══════════════════════════════════════════
+   STEP DATA
+   ═══════════════════════════════════════════ */
+window.PHASES = [
+  {
+    id:'phase1', icon:'⚡', name:'Phase 1 — Foundation',
+    tagline:'Get your account ready to receive leads. Do this first — everything depends on it.',
+    time:'~45 min · Day 1', timeClass:'pt-rd',
+    callout:'🏁 Start here, no exceptions. These 9 steps are the foundation. Skip them and you\'ll run into broken automations and missed leads later.',
+    calloutClass:'pc-or',
+    steps:[
+      {num:1,title:'Fill out your business profile',desc:'Business name, logo, address, website, timezone — foundational data that populates everywhere.',tags:['crit'],time:'5 min',path:'Settings → Company Info',
+        instructions:['Click the ⚙️ Settings icon in the left sidebar','Select Company Info','Fill in: Business Name, Phone Number, Email, Website URL, Physical Address','Upload your logo — click the logo placeholder (300×300px PNG recommended)','Set your Timezone — this is critical for all workflow timing','Click Save Changes'],
+        done:'Your business name appears in the GHL top navigation bar',mistake:'Skipping timezone — every scheduled workflow will fire at the wrong time'},
+      {num:2,title:'Set up your custom domain',desc:'Connect your domain so funnels, booking pages, and websites live on your brand.',tags:['crit'],time:'15 min',path:'Settings → Domains',
+        instructions:['Go to Settings → Domains → Add New Domain','Enter your domain (e.g. www.yourbusiness.com)','GHL shows you a CNAME record to add to your DNS provider','Log into your DNS provider (Cloudflare, GoDaddy, Namecheap, etc.)','Add the CNAME record exactly as shown','Return to GHL and click Verify — allow 10–30 min for DNS to propagate'],
+        done:'Green checkmark ✓ appears next to your domain',mistake:'Using your root domain — GHL works best with "www" or a subdomain like "go.yourdomain.com"',note:'Cloudflare offers free DNS with fast propagation — recommended.'},
+      {num:3,title:'Configure email sending (Mailgun)',desc:'Without this, your GHL emails land in spam or fail to send entirely.',tags:['crit'],time:'15 min',path:'Settings → Email Services',
+        instructions:['Go to mailgun.com → create a free account (5,000 emails/mo free)','In Mailgun: Add Sending Domain → enter mail.yourdomain.com','Copy the 3 DNS records Mailgun provides — add them to your DNS','Wait for Mailgun to show green verification checkmarks (can take 30 min)','In Mailgun: Settings → API Keys → copy your Private API Key','In GHL: Settings → Email Services → Add Integration → Mailgun → paste your key'],
+        done:'Send a GHL test email — it arrives in your inbox, not spam',mistake:'Skipping the Mailgun DNS verification — emails will fail silently'},
+      {num:4,title:'Enable SMS / Get a phone number',desc:'Required for 2-way texting, missed-call follow-up, and appointment reminders.',tags:['crit','pop'],time:'10 min',path:'Settings → Phone Numbers',
+        instructions:['Go to Settings → Phone Numbers → Add New Number','LC-Phone (easiest): select your area code → search → purchase ($1.15/mo)','Twilio (advanced): Settings → Integrations → Twilio → enter Account SID + Auth Token','Complete A2P 10DLC registration — GHL walks you through this (required for US texting)','Send yourself a test text to confirm delivery'],
+        done:'You can send and receive texts in GHL Conversations',mistake:'Skipping A2P registration — mobile carriers will block your texts within days',note:'A2P registration takes 1–3 business days to approve. Start early.'},
+      {num:5,title:'Connect your calendar',desc:'Your public booking page — clients schedule here, it syncs with your real calendar.',tags:['crit','pop'],time:'10 min',path:'Calendars → Settings',
+        instructions:['Go to Calendars → Add Calendar → Personal or Round Robin','Click Connect → authorize your Google Calendar (or Outlook)','Set available days and hours','Add 15-minute buffer time between appointments (prevents back-to-back)','Booking form — minimum fields: First Name, Last Name, Phone, Email','Copy your booking link — share it anywhere'],
+        done:'Book a test appointment via the link — it appears in both GHL and Google Calendar',mistake:'No buffer time — leads to back-to-back appointments with no breaks'},
+      {num:6,title:'Connect Stripe for payments',desc:'Wire up payments now so invoices and checkout pages work when you need them.',tags:[],time:'5 min',path:'Settings → Payments → Integrations',
+        instructions:['Go to Settings → Payments → Integrations','Click Connect next to Stripe','Log into Stripe (or create a free account at stripe.com)','Authorize GHL access','Green "Connected" status confirms success'],
+        done:'"Connected" status shows next to Stripe',mistake:'Connecting a personal Stripe account — use a business account for proper tax reporting'},
+      {num:7,title:'Add team members',desc:'Each person gets their own login, calendar availability, and notification settings.',tags:[],time:'5 min',path:'Settings → Team Management',
+        instructions:['Go to Settings → Team Management → Add Employee','Enter name + email → assign role: Admin (full access) or User (limited)','Team member gets an email invite to set their password','Optional: configure their calendar availability if they take bookings'],
+        done:'Team member can log in and appears in the team list',mistake:'Giving everyone Admin — use User role for field staff, Admin for managers only'},
+      {num:8,title:'Set your business hours',desc:'Controls when AI responds, what your booking page shows, and when workflows fire.',tags:[],time:'3 min',path:'Settings → Business Info',
+        instructions:['Go to Settings → Business Info','Scroll to Business Hours','Toggle each day On or Off','Set opening and closing times per day','Verify timezone matches Step 1','Save Changes'],
+        done:'Preview shows your correct hours',mistake:'Leaving this blank — AI chatbot may tell customers you\'re open 24/7'},
+      {num:9,title:'Import your contacts',desc:'Bring in your existing list — you need contacts to test workflows before going live.',tags:['pop'],time:'10 min',path:'Contacts → Import',
+        instructions:['Go to Contacts → Import → Download Template','Fill in contacts: First Name, Last Name, Phone and/or Email (minimum)','Add a Source column — note where these came from','Upload CSV → map columns to GHL fields','Add a tag to all imported contacts: "import-[month]-[year]"'],
+        done:'Contacts appear in your list with names and phone numbers',mistake:'Importing without tags — you\'ll lose track of where these leads came from'}
+    ]
+  },
+  {
+    id:'phase2', icon:'🏗️', name:'Phase 2 — Core System',
+    tagline:'Build your pipeline and connect lead sources so GHL starts working for you.',
+    time:'~2 hrs · Days 2–3', timeClass:'pt-or',
+    callout:'🎯 After Phase 2, every lead has a home, a stage, and a clear next action. No more leads slipping through the cracks.',
+    calloutClass:'pc-bl',
+    steps:[
+      {num:10,title:'Build your first pipeline',desc:'Your sales command center — every lead lives in a stage here.',tags:['crit','pop'],time:'10 min',path:'Opportunities → Pipelines',
+        instructions:['Go to Opportunities → Pipelines → Add Pipeline','Name it (e.g. "Main Sales Pipeline")','Add 5–7 stages: New Lead → Contacted → Appt Set → Showed → Won → Lost','Optional: add a dollar value to Won stage for revenue tracking','Save'],
+        done:'You can drag a test card between pipeline stages',mistake:'Too many stages (10+) — 5 to 7 is ideal, more creates confusion and unused stages'},
+      {num:11,title:'Create a lead capture form or funnel',desc:'The page your ads, QR codes, and social bio links should point to.',tags:['crit'],time:'20 min',path:'Funnels & Websites → Funnels',
+        instructions:['Go to Funnels & Websites → Funnels → Add New Funnel','Choose a template or start blank','Add a Form element to the page','Minimum form fields: First Name, Last Name, Phone, Email','Click the form → Settings → On Submit Action','Set: Add to Pipeline → New Lead stage','Publish and copy the funnel URL'],
+        done:'Submit the form yourself — you appear as a new contact in your pipeline',mistake:'No On Submit action — contacts get created but your pipeline never updates'},
+      {num:12,title:'Connect your lead sources',desc:'Connect every source so leads flow in automatically — no manual entry.',tags:['pop'],time:'15 min',path:'Settings → Integrations',
+        instructions:['Settings → Integrations → Facebook → connect Business Manager → map lead ad fields','For Google Ads: connect via Integrations → Google → enable lead form extensions','For other sources: use Zapier (Settings → Integrations → Zapier)','Test every integration: submit a test lead, confirm it appears in GHL within 60 sec'],
+        done:'A test lead from each source appears as a new GHL contact automatically',mistake:'Not testing before going live — a broken integration loses real leads silently'},
+      {num:13,title:'Set up and share your booking page',desc:'Your 24/7 scheduler — share this everywhere you want people to book.',tags:['pop'],time:'5 min',path:'Calendars',
+        instructions:['Go to Calendars → click your calendar → Share or Copy Link','This link is your public booking page — no GHL login required to book','Customize the confirmation message (Calendars → Settings → Confirmation)','Add to: website, email signature, social bio, text replies'],
+        done:'Anyone can book via the link from any browser and it appears on your GHL calendar',mistake:'Sharing your GHL admin URL — that requires login and won\'t work for clients'},
+      {num:14,title:'Install the website chat widget',desc:'Turns website visitors into GHL contacts — they text you directly from your site.',tags:[],time:'10 min',path:'Sites → Chat Widget',
+        instructions:['Go to Sites → Chat Widget','Set greeting message, brand color, and position (bottom right recommended)','Click Get Code — copy the JavaScript snippet','On your website: paste before the closing </body> tag','WordPress: use a plugin like Insert Headers and Footers','Test: visit your site and send a chat — confirm it appears in GHL Conversations'],
+        done:'Chat bubble appears on site, messages show in GHL Conversations inbox',mistake:'Installing on HTTP (non-SSL) sites — the widget won\'t load for security reasons'},
+      {num:15,title:'Connect Facebook & Instagram',desc:'All your social DMs in one inbox — no more switching between apps.',tags:[],time:'10 min',path:'Settings → Integrations',
+        instructions:['Settings → Integrations → Facebook → Connect','Log in with the account managing your Facebook Business Page','Select your Business Page','Enable: Facebook Messenger ✓ Instagram DMs ✓','Test: send a Facebook Message to yourself — confirm it appears in GHL'],
+        done:'Facebook and Instagram messages appear in GHL Conversations',mistake:'Connecting a personal FB profile instead of your Business Page'},
+      {num:16,title:'Connect Google Business Profile',desc:'Manage Google reviews and messages without leaving GHL.',tags:[],time:'10 min',path:'Settings → Integrations',
+        instructions:['Settings → Integrations → Google My Business','Sign in with the Google account that manages your GBP','Select your business location','Authorize review management and message access','Existing reviews sync within a few minutes'],
+        done:'Your Google reviews appear in the GHL Reputation tab',mistake:'Using the wrong Google account — must be the account that owns/manages the GBP listing'},
+      {num:17,title:'Create your first email template',desc:'A branded baseline you\'ll reuse in every workflow.',tags:[],time:'15 min',path:'Marketing → Emails',
+        instructions:['Marketing → Emails → New → Template','Choose a simple 1-column layout','Add your logo at the top, set brand colors','Write a simple "Thank you for reaching out" message','Add an unsubscribe footer — use GHL\'s {{unsubscribe}} variable (legally required)','Save as "Base Template"'],
+        done:'Send a test to yourself — arrives branded, not as plain text',mistake:'Forgetting the unsubscribe footer — legally required by CAN-SPAM, GHL may block sends without it'},
+      {num:18,title:'Create your core SMS templates',desc:'Three templates you\'ll plug into almost every workflow.',tags:[],time:'10 min',path:'Marketing → SMS',
+        instructions:['Marketing → SMS → New Template','Template 1 — New Lead: "Hi {{contact.first_name}}! Got your message. We\'ll call within 2 hours. Reply STOP to opt out."','Template 2 — Reminder: "Reminder: Your appt is tomorrow at {{appointment.start_time}}. Reply C to confirm."','Template 3 — Follow-up: "We missed you today! Reschedule here: {{calendar.booking_link}}"','Keep each under 160 characters — longer splits into 2 messages','Save with clear names'],
+        done:'All 3 templates are available when selecting a message action in Workflows',mistake:'Forgetting STOP opt-out language — required by TCPA, carriers can block your number'},
+      {num:19,title:'Set up Reputation Management',desc:'Connect your review links — you\'ll need these for your review workflow in Phase 3.',tags:['pop'],time:'10 min',path:'Reputation',
+        instructions:['Go to Reputation → Settings','Add your Google review link (from Google Maps → Share → Copy Link)','Add your Facebook review page link (your FB Page URL + /reviews)','Set minimum threshold for automatic review requests (4+ stars recommended)','Test by manually sending a review request to yourself'],
+        done:'You receive a test review request with working links to Google and Facebook',mistake:'Sending to every customer — only request reviews from customers you\'re confident had a good experience'}
+    ]
+  },
+  {
+    id:'phase3', icon:'⚙️', name:'Phase 3 — Automation',
+    tagline:'Build the 6 workflows that make GHL work for you around the clock.',
+    time:'~3 hrs · Week 1–2', timeClass:'pt-bl',
+    callout:'🤖 Each workflow below runs automatically, forever. A one-time 15–25 min build that saves you hours every week.',
+    calloutClass:'pc-gr',
+    steps:[
+      {num:20,title:'Workflow #1 — Missed Call Text Back',desc:'The highest-ROI workflow in GHL. Recover 20–30% of missed calls automatically.',tags:['crit','pop'],time:'15 min',path:'Automation → Workflows',
+        instructions:['Automation → Workflows → New Workflow → Start from Scratch','Trigger: Customer Called → filter: Call Status = Missed','Action 1: Wait → 2 minutes','Action 2: Send SMS → "Hey {{contact.first_name}}, sorry I missed your call! Text me here or book a time: [your booking link]"','Add If/Else: Only fire during business hours (avoids 3am texts)','Publish → toggle Active'],
+        done:'Call your GHL number from another phone, don\'t answer — receive a text back within 2 minutes',mistake:'Not limiting to business hours — customers receive texts at 3am'},
+      {num:21,title:'Workflow #2 — New Lead Welcome Sequence',desc:'Every new lead gets immediate contact + 3-part follow-up if no response.',tags:['crit'],time:'20 min',path:'Automation → Workflows',
+        instructions:['Trigger: Contact Created (any source)','Action 1 (immediate): Send SMS — "Thanks {{contact.first_name}}! Got your info. We\'ll call within 2 hours."','Action 2 (immediate): Send Email — your base template','Action 3: Add to Pipeline → New Lead stage','Action 4: Wait 1 day → If/Else: Has contact replied? Yes → End. No → continue','Action 5: Follow-up SMS #1','Action 6: Wait 3 days → check again','Action 7: Final follow-up SMS','Publish'],
+        done:'Submit your own form — receive SMS within 30 seconds, email within 1 minute',mistake:'No "If replied → Exit" condition — follow-ups fire even after you\'ve already spoken to the lead'},
+      {num:22,title:'Workflow #3 — Appointment Confirmation & Reminders',desc:'Automated confirmations and reminders cut no-shows by 20–30%.',tags:['pop'],time:'20 min',path:'Automation → Workflows',
+        instructions:['Trigger: Appointment Booked','Action 1 (immediate): Send confirmation SMS with date/time and calendar link','Action 2 (immediate): Send confirmation Email','Action 3: Wait Until → 24 hours BEFORE appointment time (not "wait 24 hours")','Action 4: Send reminder SMS — "Your appointment is tomorrow at {{appointment.start_time}}. Reply C to confirm."','Action 5: Wait Until → 2 hours before','Action 6: Final reminder SMS','Publish'],
+        done:'Book a test appointment — confirmation arrives immediately, reminders fire at correct times',mistake:'Using "Wait 24 hours" instead of "Wait Until 24 hours before" — timing breaks for far-future bookings'},
+      {num:23,title:'Workflow #4 — No-Show Recovery',desc:'Recover no-show appointments before the lead goes cold.',tags:['pop'],time:'15 min',path:'Automation → Workflows',
+        instructions:['Trigger: Appointment Status Changed → No Show','Action 1: Wait 30 minutes','Action 2: Send SMS — "We missed you today! Here\'s a link to reschedule: [booking link]"','Action 3: Wait 2 days','Action 4: If/Else: did they rebook? Yes → End. No → send final SMS','Publish'],
+        done:'Mark a test appointment No Show — recovery SMS arrives within 30 minutes',mistake:'More than 2 follow-up messages — if they haven\'t responded after 2, let them go'},
+      {num:24,title:'Workflow #5 — Review Request',desc:'Automate your reputation building — every happy client gets asked for a review.',tags:['pop'],time:'15 min',path:'Automation → Workflows',
+        instructions:['Trigger: Pipeline Stage Changed → Won (or Completed)','Action 1: Wait 2 hours','Action 2: Send SMS — "Thanks for choosing us! Mind leaving a quick Google review? [link] — takes 30 seconds 🙏"','Action 3: Wait 2 days','Action 4: If no review → one follow-up (optional)','Publish'],
+        done:'Move a test contact to Won stage — review request SMS arrives within 2 hours',mistake:'Triggering on all contacts — only request reviews from customers you\'re confident had a positive experience'},
+      {num:25,title:'Workflow #6 — Lead Nurture Drip',desc:'Most sales happen after follow-up #5. Most people stop at #2. This runs forever.',tags:[],time:'25 min',path:'Automation → Workflows',
+        instructions:['Trigger: Tag Added → create tag: "nurture"','Week 1: Send useful tip relevant to your service','Week 2: Share a customer result or social proof','Week 3: Limited availability or special offer message','Week 4: Final check-in — "Still interested? Happy to answer any questions."','End: Remove "nurture" tag → End workflow','Apply tag to all unconverted leads older than 7 days'],
+        done:'Add the tag to a test contact — messages schedule at correct weekly intervals',mistake:'More than 1 message per week — nurture requires patience, not pressure'},
+      {num:26,title:'Set up the AI Chatbot',desc:'Answers questions and books appointments 24/7 via SMS and web chat.',tags:['pop'],time:'20 min',path:'Automation → Conversation AI',
+        instructions:['Automation → Conversation AI → Configure','Set personality: Friendly and Professional','Add your business info: Name, Services offered, Hours, Booking link','Add FAQ pairs: "What are your hours?" → your answer. "How much does X cost?" → your answer.','Set handoff keywords: "speak to someone", "human", "agent" → routes to your team','Assign to: SMS, webchat, or both','Test: text your GHL number "What are your hours?"'],
+        done:'Text your GHL number a question — AI responds within 30 seconds with your actual info',mistake:'Skipping the FAQ setup — AI gives generic non-specific responses without your data'},
+      {num:27,title:'Set up internal team notifications',desc:'Your team knows the moment a new lead comes in — not 4 hours later.',tags:[],time:'10 min',path:'Automation → Workflows',
+        instructions:['In your New Lead workflow (Step 21), add a step after "Add to Pipeline"','Action: Internal Notification → choose email or Slack','Message: "🔥 New Lead: {{contact.first_name}} {{contact.last_name}} | {{contact.phone}} | Source: {{contact.source}}"','Assign to a specific team member or round-robin','Save'],
+        done:'Submit a test lead — notification arrives within 60 seconds',mistake:'Notifying on every single event — alert fatigue makes teams stop paying attention'},
+      {num:28,title:'Send your first email broadcast',desc:'Reach your existing list with news, an offer, or a check-in.',tags:[],time:'20 min',path:'Marketing → Campaigns',
+        instructions:['Marketing → Campaigns → New Campaign → Email','Choose recipients (start with your full contact list)','Write subject line under 50 characters — personalize with {{contact.first_name}}','Use your base template from Step 17','Add a clear CTA button: "Book a Call", "Get a Quote"','Send a test to yourself first — check on mobile too','Schedule for weekday 10am–2pm (best open rate window)'],
+        done:'Test email arrives correctly. Campaign appears scheduled in your dashboard.',mistake:'Sending without testing first — formatting issues look unprofessional'},
+      {num:29,title:'Test every workflow end-to-end',desc:'One broken workflow can cost you dozens of real leads. Catch it now.',tags:['crit'],time:'30 min',path:'Real devices + test contacts',
+        instructions:['Missed Call: call your GHL number, don\'t answer → confirm text arrives within 2 min','New Lead: submit your form in incognito browser → confirm SMS + email + pipeline update','Appointment: book via your booking link → confirm confirmation text + calendar event created','No-Show: mark a test appointment as No Show → confirm recovery text in 30 min','Review: move test contact to Won → confirm review request in 2 hours','Check all messages for correct variable substitution — no "Hi ," blank names'],
+        done:'All 5 workflows fire with correct content on real devices',mistake:'Testing only in GHL preview — always test on real phones with real numbers'}
+    ]
+  },
+  {
+    id:'phase4', icon:'📈', name:'Phase 4 — Scale',
+    tagline:'Advanced features that turn a solid system into a full revenue operation.',
+    time:'~2 hrs · Month 1+', timeClass:'pt-gr',
+    callout:'🚀 Get Phases 1–3 solid before coming here. These are growth multipliers, not foundations.',
+    calloutClass:'pc-bl',
+    steps:[
+      {num:30,title:'Build your website or landing pages',desc:'Replace your existing site — every form feeds your CRM automatically.',tags:[],time:'60+ min',path:'Sites → Websites',
+        instructions:['Sites → Websites → New Website','Browse industry templates — choose closest to your business','Replace: logo, business name, phone, address, service descriptions','Set brand colors (click any element → Style)','Create one page per main service','Connect your domain (Step 2): Sites → Domains → Assign','Publish and test on mobile'],
+        done:'Website loads on your custom domain, form submissions create GHL contacts',mistake:'Building every page at launch — start with Home + 1 service page, add others over time'},
+      {num:31,title:'Set up Social Planner',desc:'Schedule a month of content across all platforms in one sitting.',tags:[],time:'20 min',path:'Marketing → Social Planner',
+        instructions:['Marketing → Social Planner → Connect Accounts','Connect: Facebook Page, Instagram, Google Business Profile','New Post → write content → select which platforms → schedule','Tip: write 12 posts at once (3/week) and batch-schedule them','GHL\'s AI button can suggest captions and hashtags'],
+        done:'A scheduled post publishes on all connected accounts at the set time',mistake:'Set-and-forget without checking comments — social still requires human responses to engagement'},
+      {num:32,title:'Configure your reporting dashboard',desc:'Know where every lead comes from and what converts.',tags:[],time:'15 min',path:'Reporting',
+        instructions:['Reporting → Dashboard → Customize','Add widgets: Total Leads, Lead Source Breakdown, Pipeline Value, Conversion Rate, Appointment Show Rate','Set default date range to "This Month"','Review every Monday morning'],
+        done:'You can answer "Where did my last 10 leads come from?" in under 10 seconds',mistake:'Only tracking total lead count — conversion rate and show rate are more valuable numbers'},
+      {num:33,title:'Set up invoices and payment links',desc:'Get paid faster — send invoices directly from a contact record.',tags:[],time:'15 min',path:'Payments → Invoices',
+        instructions:['Payments → Invoices → Templates → New','Build your standard service invoice with line items and pricing','Set payment terms: Due on Receipt or Net 7','Create a Payment Link: Payments → Payment Links → New Link','Test by paying yourself $1','Add payment link to SMS templates: "Reply PAY to receive your invoice"'],
+        done:'Test payment processes and appears in Stripe dashboard',mistake:'Not testing the full payment flow before sending to real clients'},
+      {num:34,title:'Run a reactivation campaign',desc:'Cold leads are free money — win-back campaigns cost almost nothing.',tags:['pop'],time:'20 min',path:'Contacts → Smart Lists',
+        instructions:['Contacts → Smart Lists → Add List','Filter: Last Activity more than 60 days ago + Status ≠ Opted Out','Tag this segment: "reactivation-[month]-[year]"','Build a workflow: Trigger = Tag Added → 3-message sequence over 2 weeks','Include a special offer, new service, or reason to reconnect','Remove tag at end of sequence'],
+        done:'Tag applied to cold segment triggers message sequence correctly',mistake:'Including opted-out contacts — always filter out unsubscribes to avoid TCPA violations'},
+      {num:35,title:'Explore Memberships & Courses',desc:'Sell training, onboarding, or digital content entirely within GHL.',tags:[],time:'45+ min',path:'Memberships',
+        instructions:['Memberships → Products → New Product','Choose: Online Course (drip content) or Community','Add sections and lessons (video, text, PDF)','Connect Stripe for paid access','Build a welcome automation: new member enrolled → email sequence'],
+        done:'A test member can enroll and access the first lesson',mistake:'Building a course before confirming demand — get 10 paying clients interested first, then build'},
+      {num:36,title:'Set up your affiliate program',desc:'Turn your best clients into a referral network with automatic tracking.',tags:[],time:'15 min',path:'Affiliate Manager',
+        instructions:['Affiliate Manager → Create Program','Set commission: 20–30% is standard for service referrals','Create affiliate links for your top 3–5 clients','Send each of them their personal link with a brief explanation'],
+        done:'Affiliate link tracks clicks and conversions in the Affiliate dashboard',mistake:'Setting commission below 15% — it won\'t motivate referrals'},
+      {num:37,title:'Deploy a GHL Snapshot',desc:'Pre-built GHL systems you can load into your account in minutes — workflows, funnels, and pipelines all pre-configured.',tags:[],time:'10–30 min',path:'Via your GHL agency partner',
+        instructions:['A snapshot is a pre-built GHL system — funnels, workflows, pipelines, templates — all ready to activate','Your GHL agency partner or reseller can load a snapshot directly into your sub-account','Snapshots are available for specific use cases: missed call follow-up, reputation management, appointment booking, and more','After loading: walk through the activation checklist (customize with your business name, phone, links)','Activate and test with a real lead before driving traffic'],
+        done:'Snapshot workflows are active and a test lead flows through the full system',mistake:'Modifying snapshot components before understanding how they work — learn the system first, then customize',note:'Ask your GHL agency partner about available snapshots — many are available free or at low cost.'}
+    ]
+  }
+];
+
+/* ═══════════════════════════════════════════
+   BUILD + STATE
+   ═══════════════════════════════════════════ */
+const TOTAL = 37;
+let state = JSON.parse(localStorage.getItem('bhs_ghl_v3') || '{}');
+
+function buildGuide() {
+  document.getElementById('phasesContainer').innerHTML =
+    PHASES.map(ph => buildPhase(ph)).join('');
+  restoreState();
+  updateProgress();
+}
+
+function buildPhase(ph) {
+  return `
+  <div class="phase" id="${ph.id}">
+    <div class="phase-hdr open" id="hdr-${ph.id}" onclick="togglePhase('${ph.id}')">
+      <div class="ph-icon">${ph.icon}</div>
+      <div class="ph-meta">
+        <div class="ph-name">${ph.name}</div>
+        <div class="ph-tagline">${ph.tagline}</div>
+      </div>
+      <span class="ph-time ${ph.timeClass}">${ph.time}</span>
+      <span class="ph-cnt" id="cnt-${ph.id}">0/${ph.steps.length}</span>
+      <button class="ph-print-btn" onclick="event.stopPropagation();printPhase('${ph.id}')" title="Print this phase">🖨️</button>
+      <span class="ph-chev">▼</span>
+    </div>
+    <div class="phase-body open" id="body-${ph.id}">
+      <div class="phase-callout ${ph.calloutClass}">${ph.callout}</div>
+      ${ph.steps.map(s => buildStep(ph.id, s)).join('')}
+    </div>
+  </div>`;
+}
+
+function buildStep(phId, s) {
+  const tagHtml = (s.tags||[]).map(t => {
+    const map = {crit:'crit',pop:'pop'};
+    const labels = {crit:'🔴 Do First',pop:'⭐ High Impact'};
+    return `<span class="step-tag ${map[t]||''}">${labels[t]||t}</span>`;
+  }).join('');
+
+  const ghlUrl = getGhlLink(s.num);
+
+  return `
+  <div class="step" id="step-${s.num}" data-ph="${phId}">
+    <div class="step-main">
+      <div class="step-num">${s.num}</div>
+      <div class="step-cb" onclick="toggleStep(event,${s.num})"></div>
+      <div class="step-info">
+        <div class="step-title">${s.title}</div>
+        <div class="step-desc">${s.desc}</div>
+        <div class="step-actions">
+          ${tagHtml}
+          <span class="expand-btn" id="ebtn-${s.num}" onclick="toggleExpand(event,${s.num})">▸ How to do this</span>
+          ${ghlUrl
+            ? `<a class="ghl-link" href="${ghlUrl}" target="_blank" data-step="${s.num}" title="Open this page in GHL">🔗 Open in GHL</a>`
+            : (s.path ? `<span class="ghl-noid-hint">🔗 <a href="#topbar-ghl-connect" onclick="document.getElementById('topbar-ghl-connect').scrollIntoView({behavior:'smooth'});return false;" style="color:inherit;text-decoration:none">Add Location ID</a> for direct link</span>` : '')}
+        </div>
+      </div>
+    </div>
+    <div class="substep-panel" id="sub-${s.num}">
+      <span class="substep-path">📍 ${s.path}</span>
+      <span class="substep-time">⏱ ${s.time}</span>
+      <div class="substep-list">
+        ${s.instructions.map((inst,i) => `
+          <div class="substep-item">
+            <div class="sub-n">${i+1}</div>
+            <div>${inst}</div>
+          </div>`).join('')}
+      </div>
+      <div class="substep-info">
+        <div class="si-box si-done"><strong>✅ Done when:</strong>${s.done}</div>
+        <div class="si-box si-err"><strong>⚠️ Common mistake:</strong>${s.mistake}</div>
+      </div>
+      ${s.note ? `<div class="si-note">💡 ${s.note}</div>` : ''}
+    </div>
+  </div>`;
+}
+
+function toggleStep(e, num) {
+  e.stopPropagation();
+  const el = document.getElementById('step-'+num);
+  const wasDone = el.classList.contains('done');
+  el.classList.toggle('done');
+  el.querySelector('.step-cb').textContent = el.classList.contains('done') ? '✓' : '';
+  state['s'+num] = el.classList.contains('done');
+  localStorage.setItem('bhs_ghl_v3', JSON.stringify(state));
+  updateProgress();
+  updateTimeLeft();
+
+  if(!wasDone && el.classList.contains('done')) {
+    // Check if phase just completed
+    const phId = el.dataset.ph;
+    const phSteps = document.querySelectorAll(`[data-ph="${phId}"]`);
+    const phDone = document.querySelectorAll(`[data-ph="${phId}"].done`);
+    if(phSteps.length === phDone.length) {
+      const ph = PHASES.find(p=>p.id===phId);
+      showToast(ph.icon+' '+ph.name.replace(' —',' complete —')+' ✓','phase');
+    }
+    // Check 100%
+    const totalDone = document.querySelectorAll('.step.done').length;
+    if(totalDone === TOTAL) {
+      document.getElementById('completeBanner').classList.add('visible');
+      showToast('🎉 All 37 steps done! Your GHL is ready.','complete');
+      document.getElementById('completeBanner').scrollIntoView({behavior:'smooth',block:'start'});
+    }
+  }
+}
+
+function toggleExpand(e, num) {
+  e.stopPropagation();
+  const panel = document.getElementById('sub-'+num);
+  const btn = document.getElementById('ebtn-'+num);
+  const open = panel.classList.toggle('open');
+  btn.textContent = open ? '▾ Hide instructions' : '▸ How to do this';
+  btn.classList.toggle('open', open);
+}
+
+function togglePhase(id) {
+  const hdr = document.getElementById('hdr-'+id);
+  const body = document.getElementById('body-'+id);
+  const isOpen = body.classList.toggle('open');
+  hdr.classList.toggle('open', isOpen);
+  hdr.classList.toggle('closed', !isOpen);
+}
+
+function scrollToPhase(id) {
+  document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function updateProgress() {
+  const done = document.querySelectorAll('.step.done').length;
+  const pct = Math.round((done/TOTAL)*100);
+  document.getElementById('progressFill').style.width = pct+'%';
+  document.getElementById('pctLabel').textContent = `${done} of ${TOTAL} complete (${pct}%)`;
+  window.PHASES.forEach((ph,i) => {
+    const total = document.querySelectorAll(`[data-ph="${ph.id}"]`).length;
+    const pDone = document.querySelectorAll(`[data-ph="${ph.id}"].done`).length;
+    const cnt = document.getElementById('cnt-'+ph.id);
+    if(cnt) cnt.textContent = `${pDone}/${total}`;
+    const pill = document.getElementById('pp'+(i+1));
+    if(pill) pill.className = 'pp '+(pDone===total?'pp-done':pDone>0?'pp-active':'pp-idle');
+  });
+}
+
+function restoreState() {
+  Object.keys(state).forEach(k => {
+    if(!k.startsWith('s') || !state[k]) return;
+    const el = document.getElementById('step-'+k.slice(1));
+    if(el) { el.classList.add('done'); const cb=el.querySelector('.step-cb'); if(cb) cb.textContent='✓'; }
+  });
+}
+
+function confirmReset() {
+  const modal = document.createElement('div');
+  modal.id = 'reset-modal';
+  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:3000;display:flex;align-items:center;justify-content:center;padding:20px';
+  const doneCount = document.querySelectorAll('.step.done').length;
+  modal.innerHTML = `
+    <div style="background:var(--s1);border:1px solid rgba(239,68,68,.3);border-radius:16px;padding:28px 28px 24px;max-width:380px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,.6);text-align:center">
+      <div style="font-size:36px;margin-bottom:12px">⚠️</div>
+      <div style="font-size:16px;font-weight:900;color:var(--tx);margin-bottom:8px">Reset All Progress?</div>
+      <div style="font-size:12px;color:var(--dim);line-height:1.7;margin-bottom:22px">This will clear <strong style="color:var(--tx)">all ${doneCount} completed checkmarks</strong> and reset your guide back to the beginning.<br><br><strong style="color:var(--rd)">This cannot be undone.</strong></div>
+      <div style="margin-bottom:14px">
+        <div style="font-size:11px;color:var(--dim);margin-bottom:6px">Type <strong style="color:var(--tx);letter-spacing:.05em">YES</strong> to confirm:</div>
+        <input id="reset-confirm-input" type="text" placeholder="Type YES here" oninput="document.getElementById('reset-confirm-btn').style.opacity=this.value==='YES'?'1':'.4';document.getElementById('reset-confirm-btn').disabled=this.value!=='YES'" style="width:100%;padding:10px 12px;border-radius:9px;background:var(--s2);border:1px solid var(--b2);color:var(--tx);font-size:14px;font-weight:700;text-align:center;letter-spacing:.1em;outline:none;box-sizing:border-box">
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button onclick="document.getElementById('reset-modal').remove()" style="flex:1;padding:11px;border-radius:9px;background:var(--s2);border:1px solid var(--b2);color:var(--dim);font-size:13px;font-weight:700;cursor:pointer">Cancel</button>
+        <button id="reset-confirm-btn" onclick="doReset();document.getElementById('reset-modal').remove()" disabled style="flex:1;padding:11px;border-radius:9px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:var(--rd);font-size:13px;font-weight:800;cursor:pointer;opacity:.4;transition:opacity .15s">Reset Everything</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if(e.target === modal) modal.remove(); });
+}
+function doReset() {
+  document.querySelectorAll('.step.done').forEach(s => {
+    s.classList.remove('done');
+    const cb=s.querySelector('.step-cb'); if(cb) cb.textContent='';
+  });
+  state={};
+  localStorage.removeItem('bhs_ghl_v3');
+  updateProgress();
+  showToast('↺ Progress reset — starting fresh','');
+}
+function resetAll() { confirmReset(); }
+
+/* ═══════════════════════════════════════════
+   STEP TIME MAP (minutes per step)
+   ═══════════════════════════════════════════ */
+const STEP_MINS = {1:5,2:15,3:15,4:10,5:10,6:5,7:5,8:3,9:10,10:10,11:20,12:15,13:5,14:10,15:10,16:10,17:15,18:10,19:10,20:15,21:20,22:20,23:15,24:15,25:25,26:20,27:10,28:20,29:30,30:60,31:20,32:15,33:15,34:20,35:45,36:15,37:10};
+const TOTAL_MINS = Object.values(STEP_MINS).reduce((a,b)=>a+b,0);
+
+function getRemainingMins() {
+  return Object.keys(STEP_MINS).filter(n=>!state['s'+n]).reduce((a,n)=>a+(STEP_MINS[n]||0),0);
+}
+function fmtTime(m) {
+  if(m<60) return '~'+m+' min';
+  const h=Math.floor(m/60), rm=m%60;
+  return '~'+h+' hr'+(h>1?'s':'')+(rm?' '+rm+' min':'');
+}
+function updateTimeLeft() {
+  const el=document.getElementById('timeLeft');
+  if(el) el.textContent=fmtTime(getRemainingMins());
+}
+
+/* ── Toast ── */
+function showToast(msg,type='success'){
+  document.querySelectorAll('.toast').forEach(t=>t.remove());
+  const t=document.createElement('div');
+  t.className='toast '+type;
+  t.innerHTML=msg;
+  document.body.appendChild(t);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>t.classList.add('visible')));
+  setTimeout(()=>{t.classList.remove('visible');setTimeout(()=>t.remove(),400);},3200);
+}
+
+/* ── Jump to next step ── */
+function jumpToNext(){
+  const next=PHASES.flatMap(p=>p.steps).find(s=>!state['s'+s.num]);
+  if(!next){showToast('🎉 All steps complete!','complete');return;}
+  const el=document.getElementById('step-'+next.num);
+  if(!el) return;
+  const phId=el.dataset.ph;
+  const body=document.getElementById('body-'+phId);
+  const hdr=document.getElementById('hdr-'+phId);
+  if(body&&!body.classList.contains('open')){
+    body.classList.add('open'); hdr.classList.add('open'); hdr.classList.remove('closed');
+  }
+  setTimeout(()=>{
+    el.scrollIntoView({behavior:'smooth',block:'center'});
+    el.style.transition='background .3s';
+    el.style.background='rgba(99,102,241,.15)';
+    setTimeout(()=>el.style.background='',1400);
+  },body&&!body.classList.contains('open')?300:0);
+}
+
+/* ── Chat ── */
+function toggleChat() { document.getElementById('chat-panel').classList.toggle('open'); }
+function submitChatWaitlist() {
+  const email = document.getElementById('chat-waitlist-email').value.trim();
+  const status = document.getElementById('chat-waitlist-status');
+  if (!email || !email.includes('@')) { status.style.color='var(--rd)'; status.textContent='Please enter a valid email.'; return; }
+  status.style.color='var(--muted)'; status.textContent='Saving...';
+  // Store in Supabase alongside user record
+  const user = supabase.auth.getUser ? supabase.auth.getUser() : null;
+  supabase.from('waitlist').upsert({ email, source: 'ghl-guide-chat-widget', created_at: new Date().toISOString() })
+    .then(() => {
+      status.style.color='var(--gr)'; status.textContent="✅ You're on the list! We'll email you at launch.";
+      document.getElementById('chat-waitlist-email').value='';
+    })
+    .catch(() => {
+      // Fallback: mailto
+      window.location.href = `mailto:bhs-feedback@agentmail.to?subject=GHL AI Chat Waitlist&body=Add me to the waitlist: ${email}`;
+      status.style.color='var(--gr)'; status.textContent='✅ Request sent!';
+    });
+}
+
+/* ── Share / Copy link ── */
+function copyLink(){
+  const url='https://beehivestack.net/ghlstartguide';
+  if(navigator.share){
+    navigator.share({title:'GHL Start Guide',text:'Free step-by-step GoHighLevel setup guide',url}).catch(()=>{});
+  } else {
+    navigator.clipboard.writeText(url).then(()=>showToast('🔗 Link copied — share it!','copy')).catch(()=>{
+      prompt('Copy this link:',url);
+    });
+  }
+}
+
+/* ═══════════════════════════════════════════
+   SEARCH
+   ═══════════════════════════════════════════ */
+// All searchable text per step — built once at init
+let searchIndex = [];
+function buildSearchIndex() {
+  searchIndex = [];
+  window.PHASES.forEach(ph => {
+    ph.steps.forEach(s => {
+      const blob = [
+        s.title, s.desc, s.path,
+        (s.instructions||[]).join(' '),
+        s.done||'', s.mistake||'', s.note||''
+      ].join(' ').toLowerCase();
+      searchIndex.push({ num: s.num, phId: ph.id, blob });
+    });
+  });
+}
+
+let searchDebounce;
+function onSearch(e) {
+  clearTimeout(searchDebounce);
+  searchDebounce = setTimeout(() => runSearch(e.target.value.trim()), 160);
+}
+
+function runSearch(q) {
+  const input = document.getElementById('searchInput');
+  const countEl = document.getElementById('searchCount');
+  const clearBtn = document.getElementById('searchClear');
+  const banner = document.getElementById('noMatchBanner');
+
+  if(!q || q.length < 2) {
+    clearSearch(); return;
+  }
+
+  clearBtn.classList.add('visible');
+  const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+
+  let matchCount = 0;
+  let firstMatch = null;
+
+  searchIndex.forEach(item => {
+    const el = document.getElementById('step-' + item.num);
+    if(!el) return;
+    const matches = terms.every(t => item.blob.includes(t));
+    el.classList.toggle('search-match', matches);
+    el.classList.toggle('search-dim', !matches);
+    if(matches) {
+      matchCount++;
+      if(!firstMatch) firstMatch = el;
+    }
+  });
+
+  // Show/hide phase bodies that have matches
+  window.PHASES.forEach(ph => {
+    const body = document.getElementById('body-' + ph.id);
+    const hdr = document.getElementById('hdr-' + ph.id);
+    const hasMatch = document.querySelector(`[data-ph="${ph.id}"].search-match`);
+    if(hasMatch) {
+      body.classList.add('open');
+      hdr.classList.add('open');
+      hdr.classList.remove('closed');
+    }
+  });
+
+  // Update count badge
+  if(matchCount > 0) {
+    countEl.textContent = matchCount + ' match' + (matchCount !== 1 ? 'es' : '');
+    countEl.className = 'search-count has-results';
+    banner.classList.remove('visible');
+    // Scroll to first match
+    if(firstMatch) setTimeout(() => firstMatch.scrollIntoView({behavior:'smooth', block:'center'}), 100);
+  } else {
+    countEl.textContent = '0 matches';
+    countEl.className = 'search-count no-results';
+    document.getElementById('noMatchTerm').textContent = q;
+    banner.classList.add('visible');
+  }
+}
+
+function clearSearch() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchCount').textContent = '37 steps';
+  document.getElementById('searchCount').className = 'search-count';
+  document.getElementById('searchClear').classList.remove('visible');
+  document.getElementById('noMatchBanner').classList.remove('visible');
+  document.querySelectorAll('.step.search-match, .step.search-dim').forEach(el => {
+    el.classList.remove('search-match','search-dim');
+  });
+}
+
+/* ═══════════════════════════════════════════
+   SUPABASE AUTH
+   ═══════════════════════════════════════════ */
+const SUPA_URL = 'https://umabyvniujgkkvshlnur.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVtYWJ5dm5pdWpna2t2c2hsbnVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3NTk0NTcsImV4cCI6MjA4OTMzNTQ1N30.5aDxY8930ZbEyF7oo-vWZ8MZHFrySO_E6KsJp4avqlM';
+const { createClient } = supabase;
+const _supabase = createClient(SUPA_URL, SUPA_KEY);
+
+function switchTab(tab) {
+  document.getElementById('form-signup').style.display = tab==='signup'?'':'none';
+  document.getElementById('form-signin').style.display = tab==='signin'?'':'none';
+  document.getElementById('launch-list-panel').style.display = 'none';
+  document.getElementById('tab-signup').classList.toggle('active', tab==='signup');
+  document.getElementById('tab-signin').classList.toggle('active', tab==='signin');
+}
+
+function setMsg(id, text, type='error') {
+  const el = document.getElementById(id);
+  el.textContent = text;
+  el.className = 'auth-msg ' + type;
+}
+
+function openGuide(user) {
+  const name = user.user_metadata?.name || user.email.split('@')[0];
+  const biz = user.user_metadata?.biz || 'Business';
+  document.getElementById('topUserName').textContent = 'Welcome, '+name+' 👋';
+  document.getElementById('topUserSub').textContent = 'GHL Setup Guide · '+bizLabel(biz);
+  localStorage.setItem('bhs_guide_v3_user', JSON.stringify({name, email:user.email, biz, ts:Date.now()}));
+  const gate = document.getElementById('gate');
+  gate.classList.add('hidden');
+  setTimeout(()=>gate.style.display='none', 600);
+  document.getElementById('right-sidebar').classList.add('visible');
+  setTimeout(updateStickyOffsets, 50);
+  document.getElementById('topbar-ghl-connect').style.display='block';
+  document.getElementById('chat-widget').style.display='block';
+}
+
+async function handleSignUp(e) {
+  e.preventDefault();
+  const name = document.getElementById('gName').value.trim();
+  const email = document.getElementById('gEmail').value.trim();
+  const pass = document.getElementById('gPass').value;
+  const biz = document.getElementById('gBiz').value;
+  const btn = document.getElementById('signupBtn');
+
+  const optIn = document.getElementById('gOptIn').checked;
+  const couponEl = document.getElementById('gCoupon');
+  const couponCode = couponEl ? couponEl.value.toUpperCase().trim() : '';
+  const couponData = VALID_COUPONS[couponCode] || null;
+  // No valid coupon = redirect to launch list, don't create account
+  if (!couponData) {
+    // Pre-fill launch list with what they typed
+    const llName = document.getElementById('llName');
+    const llEmail = document.getElementById('llEmail');
+    const llBiz = document.getElementById('llBiz');
+    if (llName) llName.value = name;
+    if (llEmail) llEmail.value = email;
+    if (llBiz && biz) llBiz.value = biz;
+    showLaunchList(null);
+    return;
+  }
+
+  btn.textContent = 'Creating account…';
+  btn.disabled = true;
+  setMsg('signup-msg','','');
+
+  const { data, error } = await _supabase.auth.signUp({
+    email, password: pass,
+    options: { data: {
+      name, biz,
+      email_optin: optIn,
+      optin_ts: new Date().toISOString(),
+      ...(couponData ? { group: couponData.group, coupon_used: couponCode, group_member: true } : { group_member: false })
+    } }
+  });
+
+  btn.disabled = false;
+  btn.textContent = 'Create Free Account →';
+
+  if (error) {
+    setMsg('signup-msg', error.message, 'error');
+    return;
+  }
+
+  // Check if email confirmation required
+  if (data.user && data.session) {
+    // Logged in immediately (email confirm disabled)
+    openGuide(data.user);
+  } else {
+    setMsg('signup-msg', '✅ Check your email to confirm your account, then sign in.', 'success');
+    setTimeout(()=>switchTab('signin'), 2000);
+  }
+}
+
+async function handleSignIn(e) {
+  e.preventDefault();
+  const email = document.getElementById('siEmail').value.trim();
+  const pass = document.getElementById('siPass').value;
+  const btn = document.getElementById('signinBtn');
+
+  btn.textContent = 'Signing in…';
+  btn.disabled = true;
+  setMsg('signin-msg','','');
+
+  const { data, error } = await _supabase.auth.signInWithPassword({ email, password: pass });
+
+  btn.disabled = false;
+  btn.textContent = 'Sign In →';
+
+  if (error) {
+    setMsg('signin-msg', error.message, 'error');
+    return;
+  }
+  openGuide(data.user);
+}
+
+async function handleSignOut() {
+  await _supabase.auth.signOut();
+  localStorage.removeItem('bhs_guide_v3_user');
+  location.reload();
+}
+
+async function handleForgotPassword() {
+  const email = document.getElementById('siEmail').value.trim();
+  if (!email) {
+    setMsg('signin-msg', 'Enter your email above first.', 'info');
+    return;
+  }
+  const { error } = await _supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.href
+  });
+  if (error) {
+    setMsg('signin-msg', error.message, 'error');
+  } else {
+    setMsg('signin-msg', '✅ Password reset email sent — check your inbox.', 'success');
+  }
+}
+
+function bizLabel(v){
+  const m={pest:'Pest Control',hvac:'HVAC / Trades',dental:'Medical / PT',realestate:'Real Estate',
+    agency:'GHL Agency',salon:'Salon / Beauty',restaurant:'Restaurant',coaching:'Coaching',
+    ecommerce:'E-Commerce',other:'Business'};
+  return m[v]||'Business';
+}
+
+/* ═══════════════════════════════════════════
+   INIT
+   ═══════════════════════════════════════════ */
+(async function(){
+  // Check for active Supabase session first
+  const { data: { session } } = await _supabase.auth.getSession();
+  if (session && session.user) {
+    openGuide(session.user);
+  } else {
+    // Fallback: check localStorage (legacy soft-gate users — let them back in once)
+    const saved = localStorage.getItem('bhs_guide_v3_user');
+    if(saved){
+      try{
+        const u=JSON.parse(saved);
+        // Only bypass if recently unlocked (within 7 days) — after that require real login
+        if(u.ts && (Date.now()-u.ts) < 7*24*60*60*1000){
+          document.getElementById('gate').style.display='none';
+          document.getElementById('topUserName').textContent='Welcome back, '+u.name+' 👋';
+          document.getElementById('topUserSub').textContent='GHL Setup Guide · '+bizLabel(u.biz);
+        } else {
+          localStorage.removeItem('bhs_guide_v3_user');
+        }
+      }catch(e){}
+    }
+  }
+
+  // Listen for auth state changes (e.g. email confirm callback)
+  _supabase.auth.onAuthStateChange((_event, session) => {
+    if (session && session.user && document.getElementById('gate').style.display !== 'none') {
+      openGuide(session.user);
+    }
+  });
+
+  // Restore saved location ID
+  if (ghlLocationId) {
+    const inp = document.getElementById('ghlLocationId');
+    if (inp) { inp.value = ghlLocationId; saveLocationId(ghlLocationId); }
+  }
+
+  buildGuide();
+  buildSearchIndex();
+  updateTimeLeft();
+
+  // Wire search input
+  const si = document.getElementById('searchInput');
+  if(si) si.addEventListener('input', onSearch);
+
+  document.addEventListener('keydown',e=>{
+    // Cmd/Ctrl+K or / focuses search
+    if((e.metaKey||e.ctrlKey) && e.key==='k') {
+      e.preventDefault();
+      si && si.focus();
+    }
+    if(e.key==='Escape'){
+      if(document.activeElement === si) {
+        clearSearch(); si.blur(); return;
+      }
+      document.querySelectorAll('.substep-panel.open').forEach(p=>{
+        const n=p.id.replace('sub-','');
+        p.classList.remove('open');
+        const b=document.getElementById('ebtn-'+n);
+        if(b){b.textContent='▸ How to do this';b.classList.remove('open');}
+      });
+    }
+  });
+})();
+
+
+// ── STICKY OFFSET MEASUREMENT ──
+function updateStickyOffsets() {
+  const tb = document.getElementById('topbar');
+  const strip = document.getElementById('sticky-strip');
+  if (!tb) return;
+  const tbH = tb.offsetHeight;
+  document.documentElement.style.setProperty('--topbar-h', tbH + 'px');
+  if (strip) {
+    const stripH = strip.offsetHeight;
+    document.documentElement.style.setProperty('--strip-top', (tbH + stripH) + 'px');
+  }
+}
+window.addEventListener('load', updateStickyOffsets);
+window.addEventListener('resize', updateStickyOffsets);
+// Also update after login when topbar changes
+const _origOpenGuide = typeof openGuide === 'function' ? openGuide : null;
+
+
+// ── PROGRESS REPORT ──
+function showProgressReport() {
+  const phases_data = window.PHASES || [];
+  let totalDone = 0, totalSteps = 0;
+  const rows = phases_data.map(ph => {
+    const done = ph.steps.filter(s => state['s'+s.num]).length;
+    const pct = ph.steps.length ? Math.round(done/ph.steps.length*100) : 0;
+    totalDone += done; totalSteps += ph.steps.length;
+    return `<div class="rpt-phase-row">
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--tx)">${ph.icon} ${ph.name}</div>
+        <div style="font-size:11px;color:var(--dim);margin-top:2px">${done} of ${ph.steps.length} steps · ${ph.time}</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:14px;font-weight:800;color:${pct===100?'var(--gr)':'var(--ac)'}">${pct}%</div>
+        <div class="rpt-bar-wrap" style="margin-top:4px"><div class="rpt-bar-fill" style="width:${pct}%"></div></div>
+      </div>
+    </div>`;
+  }).join('');
+  const overall = totalSteps ? Math.round(totalDone/totalSteps*100) : 0;
+  const modal = document.createElement('div');
+  modal.id = 'report-modal';
+  modal.innerHTML = `<div id="report-panel">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
+      <div>
+        <div style="font-size:16px;font-weight:900;color:var(--tx)">📄 Progress Report</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:3px">Generated ${new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</div>
+      </div>
+      <button onclick="document.getElementById('report-modal').remove()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;line-height:1;padding:0">✕</button>
+    </div>
+    <div style="background:var(--s2);border:1px solid var(--b2);border-radius:12px;padding:16px;margin-bottom:20px;display:flex;align-items:center;gap:16px">
+      <div style="font-size:36px;font-weight:900;color:${overall===100?'var(--gr)':'var(--ac)'}">${overall}%</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--tx)">${totalDone} of ${totalSteps} steps complete</div>
+        <div style="font-size:11px;color:var(--dim);margin-top:3px">${totalSteps-totalDone} remaining</div>
+        <div style="width:160px;height:6px;background:var(--b1);border-radius:3px;overflow:hidden;margin-top:8px"><div style="height:100%;width:${overall}%;background:linear-gradient(90deg,var(--ac),var(--gr));border-radius:3px"></div></div>
+      </div>
+    </div>
+    ${rows}
+    <div style="display:flex;gap:8px;margin-top:20px">
+      <button onclick="printReport(this)" style="flex:1;padding:10px;border-radius:9px;background:var(--ac3);border:1px solid rgba(99,102,241,.3);color:var(--ac);font-size:13px;font-weight:700;cursor:pointer">🖨️ Print Report</button>
+      <button onclick="document.getElementById('report-modal').remove()" style="flex:1;padding:10px;border-radius:9px;background:var(--s2);border:1px solid var(--b2);color:var(--dim);font-size:13px;font-weight:700;cursor:pointer">Close</button>
+    </div>
+  </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e => { if(e.target===modal) modal.remove(); });
+}
+
+// ── PRINT PHASE ──
+function printPhase(phaseId) {
+  const ph = (window.PHASES||[]).find(p=>p.id===phaseId);
+  if (!ph) return;
+  const doneCount = ph.steps.filter(s=>state['s'+s.num]).length;
+  const steps = ph.steps.map(s => {
+    const done = state['s'+s.num];
+    const tags = (s.tags||[]).map(t=>({crit:'🔴 Do First',pop:'⭐ High Impact'}[t]||t)).join(' ');
+    const instructions = (s.instructions||[]).map((inst,i)=>`
+      <tr><td style="width:24px;font-size:11px;color:#666;vertical-align:top;padding:3px 6px 3px 0">${i+1}.</td><td style="font-size:11px;color:#333;line-height:1.6;padding:3px 0">${inst}</td></tr>`).join('');
+    return `<div class="phase-print-step ${done?'phase-print-done':''}">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px">
+        <span style="font-size:18px;flex-shrink:0;line-height:1">${done?'✅':'⬜'}</span>
+        <div style="flex:1">
+          <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap">
+            <strong style="font-size:13px;color:#111">Step ${s.num}: ${s.title}</strong>
+            ${s.time?`<span style="font-size:10px;color:#666;background:#f0f0f0;padding:1px 6px;border-radius:4px">⏱ ${s.time}</span>`:''}
+            ${tags?`<span style="font-size:10px;color:#888">${tags}</span>`:''}
+          </div>
+          ${s.desc?`<div style="font-size:11px;color:#555;margin-top:3px;line-height:1.5">${s.desc}</div>`:''}
+        </div>
+      </div>
+      ${s.path?`<div style="font-size:10px;font-weight:700;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:4px;padding:3px 8px;margin-bottom:8px;display:inline-block">📍 ${s.path}</div>`:''}
+      ${instructions?`<table style="width:100%;margin-bottom:8px;border-collapse:collapse"><tbody>${instructions}</tbody></table>`:''}
+      ${(s.done||s.mistake)?`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px">
+        ${s.done?`<div style="background:#f0fdf4;border:1px solid #86efac;border-radius:6px;padding:8px 10px;font-size:10px;line-height:1.5"><strong style="color:#166534">✅ Done when:</strong><br>${s.done}</div>`:''}
+        ${s.mistake?`<div style="background:#fef2f2;border:1px solid #fca5a5;border-radius:6px;padding:8px 10px;font-size:10px;line-height:1.5"><strong style="color:#991b1b">⚠️ Common mistake:</strong><br>${s.mistake}</div>`:''}
+      </div>`:''}
+      ${s.note?`<div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:6px;padding:7px 10px;margin-top:6px;font-size:10px;color:#0c4a6e;line-height:1.5">💡 ${s.note}</div>`:''}
+    </div>`;
+  }).join('');
+
+  let area = document.getElementById('phase-print-area');
+  if (!area) { area = document.createElement('div'); area.id='phase-print-area'; area.style.display='none'; document.body.appendChild(area); }
+  area.innerHTML = `<div style="max-width:720px;margin:0 auto;font-family:-apple-system,sans-serif">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:3px solid #6366f1">
+      <div style="font-size:32px">${ph.icon}</div>
+      <div>
+        <div style="font-size:20px;font-weight:900;color:#111">${ph.name}</div>
+        <div style="font-size:11px;color:#666;margin-top:3px">${ph.time} &nbsp;·&nbsp; ${doneCount} of ${ph.steps.length} steps complete &nbsp;·&nbsp; GHL Start Guide by BeehiveStack &nbsp;·&nbsp; ${new Date().toLocaleDateString()}</div>
+      </div>
+    </div>
+    ${steps}
+    <div style="margin-top:24px;padding-top:12px;border-top:1px solid #eee;font-size:10px;color:#999;text-align:center">GHL Start Guide · BeehiveStack · ghlstartguide.beehivestack.net</div>
+  </div>`;
+  area.style.display = 'block';
+  setTimeout(() => { window.print(); setTimeout(() => { area.style.display = 'none'; }, 500); }, 80);
+}
+
+
+function printReport(btn) {
+  const panel = document.getElementById('report-panel');
+  let area = document.getElementById('report-print-area');
+  if (!area) { area = document.createElement('div'); area.id='report-print-area'; area.style.display='none'; document.body.appendChild(area); }
+  area.innerHTML = panel.innerHTML;
+  // Remove the print/close buttons from the print area
+  area.querySelectorAll('button').forEach(b => b.remove());
+  area.style.display = 'block';
+  setTimeout(() => {
+    window.print();
+    setTimeout(() => { area.style.display = 'none'; }, 100);
+  }, 50);
+}
+
+
+// ── COUPON VALIDATION ──
+const VALID_COUPONS = {
+  'GHLWIZARDS': { label:'🧙 GHL Wizards', group:'ghl_wizards', free:true }
+};
+let activeCoupon = null;
+
+function validateCoupon(val) {
+  const code = val.toUpperCase().trim();
+  const badge = document.getElementById('couponBadge');
+  const hint = document.getElementById('couponHint');
+  const btn = document.getElementById('signupBtn');
+  if (!code) {
+    badge.style.display='none'; activeCoupon=null;
+    hint.innerHTML='Access code from your group or community unlocks free entry. <a href="#" onclick="showLaunchList(event)" style="color:var(--ac);text-decoration:none;font-weight:700">No code? Join our launch list →</a>';
+    btn.textContent='Create Free Account →';
+    return;
+  }
+  if (VALID_COUPONS[code]) {
+    activeCoupon = VALID_COUPONS[code];
+    badge.textContent='✓ Valid'; badge.className='coupon-badge valid'; badge.style.display='block';
+    hint.innerHTML=`<span style="color:var(--gr);font-weight:700">${activeCoupon.label} member — full free access unlocked! 🎉</span>`;
+    btn.textContent='Join as GHL Wizards Member →';
+  } else {
+    activeCoupon = null;
+    badge.textContent='Invalid'; badge.className='coupon-badge invalid'; badge.style.display='block';
+    hint.innerHTML='That code is not valid. <a href="#" onclick="showLaunchList(event)" style="color:var(--ac);text-decoration:none;font-weight:700">Join the launch list instead →</a>';
+    btn.textContent='Create Free Account →';
+  }
+}
+
+function showLaunchList(e) {
+  e && e.preventDefault();
+  document.getElementById('form-signup').style.display='none';
+  document.getElementById('form-signin').style.display='none';
+  document.getElementById('launch-list-panel').style.display='block';
+  // Hide auth tabs — launch list is its own destination
+  const tabs = document.querySelector('.auth-tabs');
+  if (tabs) tabs.style.display='none';
+  const divider = document.querySelector('.gate-divider');
+  if (divider) divider.style.display='none';
+}
+
+function showSignup(e) {
+  e && e.preventDefault();
+  document.getElementById('launch-list-panel').style.display='none';
+  document.getElementById('form-signin').style.display='none';
+  document.getElementById('form-signup').style.display='block';
+  const tabs = document.querySelector('.auth-tabs');
+  if (tabs) tabs.style.display='';
+  const divider = document.querySelector('.gate-divider');
+  if (divider) divider.style.display='';
+  // Set active tab
+  document.getElementById('tab-signup').classList.add('active');
+  document.getElementById('tab-signin').classList.remove('active');
+}
+
+function showSignIn(e) {
+  e && e.preventDefault();
+  document.getElementById('launch-list-panel').style.display='none';
+  document.getElementById('form-signup').style.display='none';
+  document.getElementById('form-signin').style.display='block';
+  const tabs = document.querySelector('.auth-tabs');
+  if (tabs) tabs.style.display='';
+  const divider = document.querySelector('.gate-divider');
+  if (divider) divider.style.display='';
+  document.getElementById('tab-signin').classList.add('active');
+  document.getElementById('tab-signup').classList.remove('active');
+}
+
+async function handleLaunchList(e) {
+  e.preventDefault();
+  const name = document.getElementById('llName').value.trim();
+  const email = document.getElementById('llEmail').value.trim();
+  const biz = document.getElementById('llBiz').value;
+  const btn = document.getElementById('llBtn');
+  btn.textContent='Saving…'; btn.disabled=true;
+  setMsg('ll-msg','','');
+
+  try {
+    await _supabase.from('launch_list').upsert({
+      name, email, biz,
+      source: 'ghl-guide-gate',
+      created_at: new Date().toISOString()
+    });
+    setMsg('ll-msg', "✅ You're on the list! We'll email you when it opens.", 'ok');
+    btn.textContent='✓ You are on the list!';
+    document.getElementById('llName').value='';
+    document.getElementById('llEmail').value='';
+  } catch(err) {
+    // Fallback to mailto
+    window.location.href=`mailto:bhs-feedback@agentmail.to?subject=GHL Guide Launch List&body=Name: ${name}%0AEmail: ${email}%0ABiz: ${biz}`;
+    setMsg('ll-msg','✅ Request sent!','ok');
+    btn.disabled=false; btn.textContent='✉️ Notify Me at Launch →';
+  }
+}
+
+// ── THEME ──
+const THEME_KEY = 'bhs_ghl_theme';
+function applyTheme(t) {
+  const root = document.documentElement;
+  if (t === 'light') root.setAttribute('data-theme','light');
+  else if (t === 'dark') root.removeAttribute('data-theme');
+  else { // system
+    if (window.matchMedia('(prefers-color-scheme: light)').matches) root.setAttribute('data-theme','light');
+    else root.removeAttribute('data-theme');
+  }
+  document.querySelectorAll('.theme-opt').forEach(el => {
+    el.classList.toggle('active', el.dataset.t === t);
+  });
+}
+function setTheme(t) { localStorage.setItem(THEME_KEY, t); applyTheme(t); }
+(function initTheme() {
+  const saved = localStorage.getItem(THEME_KEY) || 'system';
+  applyTheme(saved);
+  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+    if ((localStorage.getItem(THEME_KEY)||'system') === 'system') applyTheme('system');
+  });
+})();
+
+</script>
+</body>
+</html>
